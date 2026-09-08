@@ -3,100 +3,121 @@
 <head>
   <base target="_top">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="images/favico.png">
-  <title>Exam Result Portal</title>
-  
+  <link rel="icon" href="images/favico.png" type="image/png">
   <style>
     body { 
       font-family: Arial, sans-serif; 
-      background-color: #f4f6f9; 
-      background-image: url('images/school_images_front.jpg'); 
+      background: url('images/school_images_front.jpg') no-repeat center center fixed; 
       background-size: cover; 
-      background-position: center; 
-      background-attachment: fixed;
       color: #000; 
       padding: 20px; 
       display: flex; 
       flex-direction: column; 
       align-items: center; 
-      justify-content: center;
-      min-height: 95vh;
+      min-height: 100vh;
+      box-sizing: border-box;
+      position: relative;
     }
     
-    .portal-box { background: #fff; padding: 18px; border: 14px solid #1e448a; border-radius: 0px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); width: 100%; max-width: 780px; margin-bottom: 20px; box-sizing: border-box; position: relative; }
+    /* Background Blur Effect */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: inherit;
+      filter: blur(6px);
+      z-index: -1;
+    }
+
+    .portal-box { 
+      background: rgba(255, 255, 255, 0.95); 
+      padding: 18px; 
+      border: 14px solid #1e448a; 
+      border-radius: 0px; 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3); 
+      width: 100%; 
+      max-width: 780px; 
+      margin-bottom: 10px; 
+      box-sizing: border-box; 
+      position: relative; 
+    }
     
-    .inner-border { border: 4px solid #f1be24; padding: 30px; background: #fff; position: relative; z-index: 1; min-height: auto; }
+    .inner-border { 
+      border: 4px solid #f1be24; 
+      padding: 25px; 
+      background: #fff; 
+      position: relative; 
+      z-index: 1; 
+      min-height: auto; /* Made compact before search */
+    }
     
     .school-header { text-align: center; margin-bottom: 12px; position: relative; min-height: 100px; padding-left: 110px; padding-right: 10px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; }
     .school-logo { position: absolute; left: 5px; top: 50%; transform: translateY(-50%); width: 95px; height: 95px; object-fit: contain; }
+    
     .school-meta { font-size: 10px; color: #333; font-weight: bold; margin-bottom: 5px; display: flex; justify-content: space-between; width: 100%; letter-spacing: 0.2px; }
     .school-title { font-size: 24px; font-weight: 900; color: #1e448a; margin: 2px 0; letter-spacing: 0.5px; text-align: center; font-family: 'Arial Black', Gadget, sans-serif; }
     .school-address { font-size: 12px; color: #d92626; font-weight: bold; margin: 3px 0; text-align: center; word-spacing: 1px; }
+    
     .badge-banner-container { display: flex; justify-content: center; align-items: center; position: relative; width: 100%; margin: 15px 0; }
     .badge-banner { background-color: #d92626; color: white; padding: 8px 30px; font-size: 14px; font-weight: bold; display: inline-block; text-transform: uppercase; letter-spacing: 0.8px; z-index: 5; }
+    
     #slNoDisplay { position: absolute; right: 10px; font-weight: bold; font-size: 16px; color: #1e448a; letter-spacing: 0.5px; z-index: 5; }
+
     .search-container { background-color: #f8fafc; border: 1px solid #cbd5e0; padding: 15px; margin: 15px 0; position: relative; z-index: 10; width: 100%; box-sizing: border-box; }
     .form-row { display: flex; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap; }
     input, select { padding: 8px 12px; border: 1px solid #a0aec0; font-size: 14px; width: 190px; }
+    
     .btn-search { background: #1e448a; color: white; border: none; padding: 8px 18px; font-size: 14px; font-weight: bold; cursor: pointer; }
     .btn-search:hover { background: #122b59; }
+    
+    .btn-exit { background: #d92626; color: white; border: none; padding: 8px 18px; font-size: 14px; font-weight: bold; cursor: pointer; }
+    .btn-exit:hover { background: #a81c1c; }
+
     .btn-print { background: #4a5568; color: white; border: none; padding: 8px 18px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 10px; }
     
-    .btn-exit { background: #c53030; color: white; border: none; padding: 8px 18px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 10px; margin-left: 10px; text-decoration: none; display: inline-block; }
-    .btn-exit:hover { background: #9b2c2c; }
-
     #messageBox { margin-top: 15px; font-weight: bold; text-align: center; }
     .error-msg { color: #b71c1c; background: #ffebee; border: 1px solid #ffcdd2; padding: 12px; font-size: 14px; text-align: left; }
+    
     .marksheet-render-area { position: relative; width: 100%; margin-top: 15px; }
+    
     .watermark-bg { position: absolute; top: 42% !important; left: 50%; transform: translate(-50%, -50%); width: 380px; height: 380px; background-image: url('https://i.postimg.cc/x8kfHjTz/School-Logo-new.jpg') !important; background-size: contain !important; background-repeat: no-repeat !important; background-position: center !important; opacity: 0.12 !important; z-index: 0; pointer-events: none; display: none; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; filter: blur(1px); }
     
-    /* Blurred Background Watermark with Bold GSHSSC Text */
-    .text-watermark { 
-      position: absolute; 
-      top: 0; left: 0; right: 0; bottom: 0; 
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' transform='rotate(-40 80 80)' fill='%23000' opacity='0.10' font-family='Arial' font-weight='900' font-size='26'>GSHSSC</text></svg>"); 
-      background-repeat: repeat; 
-      z-index: 0; 
-      pointer-events: none; 
-      display: none; 
-      -webkit-print-color-adjust: exact !important; 
-      print-color-adjust: exact !important; 
-      filter: blur(2px); 
-    }
+    /* Bold GSHSSC Repeating Watermark */
+    .text-watermark { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' transform='rotate(-40 70 70)' fill='%23000' opacity='0.08' font-family='Arial' font-weight='900' font-size='20'>GSHSSC</text></svg>"); background-repeat: repeat; z-index: 0; pointer-events: none; display: none; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 
     .marksheet-content-wrapper { position: relative; z-index: 2; width: 100%; background: transparent; }
     .divider-line { height: 1px; background-color: #cbd5e1; margin: 15px 0; }
+
     .student-info-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 15px 0; text-align: left; font-size: 14px; font-weight: bold; }
     .info-line { display: flex; align-items: center; }
     .info-label { width: 160px; color: #000; letter-spacing: 0.5px; text-transform: uppercase; }
     .info-value { color: #1e448a; font-size: 15px; font-weight: bold; text-transform: uppercase; }
+
     .appeared-text { font-size: 11px; font-weight: bold; text-align: left; margin: 20px 0 12px 0; text-transform: uppercase; color: #000; letter-spacing: 0.3px; }
+    
     .marksheet-table { width: 100%; border-collapse: collapse; margin-top: 5px; background: transparent; }
     .marksheet-table th, .marksheet-table td { border: 1px solid #000; padding: 8px 12px; font-size: 13px; color: #000; background: transparent; }
     .marksheet-table th { text-align: left; font-weight: bold; text-transform: uppercase; font-size: 12px; }
     .text-center { text-align: center; }
+    
     .summary-grid-table { width: 100%; border-collapse: collapse; margin-top: 15px; table-layout: fixed; }
     .summary-grid-table td { border: 1px solid #000; padding: 10px 8px; font-size: 12px; font-weight: bold; color: #000; word-wrap: break-word; }
+    
     .sig-container { display: flex; justify-content: space-between; margin-top: 75px; padding: 0 5px; font-size: 12px; font-weight: bold; color: #000; align-items: flex-end; }
     .sig-box { width: 250px; text-align: center; }
+
     .print-footer-area { margin-top: 35px; padding-top: 15px; border-top: 1px dashed #a0aec0; }
     .disclaimer { font-style: italic; font-size: 11px; line-height: 1.5; color: #4a5568; text-align: justify; margin-bottom: 8px; }
     .copyright { font-weight: bold; font-size: 11px; color: #2d3748; text-align: center; }
-
-    .page-copyright {
-      text-align: center;
-      font-size: 13px;
-      font-weight: bold;
-      color: #fff;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-      margin-top: 10px;
-    }
+    
+    .external-copyright { text-align: center; color: #fff; font-weight: bold; font-size: 12px; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); margin-top: 5px; z-index: 10; }
 
     @media print {
-      body { background-image: none !important; background-color: #fff; padding: 0; display: block; }
-      .portal-box { border: 14px solid #1e448a !important; box-shadow: none; max-width: 100%; width: 100%; padding: 18px; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; margin: 0; }
+      body { background: #fff !important; padding: 0; }
+      body::before { display: none; }
+      .portal-box { border: 14px solid #1e448a !important; box-shadow: none; max-width: 100%; width: 100%; padding: 18px; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
       .inner-border { border: 4px solid #f1be24 !important; padding: 30px; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-      .search-container, .btn-print, .btn-exit, .page-copyright { display: none !important; }
+      .search-container, .btn-print, .external-copyright { display: none !important; }
       .badge-banner { background-color: #d92626 !important; color: #fff !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
       .watermark-bg { display: block !important; opacity: 0.12 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; filter: blur(1px) !important; }
       .text-watermark { display: block !important; }
@@ -138,11 +159,9 @@
           </select>
           
           <button class="btn-search" onclick="searchResult()">Search Record</button>
+          <button class="btn-exit" onclick="exitPortal()">Exit</button>
         </div>
-        <center>
-          <button class="btn-print" onclick="window.print()">Print Marksheet</button>
-          <a href="result.html" class="btn-exit">Exit</a>
-        </center>
+        <center><button class="btn-print" onclick="window.print()">Print Marksheet</button></center>
       </div>
       
       <div id="messageBox"></div>
@@ -155,10 +174,23 @@
     </div>
   </div>
 
-  <div class="page-copyright">© 2026 Good Shepherd Higher Secondary School. All Rights Reserved.</div>
+  <div class="external-copyright">
+    © 2026 Good Shepherd Higher Secondary School. All Rights Reserved.
+  </div>
 
   <script>
+    // === PASTE YOUR DEPLOYED GOOGLE SCRIPT WEB APP URL HERE ===
     const API_URL = "https://script.google.com/macros/s/AKfycby-S_qquA_TrB1FkVkateG2RjucN-LwF_ldXdjEQoLR-33EilSj4BLmKStIwi7OuHqdlA/exec"; 
+
+    function exitPortal() {
+      document.getElementById("rollNo").value = "";
+      document.getElementById("className").value = "";
+      document.getElementById("messageBox").innerHTML = "";
+      document.getElementById("resultDisplay").innerHTML = "";
+      document.getElementById("marksheetWatermark").style.display = "none";
+      document.getElementById("textWatermark").style.display = "none";
+      document.getElementById("slNoDisplay").innerHTML = "";
+    }
 
     function searchResult() {
       var rollNo = document.getElementById("rollNo").value;
