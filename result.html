@@ -96,6 +96,13 @@
             border: 1px solid #eef2f5;
             font-family: 'Segoe UI', system-ui, sans-serif;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .modern-notice-card:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
         }
         .notice-card-header {
             background: linear-gradient(135deg, #31aab7, #248c98);
@@ -111,29 +118,30 @@
             letter-spacing: 0.5px;
         }
         .notice-list-wrapper {
-            padding: 10px 24px;
+            padding: 15px 24px;
             background: #fafbfc;
             display: flex;
             flex-direction: column;
             gap: 12px;
+            flex-grow: 1;
         }
         .modern-notice-item {
             background: #ffffff;
             padding: 16px 20px;
             border-radius: 8px;
             border-left: 4px solid #31aab7;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .modern-notice-item:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
         }
         .notice-meta {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
         .notice-date {
             font-size: 0.85rem;
@@ -149,36 +157,84 @@
             border-radius: 20px;
             letter-spacing: 0.5px;
         }
+        .badge-urgent {
+            background: #fff3cd;
+            color: #856404;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
         .notice-body {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
+            flex-direction: column;
+            gap: 12px;
         }
         .notice-text {
-            font-size: 1rem;
+            font-size: 1.05rem;
             color: #32325d;
-            font-weight: 500;
+            font-weight: 600;
             margin: 0;
             line-height: 1.4;
             text-align: left;
         }
+        .notice-desc {
+            font-size: 0.9rem;
+            color: #6b7c93;
+            margin: 0 0 10px 0;
+        }
         .notice-btn {
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
-            font-size: 0.85rem;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
             font-weight: 600;
             border-radius: 6px;
             text-decoration: none;
             white-space: nowrap;
             transition: all 0.2s;
+            width: fit-content;
         }
+        /* Button & Header Color Variants for Sections */
         .btn-dl { background: #e8f7f9; color: #248c98; }
         .btn-dl:hover { background: #31aab7; color: #ffffff; }
-        .btn-ln { background: #e6f0ff; color: #0061ff; }
-        .btn-ln:hover { background: #0061ff; color: #ffffff; }
+        
+        .header-upper { background: linear-gradient(135deg, #4a90e2, #357abd); }
+        .item-upper { border-left-color: #4a90e2; }
+        .btn-upper { background: #e6f0ff; color: #357abd; }
+        .btn-upper:hover { background: #4a90e2; color: #ffffff; }
+
+        .header-higher { background: linear-gradient(135deg, #f5a623, #d48e1b); }
+        .item-higher { border-left-color: #f5a623; }
+        .btn-higher { background: #fff6e5; color: #d48e1b; }
+        .btn-higher:hover { background: #f5a623; color: #ffffff; }
+
+        .header-sslc { background: linear-gradient(135deg, #e53935, #c62828); }
+        .item-sslc { border-left-color: #e53935; }
+        .btn-sslc { background: #ffebee; color: #c62828; }
+        .btn-sslc:hover { background: #e53935; color: #ffffff; }
+
+        .header-hsslc { background: linear-gradient(135deg, #8e44ad, #732d91); }
+        .item-hsslc { border-left-color: #8e44ad; }
+        .btn-hsslc { background: #f4e8f9; color: #732d91; }
+        .btn-hsslc:hover { background: #8e44ad; color: #ffffff; }
+
+        /* Professional Grid Layout for Portals */
+        .portals-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .portals-dashboard .modern-notice-card {
+            width: 100%;
+            margin: 0; /* Override auto margins inside grid */
+        }
 
         /* Searchable Rank Holders Section Custom Styles */
         .search-container {
@@ -196,13 +252,16 @@
             border-radius: 8px;
             box-sizing: border-box;
             outline: none;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
         .search-input:focus {
             border-color: #2e7d32;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
         }
         .rank-table-wrapper {
             overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #edf2f7;
         }
         .rank-table {
             width: 100%;
@@ -211,22 +270,26 @@
             font-size: 0.95rem;
         }
         .rank-table th, .rank-table td {
-            padding: 12px 16px;
+            padding: 14px 16px;
             border-bottom: 1px solid #edf2f7;
         }
         .rank-table th {
             background-color: #f7fafc;
             color: #4a5568;
-            font-weight: 600;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
         }
         .rank-table tr:hover {
             background-color: #f8fafc;
         }
         .no-results {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             color: #718096;
             display: none;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -274,21 +337,20 @@
             <img src="images/100.jpg" alt="School Campus View" class="slide-img">
         </div>
         <div class="slider-overlay">
-            <h1 class="animate-school-name">RESULT</h1>
+            <h1 class="animate-school-name">RESULT PORTAL</h1>
             <p style="font-size: 1.2rem; margin-top: 10px; font-weight: 300; text-shadow: 1px 1px 4px rgba(0,0,0,0.6);">"YOUR RESULT IS YOUR HARD WORK"</p>
         </div>
     </div>
 
     <!-- ==========================================
-         PORTAL 0: SEARCHABLE RANK HOLDERS PANEL 
-         (Shown only upon interaction per user logic)
+         SEARCHABLE RANK HOLDERS PANEL (Full Width)
          ========================================== -->
-    <div class="modern-notice-card">
+    <div class="modern-notice-card" style="max-width: 1160px;">
         <div class="notice-card-header" style="background: linear-gradient(135deg, #2e7d32, #1b5e20);">
             <div class="header-title"><span class="header-icon">🏆</span> Half Yearly Examination – 2026 Rank Holders</div>
         </div>
         <div class="search-container">
-            <input type="text" id="rankSearchInput" class="search-input" list="rankOptions" placeholder="Search by Class (e.g. Class X) or Rank (1st, 2nd, 3rd) from dropdown..." autocomplete="off">
+            <input type="text" id="rankSearchInput" class="search-input" list="rankOptions" placeholder="🔍 Search by Class (e.g. Class X) or Rank (1st, 2nd, 3rd) from dropdown..." autocomplete="off">
             <datalist id="rankOptions">
                 <option value="1st Rank">
                 <option value="2nd Rank">
@@ -326,191 +388,146 @@
                         </tr>
                     </thead>
                     <tbody id="rankTableBody">
-                        <tr>
-                            <td><b>Class X</b></td>
-                            <td>Lithiasa M Sangma (85.3%)</td>
-                            <td>Krimstone R Sangma (77.2%)</td>
-                            <td>Salnera D Marak (75.6%)</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class IX</b></td>
-                            <td>Darsani Ch Marak (69.1%)</td>
-                            <td>Esaia M Marak (67.3%)</td>
-                            <td>Silan D Sangma (65.3%)</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class VIII</b></td>
-                            <td>Isme Sanchi M Sangma (71.4%)</td>
-                            <td>Dimedora Ch Marak (69.7%)</td>
-                            <td>Githalina A Marak (68.8%)</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class VII</b></td>
-                            <td>Elsamary A Sangma (78.9%)</td>
-                            <td>Manab Modak (77.6%)</td>
-                            <td>Dreari Hajong (74.3%)</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class V A</b></td>
-                            <td>Cheripesa D Sangma (68%)</td>
-                            <td>Dean Azariah R Marak (67%)</td>
-                            <td>—</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class V B</b></td>
-                            <td>Amme Atchesa M Marak (80.9%)</td>
-                            <td>—</td>
-                            <td>—</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class IV A</b></td>
-                            <td>Driari Kadimesa A Sangma (82.2%)</td>
-                            <td>Onkamesa R Marak (67.9%)</td>
-                            <td>Chugame B Marak (61%)</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class IV B</b></td>
-                            <td>Weano Demiksa Ch Marak (82.6%)</td>
-                            <td>Nanshi Hajong (80.5%)</td>
-                            <td>Sanreansa M Marak (78.9%)</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class III A</b></td>
-                            <td>Safiya Islam (80.5%)</td>
-                            <td>Hasina Hajong (69.1%)</td>
-                            <td>Siraj D Sangma (66.5%)</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class III B</b></td>
-                            <td>Kameya Hajong (81.9%)</td>
-                            <td>Diya Hajong (63%)</td>
-                            <td>—</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class II A</b></td>
-                            <td>Kazi Ehaan (87.8%)</td>
-                            <td>Holystar M Marak (85.5%)</td>
-                            <td>Elsina D Marak (80.7%)</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class II B</b></td>
-                            <td>Chuesa A Sangma (93.4%)</td>
-                            <td>Aniasa A Sangma (82.2%)</td>
-                            <td>Rya Gamchi M Marak (78.6%)</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class I A</b></td>
-                            <td>Dejakra S Sangma (85.5%)</td>
-                            <td>Gamesal D Sangma (82.7%)</td>
-                            <td>Sufiyan Islam (81.6%)</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class I B</b></td>
-                            <td>Hedean N Sangma (91.6%)</td>
-                            <td>Arpasha Bename A Sangma (84%)</td>
-                            <td>Minggame Jeansa Marak (83.4)</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class UKG A</b></td>
-                            <td>Chukime B Marak (82.1%)</td>
-                            <td>Jerriamsa M Marak (82%)</td>
-                            <td>Ardi Jarlez B Sangma (80.5%)</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class UKG B</b></td>
-                            <td>Dakchakrik M Sangma (81.4%)</td>
-                            <td>Mandeep Hajong (80.7%)</td>
-                            <td>Dipsika Hajong (79.7%)</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class LKG A</b></td>
-                            <td>Nandini Biswas (90.1%)</td>
-                            <td>Ayra Marian Hussain (83.5%)</td>
-                            <td>Wesha K Sangma (77.1%)</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class LKG B</b></td>
-                            <td>Amora A Sangma (85.6%)</td>
-                            <td>Kushbo Koch (84.3%)</td>
-                            <td>Riyan Hajong (84.1%)</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class Nursery A</b></td>
-                            <td>Griksal K Sangma (76.1%)</td>
-                            <td>Himanshu Hajong (74.3%)</td>
-                            <td>Aeldora Emmaya N Marak (73.5%)</td>
-                        </tr>
-                        <tr>
-                            <td><b>Class Nursery B</b></td>
-                            <td>Imber M Marak (86%)</td>
-                            <td>Twinkle Hajong (84.6%)</td>
-                            <td>Nitoesa B Marak (80.1%)</td>
-                        </tr>
+                        <tr><td><b>Class X</b></td><td>Lithiasa M Sangma (85.3%)</td><td>Krimstone R Sangma (77.2%)</td><td>Salnera D Marak (75.6%)</td></tr>
+                        <tr><td><b>Class IX</b></td><td>Darsani Ch Marak (69.1%)</td><td>Esaia M Marak (67.3%)</td><td>Silan D Sangma (65.3%)</td></tr>
+                        <tr><td><b>Class VIII</b></td><td>Isme Sanchi M Sangma (71.4%)</td><td>Dimedora Ch Marak (69.7%)</td><td>Githalina A Marak (68.8%)</td></tr>
+                        <tr><td><b>Class VII</b></td><td>Elsamary A Sangma (78.9%)</td><td>Manab Modak (77.6%)</td><td>Dreari Hajong (74.3%)</td></tr>
+                        <tr><td><b>Class V A</b></td><td>Cheripesa D Sangma (68%)</td><td>Dean Azariah R Marak (67%)</td><td>—</td></tr>
+                        <tr><td><b>Class V B</b></td><td>Amme Atchesa M Marak (80.9%)</td><td>—</td><td>—</td></tr>
+                        <tr><td><b>Class IV A</b></td><td>Driari Kadimesa A Sangma (82.2%)</td><td>Onkamesa R Marak (67.9%)</td><td>Chugame B Marak (61%)</td></tr>
+                        <tr><td><b>Class IV B</b></td><td>Weano Demiksa Ch Marak (82.6%)</td><td>Nanshi Hajong (80.5%)</td><td>Sanreansa M Marak (78.9%)</td></tr>
+                        <tr><td><b>Class III A</b></td><td>Safiya Islam (80.5%)</td><td>Hasina Hajong (69.1%)</td><td>Siraj D Sangma (66.5%)</td></tr>
+                        <tr><td><b>Class III B</b></td><td>Kameya Hajong (81.9%)</td><td>Diya Hajong (63%)</td><td>—</td></tr>
+                        <tr><td><b>Class II A</b></td><td>Kazi Ehaan (87.8%)</td><td>Holystar M Marak (85.5%)</td><td>Elsina D Marak (80.7%)</td></tr>
+                        <tr><td><b>Class II B</b></td><td>Chuesa A Sangma (93.4%)</td><td>Aniasa A Sangma (82.2%)</td><td>Rya Gamchi M Marak (78.6%)</td></tr>
+                        <tr><td><b>Class I A</b></td><td>Dejakra S Sangma (85.5%)</td><td>Gamesal D Sangma (82.7%)</td><td>Sufiyan Islam (81.6%)</td></tr>
+                        <tr><td><b>Class I B</b></td><td>Hedean N Sangma (91.6%)</td><td>Arpasha Bename A Sangma (84%)</td><td>Minggame Jeansa Marak (83.4)</td></tr>
+                        <tr><td><b>Class UKG A</b></td><td>Chukime B Marak (82.1%)</td><td>Jerriamsa M Marak (82%)</td><td>Ardi Jarlez B Sangma (80.5%)</td></tr>
+                        <tr><td><b>Class UKG B</b></td><td>Dakchakrik M Sangma (81.4%)</td><td>Mandeep Hajong (80.7%)</td><td>Dipsika Hajong (79.7%)</td></tr>
+                        <tr><td><b>Class LKG A</b></td><td>Nandini Biswas (90.1%)</td><td>Ayra Marian Hussain (83.5%)</td><td>Wesha K Sangma (77.1%)</td></tr>
+                        <tr><td><b>Class LKG B</b></td><td>Amora A Sangma (85.6%)</td><td>Kushbo Koch (84.3%)</td><td>Riyan Hajong (84.1%)</td></tr>
+                        <tr><td><b>Class Nursery A</b></td><td>Griksal K Sangma (76.1%)</td><td>Himanshu Hajong (74.3%)</td><td>Aeldora Emmaya N Marak (73.5%)</td></tr>
+                        <tr><td><b>Class Nursery B</b></td><td>Imber M Marak (86%)</td><td>Twinkle Hajong (84.6%)</td><td>Nitoesa B Marak (80.1%)</td></tr>
                     </tbody>
                 </table>
-                <div id="noResultsMessage" class="no-results">No rank holders found matching your search term.</div>
+                <div id="noResultsMessage" class="no-results">No rank holders found matching your search term. Please try a different query.</div>
             </div>
         </div>
     </div>
 
     <!-- ==========================================
-         PORTAL 1: PRE-PRIMARY SECTION, LOWER PRIMARY SECTION
+         PROFESSIONAL SECTION-WISE DASHBOARD GRID 
          ========================================== -->
-    <div class="modern-notice-card">
-        <div class="notice-card-header">
-            <div class="header-title"><span class="header-icon">✏️</span> Lower Primary Section Portal (Class Nursery - Class V)</div>
-        </div>
-        <div class="notice-list-wrapper">
-            <div class="modern-notice-item">
-                <div class="notice-meta"><span class="notice-date">May-2026</span><span class="badge-new">NEW</span></div>
-                <div class="notice-body">
-                    <p class="notice-text">Class Nursery to Class V </p>
-                    <a href="https://script.google.com/macros/s/AKfycbzSCx3L_mGG8e60ASCgYBo02-bF8W2EJ43TdsWWcWIvVrC0waYeTEg1ouaVsTIbrp01/exec" class="notice-btn btn-dl">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Check the Result link
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="portals-dashboard">
 
-    <!-- ==========================================
-         PORTAL 2: UPPER PRIMARY SECTION/SECONDARY SECTION
-         ========================================== -->
-    <div class="modern-notice-card">
-        <div class="notice-card-header">
-            <div class="header-title"><span class="header-icon">📚</span> Upper Primary/Secondary Section Portal (Class VI - Class X)</div>
-        </div>
-        <div class="notice-list-wrapper">
-            <div class="modern-notice-item">
-                <div class="notice-meta"><span class="notice-date">May-2026</span><span class="badge-new">NEW</span></div>
-                <div class="notice-body">
-                    <p class="notice-text">Class VI - Class X  Academic Report Portal</p>
-                    <a href="https://script.google.com/macros/s/AKfycbx5J9WWLxfcIZUQj6psnoAfoMPnARbG1VeL1UzYadcy7pXnZdBQLCPiC8GzgECNI_-H/exec" class="notice-btn btn-ln">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Check the Result link</a>
+        <!-- PORTAL 1: LOWER PRIMARY SECTION -->
+        <div class="modern-notice-card">
+            <div class="notice-card-header">
+                <div class="header-title"><span class="header-icon">✏️</span> Lower Primary Portal</div>
+            </div>
+            <div class="notice-list-wrapper">
+                <div class="modern-notice-item">
+                    <div class="notice-meta"><span class="notice-date">Academic Year 2026</span><span class="badge-new">Active</span></div>
+                    <div class="notice-body">
+                        <div>
+                            <p class="notice-text">Class Nursery to Class V</p>
+                            <p class="notice-desc">Access internal term report cards and grade sheets.</p>
+                        </div>
+                        <a href="https://script.google.com/macros/s/AKfycbzSCx3L_mGG8e60ASCgYBo02-bF8W2EJ43TdsWWcWIvVrC0waYeTEg1ouaVsTIbrp01/exec" class="notice-btn btn-dl">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Check Result
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- ==========================================
-         PORTAL 3: HIGHER SECONDARY SECTION
-         ========================================== -->
-    <div class="modern-notice-card">
-        <div class="notice-card-header">
-            <div class="header-title"><span class="header-icon">🎓</span> Higher Secondary Section Portal (Class XI - Class XII)</div>
-        </div>
-        <div class="notice-list-wrapper">
-            <div class="modern-notice-item">
-                <div class="notice-meta"><span class="notice-date">May-2026</span><span class="badge-new">NEW</span></div>
-                <div class="notice-body">
-                    <p class="notice-text">Higher Section Result will be Declare in this Panel</p>
-                    <a href="higher.html" class="notice-btn btn-dl">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Check the Result link
-                    </a>
+        <!-- PORTAL 2: UPPER PRIMARY/SECONDARY SECTION -->
+        <div class="modern-notice-card">
+            <div class="notice-card-header header-upper">
+                <div class="header-title"><span class="header-icon">📚</span> Upper/Secondary Portal</div>
+            </div>
+            <div class="notice-list-wrapper">
+                <div class="modern-notice-item item-upper">
+                    <div class="notice-meta"><span class="notice-date">Academic Year 2026</span><span class="badge-new">Active</span></div>
+                    <div class="notice-body">
+                        <div>
+                            <p class="notice-text">Class VI to Class X</p>
+                            <p class="notice-desc">Academic Report Portal for Middle & High School.</p>
+                        </div>
+                        <a href="https://script.google.com/macros/s/AKfycbx5J9WWLxfcIZUQj6psnoAfoMPnARbG1VeL1UzYadcy7pXnZdBQLCPiC8GzgECNI_-H/exec" class="notice-btn btn-upper">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Check Result
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
+        <!-- PORTAL 3: HIGHER SECONDARY SECTION -->
+        <div class="modern-notice-card">
+            <div class="notice-card-header header-higher">
+                <div class="header-title"><span class="header-icon">🎓</span> Higher Secondary Portal</div>
+            </div>
+            <div class="notice-list-wrapper">
+                <div class="modern-notice-item item-higher">
+                    <div class="notice-meta"><span class="notice-date">Academic Year 2026</span><span class="badge-new">NEW</span></div>
+                    <div class="notice-body">
+                        <div>
+                            <p class="notice-text">Class XI to Class XII</p>
+                            <p class="notice-desc">Internal grades and promotional exam outcomes.</p>
+                        </div>
+                        <a href="higher.html" class="notice-btn btn-higher">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Check Result
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PORTAL 4: SSLC TEST EXAMINATION RESULT -->
+        <div class="modern-notice-card">
+            <div class="notice-card-header header-sslc">
+                <div class="header-title"><span class="header-icon">🏛️</span> Board Results: SSLC</div>
+            </div>
+            <div class="notice-list-wrapper">
+                <div class="modern-notice-item item-sslc">
+                    <div class="notice-meta"><span class="notice-date">MBOSE 2026</span><span class="badge-urgent">Declared</span></div>
+                    <div class="notice-body">
+                        <div>
+                            <p class="notice-text">SSLC Test Examination Result</p>
+                            <p class="notice-desc">Official final board exam results for Class X.</p>
+                        </div>
+                        <!-- Update href with your actual SSLC result link -->
+                        <a href="sslctest.html" class="notice-btn btn-sslc">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg> View SSLC Result
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PORTAL 5: HSSLC TEST EXAMINATION RESULT -->
+        <div class="modern-notice-card">
+            <div class="notice-card-header header-hsslc">
+                <div class="header-title"><span class="header-icon">📜</span> Board Results: HSSLC</div>
+            </div>
+            <div class="notice-list-wrapper">
+                <div class="modern-notice-item item-hsslc">
+                    <div class="notice-meta"><span class="notice-date">MBOSE 2026</span><span class="badge-urgent">Declared</span></div>
+                    <div class="notice-body">
+                        <div>
+                            <p class="notice-text">HSSLC Test Examination Result</p>
+                            <p class="notice-desc">Official final board exam results for Class XII.</p>
+                        </div>
+                        <!-- Update href with your actual HSSLC result link -->
+                        <a href="#" class="notice-btn btn-hsslc">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg> View HSSLC Result
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- End Portals Dashboard Grid -->
 
     <!-- Centered Brand Footer Block -->
     <footer class="site-footer">
@@ -520,12 +537,18 @@
         </div>
     </footer>
 
-   <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <!-- Donation QR Code Box -->
+    <div id="donation-qr-box">
+        <button id="close-donation-box" onclick="closeDonationBox()">&times;</button>
+        <div id="donation-qr-title">Support Good Shepherd</div>
+        
+        <div id="qr-code-placeholder">
+            <img src="https://i.postimg.cc/t42Rp5Mq/ba025f5a-46f7-4f4c-b0fd-fe8be4d93747.jpg" alt="Donation QR Code">
+        </div>
+        
+        <div id="qr-scan-label">Scan to Donate</div>
+    </div>
+
     <style>
         /* CSS to make the box float at the bottom right corner */
         #donation-qr-box {
@@ -535,34 +558,28 @@
             width: 220px;
             background-color: #ffffff;
             border-radius: 12px;
-            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15); /* Gives it a floating shadow */
+            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
             padding: 20px;
             text-align: center;
-            z-index: 9999; /* Keeps it on top of other dashboard elements */
-            
-            /* Hidden by default before the JS triggers */
+            z-index: 9999; 
             opacity: 0;
             pointer-events: none;
             transform: translateY(20px);
             transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
-        /* The class added by JavaScript to show the box */
         #donation-qr-box.show {
             opacity: 1;
             pointer-events: auto;
-            /* Adds a subtle continuous floating animation */
             animation: floatHover 4s ease-in-out infinite; 
         }
 
-        /* Animation for the gentle floating effect */
         @keyframes floatHover {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-8px); }
             100% { transform: translateY(0px); }
         }
 
-        /* Styling the close button */
         #close-donation-box {
             position: absolute;
             top: 10px;
@@ -579,7 +596,6 @@
             color: #ff0000;
         }
 
-        /* Title styling */
         #donation-qr-title {
             font-weight: bold;
             font-size: 1.1rem;
@@ -588,16 +604,14 @@
             margin-top: 5px;
         }
 
-        /* Ensuring the image stays strictly inside the box */
         #qr-code-placeholder img {
-            width: 100%; /* Fills the container safely */
+            width: 100%;
             max-width: 160px;
             height: auto;
             border-radius: 8px;
             border: 2px solid #f0f0f0;
         }
 
-        /* Label at the bottom */
         #qr-scan-label {
             margin-top: 10px;
             font-size: 0.9rem;
@@ -605,20 +619,6 @@
             font-weight: 500;
         }
     </style>
-</head>
-<body>
-
-    <!-- Donation QR Code Box -->
-    <div id="donation-qr-box">
-        <button id="close-donation-box" onclick="closeDonationBox()">&times;</button>
-        <div id="donation-qr-title">Support Good Shepherd</div>
-        
-        <div id="qr-code-placeholder">
-            <img src="https://i.postimg.cc/t42Rp5Mq/ba025f5a-46f7-4f4c-b0fd-fe8be4d93747.jpg" alt="Donation QR Code">
-        </div>
-        
-        <div id="qr-scan-label">Scan to Donate</div>
-    </div>
 
     <script src="JavaScript/script.js"></script>
     
@@ -634,11 +634,9 @@
         }
 
         function closeDonationBox() {
-            // Removes the 'show' class to hide it smoothly
             document.getElementById('donation-qr-box').classList.remove('show');
         }
 
-        // Show the box after a 1.5-second delay so it pops up naturally
         setTimeout(function() {
             document.getElementById('donation-qr-box').classList.add('show');
         }, 1500);
@@ -651,7 +649,6 @@
             var rows = document.querySelectorAll('#rankTableBody tr');
             var ths = document.querySelectorAll('#rankTableHeaderRow th');
 
-            // 1. Hide everything if input is empty
             if (filter === "") {
                 tableWrapper.style.display = 'none';
                 noResults.style.display = 'none';
@@ -662,26 +659,24 @@
             noResults.style.display = 'none';
             var anyVisible = false;
 
-            // 2. Reset all columns and rows to completely visible before applying filter
             for (let i = 0; i <= 3; i++) {
                 ths[i].style.display = '';
                 rows.forEach(row => row.cells[i].style.display = '');
             }
 
-            // 3. Intelligent rank column hiding
             if (filter === '1st' || filter === '1st rank') {
-                ths[2].style.display = 'none'; // hide 2nd
-                ths[3].style.display = 'none'; // hide 3rd
+                ths[2].style.display = 'none'; 
+                ths[3].style.display = 'none'; 
                 rows.forEach(row => {
                     row.cells[2].style.display = 'none';
                     row.cells[3].style.display = 'none';
-                    row.style.display = ''; // Make sure row is visible
+                    row.style.display = ''; 
                 });
                 anyVisible = true;
             }
             else if (filter === '2nd' || filter === '2nd rank') {
-                ths[1].style.display = 'none'; // hide 1st
-                ths[3].style.display = 'none'; // hide 3rd
+                ths[1].style.display = 'none'; 
+                ths[3].style.display = 'none'; 
                 rows.forEach(row => {
                     row.cells[1].style.display = 'none';
                     row.cells[3].style.display = 'none';
@@ -690,8 +685,8 @@
                 anyVisible = true;
             }
             else if (filter === '3rd' || filter === '3rd rank') {
-                ths[1].style.display = 'none'; // hide 1st
-                ths[2].style.display = 'none'; // hide 2nd
+                ths[1].style.display = 'none'; 
+                ths[2].style.display = 'none'; 
                 rows.forEach(row => {
                     row.cells[1].style.display = 'none';
                     row.cells[2].style.display = 'none';
@@ -700,7 +695,6 @@
                 anyVisible = true;
             } 
             else {
-                // 4. Standard row filtering by Class or Name
                 rows.forEach(function(row) {
                     var text = row.textContent.toLowerCase();
                     if (text.includes(filter)) {
@@ -712,7 +706,6 @@
                 });
             }
 
-            // 5. Handle empty state if typed gibberish
             if (!anyVisible) {
                 noResults.style.display = 'block';
                 tableWrapper.style.display = 'none'; 
