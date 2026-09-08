@@ -3,10 +3,33 @@
 <head>
   <base target="_top">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Favicon Added Here -->
+  <link rel="icon" type="image/png" href="images/favico.png">
+  <title>Exam Result Portal</title>
+  
   <style>
-    body { font-family: Arial, sans-serif; background-color: #f4f6f9; color: #000; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-    .portal-box { background: #fff; padding: 18px; border: 14px solid #1e448a; border-radius: 0px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); width: 100%; max-width: 780px; margin-bottom: 20px; box-sizing: border-box; position: relative; }
-    .inner-border { border: 4px solid #f1be24; padding: 30px; background: #fff; position: relative; z-index: 1; min-height: 840px; }
+    /* Added Background Image to Body */
+    body { 
+      font-family: Arial, sans-serif; 
+      background-color: #f4f6f9; 
+      background-image: url('images/school_images_front.jpg'); 
+      background-size: cover; 
+      background-position: center; 
+      background-attachment: fixed;
+      color: #000; 
+      padding: 20px; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      justify-content: center;
+      min-height: 95vh;
+    }
+    
+    .portal-box { background: #fff; padding: 18px; border: 14px solid #1e448a; border-radius: 0px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); width: 100%; max-width: 780px; margin-bottom: 20px; box-sizing: border-box; position: relative; }
+    
+    /* Removed min-height to make the box small initially */
+    .inner-border { border: 4px solid #f1be24; padding: 30px; background: #fff; position: relative; z-index: 1; min-height: auto; }
+    
     .school-header { text-align: center; margin-bottom: 12px; position: relative; min-height: 100px; padding-left: 110px; padding-right: 10px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; }
     .school-logo { position: absolute; left: 5px; top: 50%; transform: translateY(-50%); width: 95px; height: 95px; object-fit: contain; }
     .school-meta { font-size: 10px; color: #333; font-weight: bold; margin-bottom: 5px; display: flex; justify-content: space-between; width: 100%; letter-spacing: 0.2px; }
@@ -21,6 +44,11 @@
     .btn-search { background: #1e448a; color: white; border: none; padding: 8px 18px; font-size: 14px; font-weight: bold; cursor: pointer; }
     .btn-search:hover { background: #122b59; }
     .btn-print { background: #4a5568; color: white; border: none; padding: 8px 18px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+    
+    /* New Exit Button Styling */
+    .btn-exit { background: #c53030; color: white; border: none; padding: 8px 18px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 10px; margin-left: 10px; text-decoration: none; display: inline-block; }
+    .btn-exit:hover { background: #9b2c2c; }
+
     #messageBox { margin-top: 15px; font-weight: bold; text-align: center; }
     .error-msg { color: #b71c1c; background: #ffebee; border: 1px solid #ffcdd2; padding: 12px; font-size: 14px; text-align: left; }
     .marksheet-render-area { position: relative; width: 100%; margin-top: 15px; }
@@ -45,11 +73,21 @@
     .disclaimer { font-style: italic; font-size: 11px; line-height: 1.5; color: #4a5568; text-align: justify; margin-bottom: 8px; }
     .copyright { font-weight: bold; font-size: 11px; color: #2d3748; text-align: center; }
 
+    /* Main Page Copyright Styling */
+    .page-copyright {
+      text-align: center;
+      font-size: 13px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+      margin-top: 10px;
+    }
+
     @media print {
-      body { background-color: #fff; padding: 0; }
-      .portal-box { border: 14px solid #1e448a !important; box-shadow: none; max-width: 100%; width: 100%; padding: 18px; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      body { background-image: none !important; background-color: #fff; padding: 0; display: block; }
+      .portal-box { border: 14px solid #1e448a !important; box-shadow: none; max-width: 100%; width: 100%; padding: 18px; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; margin: 0; }
       .inner-border { border: 4px solid #f1be24 !important; padding: 30px; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-      .search-container, .btn-print { display: none !important; }
+      .search-container, .btn-print, .btn-exit, .page-copyright { display: none !important; }
       .badge-banner { background-color: #d92626 !important; color: #fff !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
       .watermark-bg { display: block !important; opacity: 0.12 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; filter: blur(1px) !important; }
       .text-watermark { display: block !important; }
@@ -92,7 +130,11 @@
           
           <button class="btn-search" onclick="searchResult()">Search Record</button>
         </div>
-        <center><button class="btn-print" onclick="window.print()">Print Marksheet</button></center>
+        <center>
+          <button class="btn-print" onclick="window.print()">Print Marksheet</button>
+          <!-- Exit Button added here -->
+          <a href="result.html" class="btn-exit">Exit</a>
+        </center>
       </div>
       
       <div id="messageBox"></div>
@@ -105,9 +147,12 @@
     </div>
   </div>
 
+  <!-- Global Page Copyright -->
+  <div class="page-copyright">© 2026 Good Shepherd Higher Secondary School. All Rights Reserved.</div>
+
   <script>
     // === PASTE YOUR DEPLOYED GOOGLE SCRIPT WEB APP URL HERE ===
-    const API_URL = "https://script.google.com/macros/s/AKfycbx6lqbvo4-tQpiNbyX4jGL3qx-aUrxjjCiSW05-DCZJmIXVCtzo1tvTgaqD-MqLaroG2g/exec"; 
+    const API_URL = "https://script.google.com/macros/s/AKfycby-S_qquA_TrB1FkVkateG2RjucN-LwF_ldXdjEQoLR-33EilSj4BLmKStIwi7OuHqdlA/exec"; 
 
     function searchResult() {
       var rollNo = document.getElementById("rollNo").value;
