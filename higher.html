@@ -48,7 +48,7 @@
       background: #fff; 
       position: relative; 
       z-index: 1; 
-      min-height: auto; /* Made compact before search */
+      min-height: auto; 
     }
     
     .school-header { text-align: center; margin-bottom: 12px; position: relative; min-height: 100px; padding-left: 110px; padding-right: 10px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; }
@@ -82,7 +82,6 @@
     
     .watermark-bg { position: absolute; top: 42% !important; left: 50%; transform: translate(-50%, -50%); width: 380px; height: 380px; background-image: url('https://i.postimg.cc/x8kfHjTz/School-Logo-new.jpg') !important; background-size: contain !important; background-repeat: no-repeat !important; background-position: center !important; opacity: 0.12 !important; z-index: 0; pointer-events: none; display: none; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; filter: blur(1px); }
     
-    /* Bold GSHSSC Repeating Watermark */
     .text-watermark { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' transform='rotate(-40 70 70)' fill='%23000' opacity='0.08' font-family='Arial' font-weight='900' font-size='20'>GSHSSC</text></svg>"); background-repeat: repeat; z-index: 0; pointer-events: none; display: none; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 
     .marksheet-content-wrapper { position: relative; z-index: 2; width: 100%; background: transparent; }
@@ -179,17 +178,10 @@
   </div>
 
   <script>
-    // === PASTE YOUR DEPLOYED GOOGLE SCRIPT WEB APP URL HERE ===
     const API_URL = "https://script.google.com/macros/s/AKfycby-S_qquA_TrB1FkVkateG2RjucN-LwF_ldXdjEQoLR-33EilSj4BLmKStIwi7OuHqdlA/exec"; 
 
     function exitPortal() {
-      document.getElementById("rollNo").value = "";
-      document.getElementById("className").value = "";
-      document.getElementById("messageBox").innerHTML = "";
-      document.getElementById("resultDisplay").innerHTML = "";
-      document.getElementById("marksheetWatermark").style.display = "none";
-      document.getElementById("textWatermark").style.display = "none";
-      document.getElementById("slNoDisplay").innerHTML = "";
+      window.location.href = "result.html";
     }
 
     function searchResult() {
