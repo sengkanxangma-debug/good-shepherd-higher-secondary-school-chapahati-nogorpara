@@ -95,26 +95,20 @@
             display: flex;
             gap: 30px;
             align-items: flex-start;
-            animation: fadeInLayout 0.8s ease-out;
-        }
-
-        @keyframes fadeInLayout {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Sidebar Navigation Lookalike */
         .event-sidebar {
             width: 240px;
             background: #ffffff;
-            border-radius: 8px;
+            border-radius: 4px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.06);
             overflow: hidden;
             flex-shrink: 0;
         }
 
         .sidebar-title-block {
-            background-color: #00cc7a;
+            background-color: #00cc7a; /* Vibrant green accent header from reference image */
             color: #ffffff;
             padding: 16px 20px;
             font-weight: bold;
@@ -143,8 +137,15 @@
             transition: all 0.2s ease;
         }
 
-        .sidebar-btn:last-child { border-bottom: none; }
-        .sidebar-btn:hover { background-color: #f9f9f9; color: #00cc7a; }
+        .sidebar-btn:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar-btn:hover {
+            background-color: #f9f9f9;
+            color: #00cc7a;
+        }
+
         .sidebar-btn.active {
             background-color: #f2fbf7;
             color: #00cc7a;
@@ -157,7 +158,7 @@
         .event-display-box {
             flex-grow: 1;
             background: #ffffff;
-            border-radius: 8px;
+            border-radius: 4px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.06);
             padding: 25px;
         }
@@ -168,6 +169,7 @@
             font-family: sans-serif;
         }
 
+        /* Deep Navy Blue Row Header From Image */
         .custom-event-table th {
             background-color: #1d4e73;
             color: #ffffff;
@@ -175,7 +177,6 @@
             font-size: 14px;
             font-weight: 600;
             text-align: left;
-            border-radius: 4px 4px 0 0;
         }
 
         .custom-event-table td {
@@ -184,28 +185,51 @@
             color: #495057;
             font-size: 14px;
             vertical-align: middle;
-            transition: background-color 0.2s;
         }
 
-        .custom-event-table tbody tr.event-row-record:hover td {
-            background-color: #f8fbff;
+        .custom-event-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .custom-event-table tbody tr:hover {
+            background-color: #fcfdfe;
         }
 
         /* Inline Clean Meta Details */
         .event-title-text {
             color: #333333;
-            font-size: 15px;
-            font-weight: 600;
+            font-size: 14.5px;
+            font-weight: 500;
             text-decoration: none;
         }
         
+        .event-title-text:hover {
+            color: #1d4e73;
+        }
+
+        /* Animated Text for Professional Look */
+        .animated-text {
+            font-size: 16px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #d32f2f, #ff8c00, #d32f2f);
+            background-size: 200% auto;
+            color: #000;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+        }
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
         .meta-text-inline {
             font-size: 12.5px;
             color: #777777;
-            margin-top: 6px;
+            margin-top: 5px;
         }
 
-        /* Professional Action Buttons */
+        /* Professional Action Buttons (Right-aligned layout) */
         .action-cell {
             text-align: right;
             white-space: nowrap;
@@ -224,18 +248,20 @@
             border-radius: 4px;
             border: none;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+            transition: background-color 0.2s ease;
         }
 
-        .btn-attachment:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
         .btn-link-style { background-color: #404040; }
         .btn-link-style:hover { background-color: #1a1a1a; }
+        
         .btn-download-style { background-color: #0000FF; }
         .btn-download-style:hover { background-color: #0000CD; }
-        .btn-view-style { background-color: #00cc7a; }
-        .btn-view-style:hover { background-color: #00995c; }
+        
         .btn-file-style { background-color: #D2691E; }
         .btn-file-style:hover { background-color: #A0522D; }
+
+        .btn-view-style { background-color: #800080; }
+        .btn-view-style:hover { background-color: #4b0082; }
 
         /* Status Badge Indicators */
         .status-pill {
@@ -246,74 +272,135 @@
             border-radius: 12px;
             text-transform: uppercase;
         }
-        .pill-process { background-color: #00008B; color: #ffffff; }
-        .pill-ongoing { background-color: #006400; color: #ffffff; }
-        .pill-upcoming { background-color: #d97706; color: #ffffff; } 
+        .pill-upcoming { 
+            background-color: #ff8c00; 
+            color: #ffffff; 
+            animation: pulse 2s infinite; 
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 140, 0, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(255, 140, 0, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 140, 0, 0); }
+        }
+        .pill-process { background-color: #00008B; color: #ffffff; } 
+        .pill-ongoing { background-color: #006400; color: #ffffff; } 
         .pill-prospectus { background-color: #ffebee; color: #c62828; } 
-        .pill-completed { background-color: #800000; color: #ffffff; }
+        .pill-completed { background-color: #800000; color: #ffffff; } 
 
-        /* Animated Expandable Routine Section */
+        /* Expandable Routine Table Styles */
         .routine-details-row {
-            display: none; 
-            background-color: #fcfdfe;
+            display: none;
+            background-color: #f9fbfd;
         }
-        
-        .routine-animated-box {
-            animation: slideDownFade 0.4s ease-out;
-            border: 2px solid #00cc7a;
-            border-radius: 6px;
-            padding: 20px;
-            background-color: #ffffff;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
-            margin: 10px 0;
-            overflow-x: auto;
+        .routine-details-row.active {
+            display: table-row;
+            animation: fadeIn 0.4s ease-in-out;
         }
-
-        @keyframes slideDownFade {
+        @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
+        .routine-table-container {
+            padding: 15px; 
+            border-radius: 8px; 
+            border: 1px solid #1d4e73; 
+            overflow-x: auto;
+        }
         .routine-table {
             width: 100%;
             border-collapse: collapse;
+            margin: 10px 0;
             font-size: 13px;
             text-align: center;
         }
-
         .routine-table th, .routine-table td {
-            border: 1px solid #e2e8f0;
-            padding: 10px 6px;
+            border: 1px solid #d1d5db;
+            padding: 8px;
+            vertical-align: middle;
         }
-
         .routine-table th {
             background-color: #1d4e73;
             color: #ffffff;
             font-weight: 600;
         }
+        .routine-table tr:nth-child(even) { background-color: #f3f4f6; }
+        .routine-table tr:hover { background-color: #e5e7eb; }
 
-        .routine-table tbody tr:nth-child(even) {
-            background-color: #f8fafc;
+        /* Donation Box Floating Panel Styles */
+        #donation-qr-box {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 220px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+            padding: 20px;
+            text-align: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
-        /* Miscellaneous Modals and Widgets (Hidden/Collapsed for brevity in this snippet as requested) */
-        #donation-qr-box { position: fixed; bottom: 30px; right: 30px; width: 220px; background-color: #ffffff; border-radius: 12px; box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15); padding: 20px; text-align: center; z-index: 9999; opacity: 0; pointer-events: none; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
-        #donation-qr-box.show { opacity: 1; pointer-events: auto; animation: floatHover 4s ease-in-out infinite; }
-        @keyframes floatHover { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
-        #close-donation-box { position: absolute; top: 10px; right: 15px; background: transparent; border: none; font-size: 24px; color: #888; cursor: pointer; transition: color 0.2s; }
+        #donation-qr-box.show {
+            opacity: 1;
+            pointer-events: auto;
+            animation: floatHover 4s ease-in-out infinite; 
+        }
+
+        @keyframes floatHover {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        #close-donation-box {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
         #close-donation-box:hover { color: #ff0000; }
         #donation-qr-title { font-weight: bold; font-size: 1.1rem; color: #333; margin-bottom: 12px; margin-top: 5px; }
         #qr-code-placeholder img { width: 100%; max-width: 160px; height: auto; border-radius: 8px; border: 2px solid #f0f0f0; }
         #qr-scan-label { margin-top: 10px; font-size: 0.9rem; color: #666; font-weight: 500; }
 
+        /* --- FEEDBACK POP-UP MODAL STYLES --- */
         .feedback-trigger-btn { position: fixed; bottom: 30px; left: 30px; background: #3182ce; color: white; border: none; padding: 15px 25px; font-size: 16px; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 15px rgba(49,130,206,0.4); z-index: 999; transition: transform 0.2s, background 0.2s; }
         .feedback-trigger-btn:hover { background: #2b6cb0; transform: scale(1.05); }
 
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(4px); }
+
         .modal-card { background: white; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; padding: 30px; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); position: relative; animation: slideIn 0.3s ease-out; }
         @keyframes slideIn { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
         .close-modal-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; color: #a0aec0; cursor: pointer; border: none; background: none; }
         .close-modal-btn:hover { color: #4a5568; }
+
+        .modal-card h2 { margin: 0 0 5px 0; color: #2d3748; font-size: 22px; }
+        .modal-card p.subtitle { margin: 0 0 20px 0; color: #718096; font-size: 14px; }
+        .modal-card .form-group { margin-bottom: 16px; }
+        .modal-card label { display: block; margin-bottom: 6px; font-weight: 600; color: #4a5568; font-size: 13px; }
+        .modal-card select, .modal-card textarea, .modal-card input { width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px; box-sizing: border-box; font-size: 14px; background-color: #f8fafc; }
+        .modal-card select:focus, .modal-card textarea:focus, .modal-card input:focus { outline: none; border-color: #3182ce; background-color: #fff; }
+        
+        .rating-wrapper { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 6px; }
+        .rating-wrapper input { display: none; }
+        .rating-wrapper label { font-size: 32px; color: #cbd5e0; cursor: pointer; transition: color 0.1s; margin: 0; }
+        .rating-wrapper label:hover, .rating-wrapper label:hover ~ label, .rating-wrapper input:checked ~ label { color: #ecc94b; }
+        
+        .submit-btn { width: 100%; background: #48bb78; color: white; border: none; padding: 12px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; margin-top: 10px; transition: background 0.2s; }
+        .submit-btn:hover { background: #38a169; }
+        .submit-btn:disabled { background: #a0aec0; cursor: not-allowed; }
+        #statusMsg { text-align: center; font-weight: bold; margin-top: 15px; display: none; padding: 10px; border-radius: 6px; font-size: 14px; }
 
         @media (max-width: 900px) {
             .dashboard-container { flex-direction: column; }
@@ -351,12 +438,19 @@
         </div>
     </div>
 
+    <!-- Universal Image Slideshow Hero Block -->
     <div class="slider-container">
         <div class="slides-wrapper">
             <img src="images/11.jpg" alt="School Campus View" class="slide-img">
             <img src="images/22.jpg" alt="School Campus View" class="slide-img">
             <img src="images/33.jpg" alt="School Campus View" class="slide-img">
             <img src="images/44.jpg" alt="School Campus View" class="slide-img">
+            <img src="images/55.jpg" alt="School Campus View" class="slide-img">
+            <img src="images/66.jpg" alt="School Campus View" class="slide-img">
+            <img src="images/77.jpg" alt="School Campus View" class="slide-img">
+            <img src="images/88.jpg" alt="School Campus View" class="slide-img">
+            <img src="images/99.jpg" alt="School Campus View" class="slide-img">
+            <img src="images/100.jpg" alt="School Campus View" class="slide-img">
         </div>
         <div class="slider-overlay">
             <h1 class="animate-school-name">SCHOOL EVENTS</h1>
@@ -364,12 +458,14 @@
         </div>
     </div>
 
+    <!-- Refactored Minimalist Main Section Box Layout -->
     <div class="main-section">
+
         <div class="container dashboard-container">
             
             <!-- Left Filtering Dynamic Navigation Panel Sidebar -->
             <div class="event-sidebar">
-                <div class="sidebar-title-block">Events Menu</div>
+                <div class="sidebar-title-block">Events</div>
                 <div class="sidebar-menu">
                     <button class="sidebar-btn active" onclick="applyEventFilter('all', this)">All Events</button>
                     <button class="sidebar-btn" onclick="applyEventFilter('upcoming', this)">Upcoming</button>
@@ -393,25 +489,24 @@
                     </thead>
                     <tbody id="event-table-body">
                         
-                        <!-- NEW: Upcoming Event Row 1 with Integrated Routine Feature -->
+                        <!-- Event Row 1: Upcoming Event -->
                         <tr class="event-row-record" data-status="upcoming">
                             <td>1</td>
-                            <td>21-Sep-2026</td>
+                            <td>12-Sept-2026</td>
                             <td>
-                                <strong class="event-title-text" style="color:#d97706;">2nd Quarterly Unit Test - 2026</strong>
+                                <span class="event-title-text animated-text">2nd Quarterly Unit Test - 2026 (Class I to IX)</span>
                                 <span class="status-pill pill-upcoming" style="margin-left: 8px;">Upcoming</span>
-                                <div class="meta-text-inline">📅 <b>Date:</b> 21-09-2026 to 25-09-2026</div>
+                                <div class="meta-text-inline">📅 <b>Dates:</b> 21-09-2026 to 25-09-2026</div>
                             </td>
                             <td class="action-cell">
-                                <button onclick="toggleRoutine('routine-row-1')" class="btn-attachment btn-view-style">👁 View Routine</button>
+                                <button onclick="toggleRoutine('routine-2nd-quarterly')" class="btn-attachment btn-view-style">👁 View Routine</button>
                             </td>
                         </tr>
-                        
-                        <!-- Hidden Routine Row (Revealed on click) -->
-                        <tr id="routine-row-1" class="routine-details-row" data-status="upcoming">
+                        <!-- Hidden Routine Expandable Details -->
+                        <tr id="routine-2nd-quarterly" class="routine-details-row event-row-record" data-status="upcoming">
                             <td colspan="4" style="padding: 0;">
-                                <div class="routine-animated-box">
-                                    <h3 style="text-align: center; color: #1d4e73; margin-top: 5px; margin-bottom: 20px;">2nd Quarterly Unit Test - 2026 Routine</h3>
+                                <div class="routine-table-container">
+                                    <h3 style="text-align: center; color: #1d4e73; margin-top: 5px;">2nd Quarterly Unit Test - 2026 Schedule</h3>
                                     <table class="routine-table">
                                         <thead>
                                             <tr>
@@ -429,11 +524,11 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><b>21-9-26<br>Monday</b></td>
+                                                <td><strong>21-9-26<br>Monday</strong></td>
                                                 <td>Maths</td>
                                                 <td>Science</td>
-                                                <td>Science<br>English - I</td>
-                                                <td>Mathematics<br>English - II</td>
+                                                <td>Science<br>English -I</td>
+                                                <td>Mathematics<br>English -II</td>
                                                 <td>Science<br>Cate/Moral</td>
                                                 <td>Maths<br>Comp</td>
                                                 <td>Maths<br>Garo</td>
@@ -441,8 +536,8 @@
                                                 <td>English<br>Comp</td>
                                             </tr>
                                             <tr>
-                                                <td><b>22-9-26<br>Tuesday</b></td>
-                                                <td>English - I<br>G.K</td>
+                                                <td><strong>22-9-26<br>Tuesday</strong></td>
+                                                <td>English -I<br>G.K</td>
                                                 <td>Mathematics<br>Cate/Moral</td>
                                                 <td>G.K<br>Computer</td>
                                                 <td>Garo<br>Computer</td>
@@ -453,11 +548,11 @@
                                                 <td>S.St<br>Cate/Moral</td>
                                             </tr>
                                             <tr>
-                                                <td><b>23-9-26<br>Wednesday</b></td>
-                                                <td>English - II<br>Cate/Moral</td>
+                                                <td><strong>23-9-26<br>Wednesday</strong></td>
+                                                <td>English- II<br>Cate/Moral</td>
                                                 <td>Social Studies<br>G.K</td>
                                                 <td>Garo<br>Hindi</td>
-                                                <td>English - I<br>G.K</td>
+                                                <td>English -I<br>G.K</td>
                                                 <td>Mathematics<br>Garo</td>
                                                 <td>S.St<br>Cate/Moral</td>
                                                 <td>H.Ed<br>Cate/Moral</td>
@@ -465,24 +560,24 @@
                                                 <td>H.Ed<br>EVS</td>
                                             </tr>
                                             <tr>
-                                                <td><b>24-9-26<br>Thursday</b></td>
-                                                <td>Garo<br>Science</td>
-                                                <td>English - II<br>Garo</td>
-                                                <td>English - II<br>Mathematics</td>
+                                                <td><strong>24-9-26<br>Thursday</strong></td>
+                                                <td>Garo,<br>Science</td>
+                                                <td>English -II<br>Garo</td>
+                                                <td>English -II<br>Mathematics</td>
                                                 <td>Hindi<br>Social Studies</td>
-                                                <td>Hindi<br>English - I</td>
+                                                <td>Hindi<br>English -I</td>
                                                 <td>English<br>H.Ed</td>
                                                 <td>Social Studies<br>Hindi</td>
                                                 <td>S.St<br>Comp</td>
                                                 <td>Science<br>Garo</td>
                                             </tr>
                                             <tr>
-                                                <td><b>25-9-26<br>Friday</b></td>
-                                                <td>S.St</td>
-                                                <td>English - I</td>
+                                                <td><strong>25-9-26<br>Friday</strong></td>
+                                                <td>S.St,</td>
+                                                <td>English -I</td>
                                                 <td>Social Studies<br>Cate/Moral</td>
                                                 <td>Science<br>Cate/Moral</td>
-                                                <td>Social Studies<br>English - II</td>
+                                                <td>Social Studies<br>English -II</td>
                                                 <td>Science<br>EVS</td>
                                                 <td>Science</td>
                                                 <td>Maths</td>
@@ -493,8 +588,8 @@
                                 </div>
                             </td>
                         </tr>
-
-                        <!-- Remaining Retained Events (Re-numbered Sequence) -->
+                        
+                        <!-- Event Row 2: Completed -->
                         <tr class="event-row-record" data-status="completed">
                             <td>2</td>
                             <td>27-June-2026</td>
@@ -507,6 +602,7 @@
                             </td>
                         </tr>
 
+                        <!-- Event Row 3: Under Process -->
                         <tr class="event-row-record" data-status="process">
                             <td>3</td>
                             <td>27-June-2026</td>
@@ -519,6 +615,7 @@
                             </td>
                         </tr>
 
+                        <!-- Event Row 4: Ongoing -->
                         <tr class="event-row-record" data-status="ongoing">
                             <td>4</td>
                             <td>22-June-2026</td>
@@ -531,6 +628,7 @@
                             </td>
                         </tr>
 
+                        <!-- Event Row 5: Completed -->
                         <tr class="event-row-record" data-status="completed">
                             <td>5</td>
                             <td>16-May-2026</td>
@@ -544,6 +642,7 @@
                             </td>
                         </tr>
 
+                        <!-- Event Row 6: Prospectus -->
                         <tr class="event-row-record" data-status="prospectus">
                             <td>6</td>
                             <td>11-May-2026</td>
@@ -556,6 +655,7 @@
                             </td>
                         </tr>
 
+                        <!-- Event Row 7: Completed -->
                         <tr class="event-row-record" data-status="completed">
                             <td>7</td>
                             <td>11-May-2026</td>
@@ -575,8 +675,69 @@
         </div>
     </div>
 
-    <!-- Modals & Footers remain unchanged -->
+    <!-- Floating Feedback Trigger Button -->
     <button class="feedback-trigger-btn" id="openModalBtn">📝 Give Feedback</button>
+
+    <!-- Modal Pop-Up Structure -->
+    <div class="modal-overlay" id="feedbackModal">
+        <div class="modal-card">
+            <button class="close-modal-btn" id="closeModalBtn">&times;</button>
+            
+            <h2>Public Feedback & Ratings</h2>
+            <p class="subtitle">Your feedback directly updates our administration system records.</p>
+            
+            <form id="feedbackForm">
+                <div class="form-group">
+                    <label for="category">What would you like to give feedback on?</label>
+                    <select id="category" name="category" required>
+                        <option value="">-- Choose Custom Category --</option>
+                        <option value="School Website">🌐 School Website & Online Portal</option>
+                        <option value="Teaching Staff">👨‍🏫 Teachers & Classroom Teaching Quality</option>
+                        <option value="Student Conduct">🎒 Student Behaviour, Activities & Welfare</option>
+                        <option value="School Administration">🏢 School Management & Fees Office</option>
+                        <option value="Infrastructure">🏫 Classrooms, Labs & Sports Facilities</option>
+                        <option value="Transport & Security">🚌 Bus Services & Campus Security</option>
+                        <option value="Canteen/Mess">🍎 School Canteen & Food Hygiene</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Your Overall Rating</label>
+                    <div class="rating-wrapper">
+                        <input type="radio" id="star5" name="rating" value="5" required/><label for="star5">★</label>
+                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4">★</label>
+                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3">★</label>
+                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2">★</label>
+                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1">★</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="suggestions">Your Detailed Suggestions or Feedback</label>
+                    <textarea id="suggestions" name="suggestions" rows="3" placeholder="Share your honest thoughts, ideas, or structural issues here..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="userName">Your Name (Optional)</label>
+                    <input type="text" id="userName" name="userName" placeholder="John Doe">
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="userEmail">Gmail Address</label>
+                        <input type="email" id="userEmail" name="userEmail" placeholder="name@gmail.com" required>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="userMobile">Mobile Number</label>
+                        <input type="tel" id="userMobile" name="userMobile" pattern="\d{10}" placeholder="10-digit mobile" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">Submit Review</button>
+                <div id="statusMsg"></div>
+            </form>
+        </div>
+    </div>
 
     <footer class="site-footer">
         <div class="container">
@@ -585,19 +746,29 @@
         </div>
     </footer>
 
+    <!-- Donation QR Code Floating Box Panel Container -->
+    <div id="donation-qr-box">
+        <button id="close-donation-box" onclick="closeDonationBox()">&times;</button>
+        <div id="donation-qr-title">Support Good Shepherd</div>
+        <div id="qr-code-placeholder">
+            <img src="https://i.postimg.cc/t42Rp5Mq/ba025f5a-46f7-4f4c-b0fd-fe8be4d93747.jpg" alt="Donation QR Code">
+        </div>
+        <div id="qr-scan-label">Scan to Donate</div>
+    </div>
+
     <script src="JavaScript/script.js"></script>
     <script>
-        // Routine Expanding View Mechanism
+        // Routine Table Toggle Expansion 
         function toggleRoutine(rowId) {
             var row = document.getElementById(rowId);
-            if (row.style.display === "none" || row.style.display === "") {
-                row.style.display = "table-row";
+            if (row.classList.contains('active')) {
+                row.classList.remove('active');
             } else {
-                row.style.display = "none";
+                row.classList.add('active');
             }
         }
 
-        // Updated Interactive Status Row Filter Mechanism
+        // Interactive Status Row Filter Mechanism
         function applyEventFilter(statusCategory, buttonElement) {
             var trackingButtons = document.querySelectorAll('.sidebar-btn');
             trackingButtons.forEach(function(btn) {
@@ -606,25 +777,77 @@
             
             buttonElement.classList.add('active');
 
-            var targetedRows = document.querySelectorAll('.event-row-record, .routine-details-row');
+            var targetedRows = document.querySelectorAll('.event-row-record');
             targetedRows.forEach(function(row) {
                 var itemStatus = row.getAttribute('data-status');
-                
-                // Keep routine details bound to their main row logic
-                if (row.classList.contains('routine-details-row')) {
-                    if (statusCategory !== 'all' && itemStatus !== statusCategory) {
-                        row.style.display = 'none';
-                    }
-                    return; 
-                }
-
                 if (statusCategory === 'all' || itemStatus === statusCategory) {
-                    row.style.display = '';
+                    // Respect the display logic for routine rows to prevent them from breaking the layout
+                    if(row.classList.contains('routine-details-row')) {
+                        if(row.classList.contains('active')) {
+                            row.style.display = 'table-row';
+                        } else {
+                            row.style.display = '';
+                        }
+                    } else {
+                        row.style.display = '';
+                    }
                 } else {
                     row.style.display = 'none';
                 }
             });
         }
+
+        // Floating Support Widget Actions
+        function closeDonationBox() {
+            document.getElementById('donation-qr-box').classList.remove('show');
+        }
+
+        setTimeout(function() {
+            document.getElementById('donation-qr-box').classList.add('show');
+        }, 1500);
+
+        // Feedback Modal Controls and Sheet Submission Integration
+        const modal = document.getElementById('feedbackModal');
+        const openBtn = document.getElementById('openModalBtn');
+        const closeBtn = document.getElementById('closeModalBtn');
+
+        openBtn.onclick = () => modal.style.display = 'flex';
+        closeBtn.onclick = () => modal.style.display = 'none';
+        window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; }
+
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyGdVJyh5pxQg5LxLdPv_l4Tly72TKl4cLKZcW1ieIAubalzILU7qyG4oxp2SnuIXdI/exec';
+        const form = document.getElementById('feedbackForm');
+        const msg = document.getElementById('statusMsg');
+        const btn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            btn.disabled = true;
+            btn.innerText = 'Sending...';
+            msg.style.display = 'block';
+            msg.style.background = '#ebf8ff';
+            msg.style.color = '#2b6cb0';
+            msg.innerText = 'Submitting entry data to database sheet...';
+
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+                    btn.disabled = false;
+                    btn.innerText = 'Submit Review';
+                    msg.style.background = '#f0fff4';
+                    msg.style.color = '#38a169';
+                    msg.innerText = 'Thank you! Your feedback has been logged directly.';
+                    form.reset();
+                    setTimeout(() => { modal.style.display = 'none'; msg.style.display = 'none'; }, 2000);
+                })
+                .catch(error => {
+                    btn.disabled = false;
+                    btn.innerText = 'Submit Review';
+                    msg.style.background = '#fff5f5';
+                    msg.style.color = '#e53e3e';
+                    msg.innerText = 'Error submitting feedback. Connection dropped.';
+                    console.error('Error!', error.message);
+                });
+        });
     </script>
 </body>
 </html>
