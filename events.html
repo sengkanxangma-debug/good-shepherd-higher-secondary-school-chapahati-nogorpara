@@ -108,7 +108,7 @@
         }
 
         .sidebar-title-block {
-            background-color: #00cc7a; /* Vibrant green accent header from reference image */
+            background-color: #00cc7a;
             color: #ffffff;
             padding: 16px 20px;
             font-weight: bold;
@@ -137,15 +137,8 @@
             transition: all 0.2s ease;
         }
 
-        .sidebar-btn:last-child {
-            border-bottom: none;
-        }
-
-        .sidebar-btn:hover {
-            background-color: #f9f9f9;
-            color: #00cc7a;
-        }
-
+        .sidebar-btn:last-child { border-bottom: none; }
+        .sidebar-btn:hover { background-color: #f9f9f9; color: #00cc7a; }
         .sidebar-btn.active {
             background-color: #f2fbf7;
             color: #00cc7a;
@@ -163,252 +156,121 @@
             padding: 25px;
         }
 
-        .custom-event-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-family: sans-serif;
-        }
+        .custom-event-table { width: 100%; border-collapse: collapse; font-family: sans-serif; }
+        .custom-event-table th { background-color: #1d4e73; color: #ffffff; padding: 14px 16px; font-size: 14px; font-weight: 600; text-align: left; }
+        .custom-event-table td { padding: 16px; border-bottom: 1px solid #eef2f5; color: #495057; font-size: 14px; vertical-align: middle; }
+        .custom-event-table tr:last-child td { border-bottom: none; }
+        .custom-event-table tbody tr:hover { background-color: #fcfdfe; }
 
-        /* Deep Navy Blue Row Header From Image */
-        .custom-event-table th {
-            background-color: #1d4e73;
-            color: #ffffff;
-            padding: 14px 16px;
-            font-size: 14px;
-            font-weight: 600;
-            text-align: left;
-        }
+        .event-title-text { color: #333333; font-size: 14.5px; font-weight: 500; text-decoration: none; }
+        .event-title-text:hover { color: #1d4e73; }
+        .meta-text-inline { font-size: 12.5px; color: #777777; margin-top: 5px; }
 
-        .custom-event-table td {
-            padding: 16px;
-            border-bottom: 1px solid #eef2f5;
-            color: #495057;
-            font-size: 14px;
-            vertical-align: middle;
-        }
-
-        .custom-event-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .custom-event-table tbody tr:hover {
-            background-color: #fcfdfe;
-        }
-
-        /* Inline Clean Meta Details */
-        .event-title-text {
-            color: #333333;
-            font-size: 14.5px;
-            font-weight: 500;
-            text-decoration: none;
-        }
-        
-        .event-title-text:hover {
-            color: #1d4e73;
-        }
-
-        /* Animated Text for Professional Look */
-        .animated-text {
-            font-size: 16px;
-            font-weight: 700;
-            background: linear-gradient(90deg, #d32f2f, #ff8c00, #d32f2f);
-            background-size: 200% auto;
-            color: #000;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 3s linear infinite;
-        }
-        @keyframes shine {
-            to { background-position: 200% center; }
-        }
-
-        .meta-text-inline {
-            font-size: 12.5px;
-            color: #777777;
-            margin-top: 5px;
-        }
-
-        /* Professional Action Buttons (Right-aligned layout) */
-        .action-cell {
-            text-align: right;
-            white-space: nowrap;
-        }
-
-        .btn-attachment {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            padding: 8px 16px;
-            color: #ffffff !important;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
-            border-radius: 4px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-
+        /* Professional Action Buttons */
+        .action-cell { text-align: right; white-space: nowrap; }
+        .btn-attachment { display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 8px 16px; color: #ffffff !important; text-decoration: none; font-size: 13px; font-weight: 500; border-radius: 4px; transition: background-color 0.2s ease; }
         .btn-link-style { background-color: #404040; }
         .btn-link-style:hover { background-color: #1a1a1a; }
-        
         .btn-download-style { background-color: #0000FF; }
         .btn-download-style:hover { background-color: #0000CD; }
-        
         .btn-file-style { background-color: #D2691E; }
         .btn-file-style:hover { background-color: #A0522D; }
 
-        .btn-view-style { background-color: #800080; }
-        .btn-view-style:hover { background-color: #4b0082; }
-
         /* Status Badge Indicators */
-        .status-pill {
-            display: inline-block;
-            font-size: 11px;
-            font-weight: bold;
-            padding: 3px 8px;
-            border-radius: 12px;
-            text-transform: uppercase;
-        }
-        .pill-upcoming { 
-            background-color: #ff8c00; 
-            color: #ffffff; 
-            animation: pulse 2s infinite; 
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 140, 0, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(255, 140, 0, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 140, 0, 0); }
-        }
-        .pill-process { background-color: #00008B; color: #ffffff; } 
-        .pill-ongoing { background-color: #006400; color: #ffffff; } 
+        .status-pill { display: inline-block; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 12px; text-transform: uppercase; }
+        .pill-process { background-color: #00008B; color: #ffffff; }
+        .pill-ongoing { background-color: #006400; color: #ffffff; }
         .pill-prospectus { background-color: #ffebee; color: #c62828; } 
-        .pill-completed { background-color: #800000; color: #ffffff; } 
+        .pill-completed { background-color: #800000; color: #ffffff; }
 
-        /* Expandable Routine Table Styles */
-        .routine-details-row {
-            display: none;
-            background-color: #f9fbfd;
-        }
-        .routine-details-row.active {
-            display: table-row;
-            animation: fadeIn 0.4s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .routine-table-container {
-            padding: 15px; 
-            border-radius: 8px; 
-            border: 1px solid #1d4e73; 
-            overflow-x: auto;
-        }
-        .routine-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 10px 0;
-            font-size: 13px;
-            text-align: center;
-        }
-        .routine-table th, .routine-table td {
-            border: 1px solid #d1d5db;
-            padding: 8px;
-            vertical-align: middle;
-        }
-        .routine-table th {
-            background-color: #1d4e73;
+        /* --- UPCOMING EVENT ANIMATED BANNER --- */
+        .upcoming-banner {
+            background: linear-gradient(135deg, #1d4e73 0%, #00cc7a 100%);
             color: #ffffff;
-            font-weight: 600;
+            padding: 30px 40px;
+            border-radius: 8px;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 10px 20px rgba(0,204,122,0.15);
+            animation: bannerGlow 2.5s infinite alternate;
+            position: relative;
+            overflow: hidden;
         }
-        .routine-table tr:nth-child(even) { background-color: #f3f4f6; }
-        .routine-table tr:hover { background-color: #e5e7eb; }
-
-        /* Donation Box Floating Panel Styles */
-        #donation-qr-box {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 220px;
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
-            padding: 20px;
-            text-align: center;
-            z-index: 9999;
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+        @keyframes bannerGlow {
+            from { box-shadow: 0 5px 15px rgba(29, 78, 115, 0.2); transform: translateY(0); }
+            to { box-shadow: 0 12px 25px rgba(0, 204, 122, 0.4); transform: translateY(-2px); }
         }
-
-        #donation-qr-box.show {
-            opacity: 1;
-            pointer-events: auto;
-            animation: floatHover 4s ease-in-out infinite; 
+        .upcoming-banner::before {
+            content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: rgba(255,255,255,0.05); transform: rotate(30deg); pointer-events: none;
         }
-
-        @keyframes floatHover {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0px); }
-        }
-
-        #close-donation-box {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            background: transparent;
-            border: none;
-            font-size: 24px;
-            color: #888;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        #close-donation-box:hover { color: #ff0000; }
-        #donation-qr-title { font-weight: bold; font-size: 1.1rem; color: #333; margin-bottom: 12px; margin-top: 5px; }
-        #qr-code-placeholder img { width: 100%; max-width: 160px; height: auto; border-radius: 8px; border: 2px solid #f0f0f0; }
-        #qr-scan-label { margin-top: 10px; font-size: 0.9rem; color: #666; font-weight: 500; }
-
-        /* --- FEEDBACK POP-UP MODAL STYLES --- */
-        .feedback-trigger-btn { position: fixed; bottom: 30px; left: 30px; background: #3182ce; color: white; border: none; padding: 15px 25px; font-size: 16px; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 15px rgba(49,130,206,0.4); z-index: 999; transition: transform 0.2s, background 0.2s; }
-        .feedback-trigger-btn:hover { background: #2b6cb0; transform: scale(1.05); }
-
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(4px); }
-
-        .modal-card { background: white; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; padding: 30px; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); position: relative; animation: slideIn 0.3s ease-out; }
-        @keyframes slideIn { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-        .close-modal-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; color: #a0aec0; cursor: pointer; border: none; background: none; }
-        .close-modal-btn:hover { color: #4a5568; }
-
-        .modal-card h2 { margin: 0 0 5px 0; color: #2d3748; font-size: 22px; }
-        .modal-card p.subtitle { margin: 0 0 20px 0; color: #718096; font-size: 14px; }
-        .modal-card .form-group { margin-bottom: 16px; }
-        .modal-card label { display: block; margin-bottom: 6px; font-weight: 600; color: #4a5568; font-size: 13px; }
-        .modal-card select, .modal-card textarea, .modal-card input { width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px; box-sizing: border-box; font-size: 14px; background-color: #f8fafc; }
-        .modal-card select:focus, .modal-card textarea:focus, .modal-card input:focus { outline: none; border-color: #3182ce; background-color: #fff; }
-        
-        .rating-wrapper { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 6px; }
-        .rating-wrapper input { display: none; }
-        .rating-wrapper label { font-size: 32px; color: #cbd5e0; cursor: pointer; transition: color 0.1s; margin: 0; }
-        .rating-wrapper label:hover, .rating-wrapper label:hover ~ label, .rating-wrapper input:checked ~ label { color: #ecc94b; }
-        
-        .submit-btn { width: 100%; background: #48bb78; color: white; border: none; padding: 12px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; margin-top: 10px; transition: background 0.2s; }
-        .submit-btn:hover { background: #38a169; }
-        .submit-btn:disabled { background: #a0aec0; cursor: not-allowed; }
-        #statusMsg { text-align: center; font-weight: bold; margin-top: 15px; display: none; padding: 10px; border-radius: 6px; font-size: 14px; }
+        .upcoming-info h2 { font-size: 26px; margin: 0 0 5px 0; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; }
+        .upcoming-info p { margin: 0; font-size: 16px; opacity: 0.9; }
+        .upcoming-actions { display: flex; gap: 15px; z-index: 2; }
+        .btn-banner-view { background: #ffffff; color: #1d4e73; padding: 12px 24px; font-size: 15px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .btn-banner-view:hover { background: #f0f0f0; transform: scale(1.05); }
+        .btn-banner-download { background: #0000FF; color: #ffffff; text-decoration: none; padding: 12px 24px; font-size: 15px; font-weight: bold; border-radius: 5px; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .btn-banner-download:hover { background: #0000CD; transform: scale(1.05); }
 
         @media (max-width: 900px) {
+            .upcoming-banner { flex-direction: column; text-align: center; gap: 20px; }
             .dashboard-container { flex-direction: column; }
             .event-sidebar { width: 100%; }
             .sidebar-menu { flex-direction: row; flex-wrap: wrap; }
             .sidebar-btn { flex-grow: 1; text-align: center; }
             .sidebar-btn.active { border-left: none; border-bottom: 4px solid #00cc7a; padding-left: 20px; }
         }
+
+        /* --- ROUTINE MODAL STYLES --- */
+        .routine-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 10000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .routine-content { background: #ffffff; width: 95%; max-width: 1050px; max-height: 90vh; overflow-y: auto; padding: 30px; border-radius: 8px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); position: relative; animation: slideDownModal 0.4s ease-out; }
+        @keyframes slideDownModal { from { transform: translateY(-40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .close-routine { position: absolute; top: 15px; right: 20px; font-size: 30px; color: #555; cursor: pointer; border: none; background: transparent; transition: color 0.2s; }
+        .close-routine:hover { color: #d93025; }
+        .routine-header { text-align: center; margin-bottom: 25px; }
+        .routine-header h2 { color: #1d4e73; font-size: 28px; margin: 0 0 5px 0; }
+        .routine-table-wrapper { width: 100%; overflow-x: auto; }
+        .data-routine-table { width: 100%; border-collapse: collapse; min-width: 800px; font-size: 13.5px; }
+        .data-routine-table th, .data-routine-table td { border: 1px solid #cbd5e1; padding: 12px 8px; text-align: center; vertical-align: middle; }
+        .data-routine-table th { background-color: #f1f5f9; color: #334155; font-weight: bold; }
+        .data-routine-table tr:nth-child(even) { background-color: #f8fafc; }
+        .data-routine-table td strong { color: #1d4e73; display: block; margin-bottom: 3px; font-size: 14px; }
+        .auth-signature { text-align: right; margin-top: 30px; font-style: italic; color: #475569; padding-right: 20px; line-height: 1.5; }
+        
+        /* Floating Triggers */
+        #donation-qr-box { position: fixed; bottom: 30px; right: 30px; width: 220px; background-color: #ffffff; border-radius: 12px; box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15); padding: 20px; text-align: center; z-index: 9999; opacity: 0; pointer-events: none; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+        #donation-qr-box.show { opacity: 1; pointer-events: auto; animation: floatHover 4s ease-in-out infinite; }
+        @keyframes floatHover { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
+        #close-donation-box { position: absolute; top: 10px; right: 15px; background: transparent; border: none; font-size: 24px; color: #888; cursor: pointer; transition: color 0.2s; }
+        #close-donation-box:hover { color: #ff0000; }
+        #donation-qr-title { font-weight: bold; font-size: 1.1rem; color: #333; margin-bottom: 12px; margin-top: 5px; }
+        #qr-code-placeholder img { width: 100%; max-width: 160px; height: auto; border-radius: 8px; border: 2px solid #f0f0f0; }
+        #qr-scan-label { margin-top: 10px; font-size: 0.9rem; color: #666; font-weight: 500; }
+
+        /* Modal / Feedback Styles */
+        .feedback-trigger-btn { position: fixed; bottom: 30px; left: 30px; background: #3182ce; color: white; border: none; padding: 15px 25px; font-size: 16px; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 15px rgba(49,130,206,0.4); z-index: 999; transition: transform 0.2s, background 0.2s; }
+        .feedback-trigger-btn:hover { background: #2b6cb0; transform: scale(1.05); }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(4px); }
+        .modal-card { background: white; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; padding: 30px; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); position: relative; animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .close-modal-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; color: #a0aec0; cursor: pointer; border: none; background: none; }
+        .close-modal-btn:hover { color: #4a5568; }
+        .modal-card h2 { margin: 0 0 5px 0; color: #2d3748; font-size: 22px; }
+        .modal-card p.subtitle { margin: 0 0 20px 0; color: #718096; font-size: 14px; }
+        .modal-card .form-group { margin-bottom: 16px; }
+        .modal-card label { display: block; margin-bottom: 6px; font-weight: 600; color: #4a5568; font-size: 13px; }
+        .modal-card select, .modal-card textarea, .modal-card input { width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px; box-sizing: border-box; font-size: 14px; background-color: #f8fafc; }
+        .modal-card select:focus, .modal-card textarea:focus, .modal-card input:focus { outline: none; border-color: #3182ce; background-color: #fff; }
+        .rating-wrapper { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 6px; }
+        .rating-wrapper input { display: none; }
+        .rating-wrapper label { font-size: 32px; color: #cbd5e0; cursor: pointer; transition: color 0.1s; margin: 0; }
+        .rating-wrapper label:hover, .rating-wrapper label:hover ~ label, .rating-wrapper input:checked ~ label { color: #ecc94b; }
+        .submit-btn { width: 100%; background: #48bb78; color: white; border: none; padding: 12px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; margin-top: 10px; transition: background 0.2s; }
+        .submit-btn:hover { background: #38a169; }
+        .submit-btn:disabled { background: #a0aec0; cursor: not-allowed; }
+        #statusMsg { text-align: center; font-weight: bold; margin-top: 15px; display: none; padding: 10px; border-radius: 6px; font-size: 14px; }
     </style>
 </head>
 <body>
@@ -458,220 +320,232 @@
         </div>
     </div>
 
-    <!-- Refactored Minimalist Main Section Box Layout -->
     <div class="main-section">
-
-        <div class="container dashboard-container">
+        <div class="container">
             
-            <!-- Left Filtering Dynamic Navigation Panel Sidebar -->
-            <div class="event-sidebar">
-                <div class="sidebar-title-block">Events</div>
-                <div class="sidebar-menu">
-                    <button class="sidebar-btn active" onclick="applyEventFilter('all', this)">All Events</button>
-                    <button class="sidebar-btn" onclick="applyEventFilter('upcoming', this)">Upcoming</button>
-                    <button class="sidebar-btn" onclick="applyEventFilter('process', this)">Under Process</button>
-                    <button class="sidebar-btn" onclick="applyEventFilter('ongoing', this)">Ongoing</button>
-                    <button class="sidebar-btn" onclick="applyEventFilter('prospectus', this)">Prospectus</button>
-                    <button class="sidebar-btn" onclick="applyEventFilter('completed', this)">Completed</button>
+            <!-- Professional Upcoming Event Box (Replacing School Week Celebration) -->
+            <div class="upcoming-banner">
+                <div class="upcoming-info">
+                    <h2>📅 Upcoming Notice</h2>
+                    <p style="font-size: 1.4rem; font-weight: bold; margin-bottom: 5px;">2nd Quarterly Unit Test - 2026</p>
+                    <p>Schedule: 21st Sep 2026 – 25th Sep 2026 | Classes: I to IX</p>
+                </div>
+                <div class="upcoming-actions">
+                    <button class="btn-banner-view" onclick="openRoutineModal()">👁️ View Routine Details</button>
+                    <!-- Make sure the path matches your actual generated PDF -->
+                    <a href="images/2nd_Quarterly_Routine_2026.pdf" download="2nd_Quarterly_Routine_2026.pdf" class="btn-banner-download">📥 Download PDF</a>
                 </div>
             </div>
 
-            <!-- Right Structured Clean Sheet Data Grid Table View Box -->
-            <div class="event-display-box">
-                <table class="custom-event-table">
+            <div class="dashboard-container">
+                <!-- Left Filtering Dynamic Navigation Panel Sidebar -->
+                <div class="event-sidebar">
+                    <div class="sidebar-title-block">Events</div>
+                    <div class="sidebar-menu">
+                        <button class="sidebar-btn active" onclick="applyEventFilter('all', this)">All Events</button>
+                        <button class="sidebar-btn" onclick="applyEventFilter('process', this)">Under Process</button>
+                        <button class="sidebar-btn" onclick="applyEventFilter('ongoing', this)">Ongoing</button>
+                        <button class="sidebar-btn" onclick="applyEventFilter('prospectus', this)">Prospectus</button>
+                        <button class="sidebar-btn" onclick="applyEventFilter('completed', this)">Completed</button>
+                    </div>
+                </div>
+
+                <!-- Right Structured Clean Sheet Data Grid Table View Box -->
+                <div class="event-display-box">
+                    <table class="custom-event-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 8%;">Sl. No.</th>
+                                <th style="width: 15%;">Date</th>
+                                <th style="width: 57%;">Event Details</th>
+                                <th style="width: 20%; text-align: right;">Attachment</th>
+                            </tr>
+                        </thead>
+                        <tbody id="event-table-body">
+                            
+                            <!-- Notice for XI Registration Link (Now Sl. No 1) -->
+                            <tr class="event-row-record" data-status="completed">
+                                <td>1</td>
+                                <td>27-June-2026</td>
+                                <td>
+                                    <span class="event-title-text">Notice for XI Registration Link</span>
+                                    <span class="status-pill pill-completed" style="margin-left: 8px;">Completed</span>
+                                </td>
+                                <td class="action-cell">
+                                    <a href="" target="_blank" class="btn-attachment btn-link-style">🔗 Open Link</a>
+                                </td>
+                            </tr>
+
+                            <!-- Notice for Past Pupil And Students (Now Sl. No 2) -->
+                            <tr class="event-row-record" data-status="process">
+                                <td>2</td>
+                                <td>27-June-2026</td>
+                                <td>
+                                    <span class="event-title-text">Notice for Past Pupil And Students</span>
+                                    <span class="status-pill pill-process" style="margin-left: 8px;">Under Process</span>
+                                </td>
+                                <td class="action-cell">
+                                    <a href="" target="_blank" class="btn-attachment btn-link-style">🔗 Open Link</a>
+                                </td>
+                            </tr>
+
+                            <!-- Update Your UDISE + Details -->
+                            <tr class="event-row-record" data-status="ongoing">
+                                <td>3</td>
+                                <td>22-June-2026</td>
+                                <td>
+                                    <span class="event-title-text">Update Your UDISE + Details</span>
+                                    <span class="status-pill pill-ongoing" style="margin-left: 8px;">Ongoing</span>
+                                </td>
+                                <td class="action-cell">
+                                    <a href="udiseentry.html" target="_blank" class="btn-attachment btn-link-style">🔗 Open Link</a>
+                                </td>
+                            </tr>
+
+                            <!-- Half Yearly Examination of 2026 -->
+                            <tr class="event-row-record" data-status="completed">
+                                <td>4</td>
+                                <td>16-May-2026</td>
+                                <td>
+                                    <strong class="event-title-text" style="font-weight: 600;">Half Yearly Examination of 2026</strong>
+                                    <span class="status-pill pill-completed" style="margin-left: 8px;">Completed</span>
+                                    <div class="meta-text-inline">📅 <b>Date:</b> 17-06-2026 till 29-06-2026</div>
+                                </td>
+                                <td class="action-cell">
+                                    <a href="" class="btn-attachment btn-file-style">Download</a>
+                                </td>
+                            </tr>
+
+                            <!-- Prospectus for Class XI Pioneer Batch -->
+                            <tr class="event-row-record" data-status="prospectus">
+                                <td>5</td>
+                                <td>11-May-2026</td>
+                                <td>
+                                    <a href="https://gshsschapahati.jo3.org/events.html" class="event-title-text">Prospectus for Class XI Pioneer Batch Higher Secondary Section (2026-27)</a>
+                                    <span class="status-pill pill-prospectus" style="margin-left: 8px;">Prospectus</span>
+                                </td>
+                                <td class="action-cell">
+                                    <a href="images/prospectus.pdf" target="_blank" download class="btn-attachment btn-download-style">Download</a>
+                                </td>
+                            </tr>
+
+                            <!-- Inauguration of Higher Secondary Section -->
+                            <tr class="event-row-record" data-status="completed">
+                                <td>6</td>
+                                <td>11-May-2026</td>
+                                <td>
+                                    <a href="https://gshsschapahati.jo3.org/events.html" class="event-title-text">Inauguration of Higher Secondary Section for the Session of New Academic Term (2026-27)</a>
+                                    <span class="status-pill pill-completed" style="margin-left: 8px;">Completed</span>
+                                </td>
+                                <td class="action-cell">
+                                    <a href="blog.html" target="_blank" class="btn-attachment btn-link-style">Open View</a>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Routine Expansion Modal -->
+    <div class="routine-modal" id="routineModalData">
+        <div class="routine-content">
+            <button class="close-routine" onclick="closeRoutineModal()">&times;</button>
+            
+            <div class="routine-header">
+                <h2>2nd Quarterly Unit Test - 2026</h2>
+                <p style="color: #64748b; margin-top: 5px;">Official Routine Document Schedule</p>
+            </div>
+
+            <div class="routine-table-wrapper">
+                <table class="data-routine-table">
                     <thead>
                         <tr>
-                            <th style="width: 8%;">Sl. No.</th>
-                            <th style="width: 15%;">Date</th>
-                            <th style="width: 57%;">Event Details</th>
-                            <th style="width: 20%; text-align: right;">Attachment</th>
+                            <th>Date & Day</th>
+                            <th>I</th>
+                            <th>II</th>
+                            <th>III</th>
+                            <th>IV</th>
+                            <th>V</th>
+                            <th>VI</th>
+                            <th>VII</th>
+                            <th>VIII</th>
+                            <th>IX</th>
                         </tr>
                     </thead>
-                    <tbody id="event-table-body">
-                        
-                        <!-- Event Row 1: Upcoming Event -->
-                        <tr class="event-row-record" data-status="upcoming">
-                            <td>1</td>
-                            <td>12-Sept-2026</td>
-                            <td>
-                                <span class="event-title-text animated-text">2nd Quarterly Unit Test - 2026 (Class I to IX)</span>
-                                <span class="status-pill pill-upcoming" style="margin-left: 8px;">Upcoming</span>
-                                <div class="meta-text-inline">📅 <b>Dates:</b> 21-09-2026 to 25-09-2026</div>
-                            </td>
-                            <td class="action-cell">
-                                <button onclick="toggleRoutine('routine-2nd-quarterly')" class="btn-attachment btn-view-style">👁 View Routine</button>
-                            </td>
+                    <tbody>
+                        <tr>
+                            <td><strong>21-9-26</strong>Monday</td>
+                            <td>Maths</td>
+                            <td>Science</td>
+                            <td>Science<br>English -I</td>
+                            <td>Mathematics<br>English -II</td>
+                            <td>Science<br>Cate/Moral</td>
+                            <td>Maths<br>Comp</td>
+                            <td>Maths<br>Garo</td>
+                            <td>Science<br>EVS</td>
+                            <td>English<br>Comp</td>
                         </tr>
-                        <!-- Hidden Routine Expandable Details -->
-                        <tr id="routine-2nd-quarterly" class="routine-details-row event-row-record" data-status="upcoming">
-                            <td colspan="4" style="padding: 0;">
-                                <div class="routine-table-container">
-                                    <h3 style="text-align: center; color: #1d4e73; margin-top: 5px;">2nd Quarterly Unit Test - 2026 Schedule</h3>
-                                    <table class="routine-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Date & Day</th>
-                                                <th>I</th>
-                                                <th>II</th>
-                                                <th>III</th>
-                                                <th>IV</th>
-                                                <th>V</th>
-                                                <th>VI</th>
-                                                <th>VII</th>
-                                                <th>VIII</th>
-                                                <th>IX</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><strong>21-9-26<br>Monday</strong></td>
-                                                <td>Maths</td>
-                                                <td>Science</td>
-                                                <td>Science<br>English -I</td>
-                                                <td>Mathematics<br>English -II</td>
-                                                <td>Science<br>Cate/Moral</td>
-                                                <td>Maths<br>Comp</td>
-                                                <td>Maths<br>Garo</td>
-                                                <td>Science<br>EVS</td>
-                                                <td>English<br>Comp</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>22-9-26<br>Tuesday</strong></td>
-                                                <td>English -I<br>G.K</td>
-                                                <td>Mathematics<br>Cate/Moral</td>
-                                                <td>G.K<br>Computer</td>
-                                                <td>Garo<br>Computer</td>
-                                                <td>G.K<br>Computer</td>
-                                                <td>Hindi<br>Garo</td>
-                                                <td>English<br>Comp</td>
-                                                <td>English<br>Cate/Moral</td>
-                                                <td>S.St<br>Cate/Moral</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>23-9-26<br>Wednesday</strong></td>
-                                                <td>English- II<br>Cate/Moral</td>
-                                                <td>Social Studies<br>G.K</td>
-                                                <td>Garo<br>Hindi</td>
-                                                <td>English -I<br>G.K</td>
-                                                <td>Mathematics<br>Garo</td>
-                                                <td>S.St<br>Cate/Moral</td>
-                                                <td>H.Ed<br>Cate/Moral</td>
-                                                <td>H.Ed<br>Garo</td>
-                                                <td>H.Ed<br>EVS</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>24-9-26<br>Thursday</strong></td>
-                                                <td>Garo,<br>Science</td>
-                                                <td>English -II<br>Garo</td>
-                                                <td>English -II<br>Mathematics</td>
-                                                <td>Hindi<br>Social Studies</td>
-                                                <td>Hindi<br>English -I</td>
-                                                <td>English<br>H.Ed</td>
-                                                <td>Social Studies<br>Hindi</td>
-                                                <td>S.St<br>Comp</td>
-                                                <td>Science<br>Garo</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>25-9-26<br>Friday</strong></td>
-                                                <td>S.St,</td>
-                                                <td>English -I</td>
-                                                <td>Social Studies<br>Cate/Moral</td>
-                                                <td>Science<br>Cate/Moral</td>
-                                                <td>Social Studies<br>English -II</td>
-                                                <td>Science<br>EVS</td>
-                                                <td>Science</td>
-                                                <td>Maths</td>
-                                                <td>Maths</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </td>
+                        <tr>
+                            <td><strong>22-9-26</strong>Tuesday</td>
+                            <td>English -I<br>G.K</td>
+                            <td>Mathematics<br>Cate/Moral</td>
+                            <td>G.K<br>Computer</td>
+                            <td>Garo<br>Computer</td>
+                            <td>G.K<br>Computer</td>
+                            <td>Hindi<br>Garo</td>
+                            <td>English<br>Comp</td>
+                            <td>English<br>Cate/Moral</td>
+                            <td>S.St<br>Cate/Moral</td>
                         </tr>
-                        
-                        <!-- Event Row 2: Completed -->
-                        <tr class="event-row-record" data-status="completed">
-                            <td>2</td>
-                            <td>27-June-2026</td>
-                            <td>
-                                <span class="event-title-text">Notice for XI Registration Link</span>
-                                <span class="status-pill pill-completed" style="margin-left: 8px;">Completed</span>
-                            </td>
-                            <td class="action-cell">
-                                <a href="" target="_blank" class="btn-attachment btn-link-style">🔗 Open Link</a>
-                            </td>
+                        <tr>
+                            <td><strong>23-9-26</strong>Wednesday</td>
+                            <td>English- II<br>Cate/Moral</td>
+                            <td>Social Studies<br>G.K</td>
+                            <td>Garo<br>Hindi</td>
+                            <td>English -I<br>G.K</td>
+                            <td>Mathematics<br>Garo</td>
+                            <td>S.St<br>Cate/Moral</td>
+                            <td>H.Ed<br>Cate/Moral</td>
+                            <td>H.Ed<br>Garo</td>
+                            <td>H.Ed<br>EVS</td>
                         </tr>
-
-                        <!-- Event Row 3: Under Process -->
-                        <tr class="event-row-record" data-status="process">
-                            <td>3</td>
-                            <td>27-June-2026</td>
-                            <td>
-                                <span class="event-title-text">Notice for Past Pupil And Students</span>
-                                <span class="status-pill pill-process" style="margin-left: 8px;">Under Process</span>
-                            </td>
-                            <td class="action-cell">
-                                <a href="" target="_blank" class="btn-attachment btn-link-style">🔗 Open Link</a>
-                            </td>
+                        <tr>
+                            <td><strong>24-9-26</strong>Thursday</td>
+                            <td>Garo,<br>Science</td>
+                            <td>English -II<br>Garo</td>
+                            <td>English -II<br>Mathematics</td>
+                            <td>Hindi<br>Social Studies</td>
+                            <td>Hindi<br>English -I</td>
+                            <td>English<br>H.Ed</td>
+                            <td>Social Studies<br>Hindi</td>
+                            <td>S.St<br>Comp</td>
+                            <td>Science<br>Garo</td>
                         </tr>
-
-                        <!-- Event Row 4: Ongoing -->
-                        <tr class="event-row-record" data-status="ongoing">
-                            <td>4</td>
-                            <td>22-June-2026</td>
-                            <td>
-                                <span class="event-title-text">Update Your UDISE + Details</span>
-                                <span class="status-pill pill-ongoing" style="margin-left: 8px;">Ongoing</span>
-                            </td>
-                            <td class="action-cell">
-                                <a href="udiseentry.html" target="_blank" class="btn-attachment btn-link-style">🔗 Open Link</a>
-                            </td>
+                        <tr>
+                            <td><strong>25-9-26</strong>Friday</td>
+                            <td>S.St,</td>
+                            <td>English -I</td>
+                            <td>Social Studies<br>Cate/Moral</td>
+                            <td>Science<br>Cate/Moral</td>
+                            <td>Social Studies<br>English -II</td>
+                            <td>Science<br>EVS</td>
+                            <td>Science</td>
+                            <td>Maths</td>
+                            <td>Maths</td>
                         </tr>
-
-                        <!-- Event Row 5: Completed -->
-                        <tr class="event-row-record" data-status="completed">
-                            <td>5</td>
-                            <td>16-May-2026</td>
-                            <td>
-                                <strong class="event-title-text" style="font-weight: 600;">Half Yearly Examination of 2026</strong>
-                                <span class="status-pill pill-completed" style="margin-left: 8px;">Completed</span>
-                                <div class="meta-text-inline">📅 <b>Date:</b> 17-06-2026 till 29-06-2026</div>
-                            </td>
-                            <td class="action-cell">
-                                <a href="" class="btn-attachment btn-file-style">Download</a>
-                            </td>
-                        </tr>
-
-                        <!-- Event Row 6: Prospectus -->
-                        <tr class="event-row-record" data-status="prospectus">
-                            <td>6</td>
-                            <td>11-May-2026</td>
-                            <td>
-                                <a href="https://gshsschapahati.jo3.org/events.html" class="event-title-text">Prospectus for Class XI Pioneer Batch Higher Secondary Section (2026-27)</a>
-                                <span class="status-pill pill-prospectus" style="margin-left: 8px;">Prospectus</span>
-                            </td>
-                            <td class="action-cell">
-                                <a href="images/prospectus.pdf" target="_blank" download class="btn-attachment btn-download-style">Download</a>
-                            </td>
-                        </tr>
-
-                        <!-- Event Row 7: Completed -->
-                        <tr class="event-row-record" data-status="completed">
-                            <td>7</td>
-                            <td>11-May-2026</td>
-                            <td>
-                                <a href="https://gshsschapahati.jo3.org/events.html" class="event-title-text">Inauguration of Higher Secondary Section for the Session of New Academic Term (2026-27)</a>
-                                <span class="status-pill pill-completed" style="margin-left: 8px;">Completed</span>
-                            </td>
-                            <td class="action-cell">
-                                <a href="blog.html" target="_blank" class="btn-attachment btn-link-style">Open View</a>
-                            </td>
-                        </tr>
-
                     </tbody>
                 </table>
             </div>
 
+            <div class="auth-signature">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Fake_signature.png" alt="Signature" style="height: 40px; opacity: 0.7; margin-bottom: 5px;">
+                <p style="margin:0;"><strong>Headmistress</strong></p>
+                <p style="margin:0;">Good Shepherd Secondary School</p>
+                <p style="margin:0;">Chapahati, South West Garo Hills</p>
+            </div>
         </div>
     </div>
 
@@ -682,7 +556,6 @@
     <div class="modal-overlay" id="feedbackModal">
         <div class="modal-card">
             <button class="close-modal-btn" id="closeModalBtn">&times;</button>
-            
             <h2>Public Feedback & Ratings</h2>
             <p class="subtitle">Your feedback directly updates our administration system records.</p>
             
@@ -700,7 +573,6 @@
                         <option value="Canteen/Mess">🍎 School Canteen & Food Hygiene</option>
                     </select>
                 </div>
-
                 <div class="form-group">
                     <label>Your Overall Rating</label>
                     <div class="rating-wrapper">
@@ -711,17 +583,14 @@
                         <input type="radio" id="star1" name="rating" value="1" /><label for="star1">★</label>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label for="suggestions">Your Detailed Suggestions or Feedback</label>
                     <textarea id="suggestions" name="suggestions" rows="3" placeholder="Share your honest thoughts, ideas, or structural issues here..." required></textarea>
                 </div>
-
                 <div class="form-group">
                     <label for="userName">Your Name (Optional)</label>
                     <input type="text" id="userName" name="userName" placeholder="John Doe">
                 </div>
-
                 <div style="display: flex; gap: 10px;">
                     <div class="form-group" style="flex: 1;">
                         <label for="userEmail">Gmail Address</label>
@@ -732,7 +601,6 @@
                         <input type="tel" id="userMobile" name="userMobile" pattern="\d{10}" placeholder="10-digit mobile" required>
                     </div>
                 </div>
-
                 <button type="submit" class="submit-btn" id="submitBtn">Submit Review</button>
                 <div id="statusMsg"></div>
             </form>
@@ -758,16 +626,6 @@
 
     <script src="JavaScript/script.js"></script>
     <script>
-        // Routine Table Toggle Expansion 
-        function toggleRoutine(rowId) {
-            var row = document.getElementById(rowId);
-            if (row.classList.contains('active')) {
-                row.classList.remove('active');
-            } else {
-                row.classList.add('active');
-            }
-        }
-
         // Interactive Status Row Filter Mechanism
         function applyEventFilter(statusCategory, buttonElement) {
             var trackingButtons = document.querySelectorAll('.sidebar-btn');
@@ -781,27 +639,29 @@
             targetedRows.forEach(function(row) {
                 var itemStatus = row.getAttribute('data-status');
                 if (statusCategory === 'all' || itemStatus === statusCategory) {
-                    // Respect the display logic for routine rows to prevent them from breaking the layout
-                    if(row.classList.contains('routine-details-row')) {
-                        if(row.classList.contains('active')) {
-                            row.style.display = 'table-row';
-                        } else {
-                            row.style.display = '';
-                        }
-                    } else {
-                        row.style.display = '';
-                    }
+                    row.style.display = '';
                 } else {
                     row.style.display = 'none';
                 }
             });
         }
 
+        // --- Routine Modal Script ---
+        function openRoutineModal() { document.getElementById('routineModalData').style.display = 'flex'; }
+        function closeRoutineModal() { document.getElementById('routineModalData').style.display = 'none'; }
+        
+        // Ensure clicking outside closes modals
+        window.addEventListener('click', function(e) {
+            let routineModal = document.getElementById('routineModalData');
+            let feedbackModal = document.getElementById('feedbackModal');
+            if (e.target === routineModal) { routineModal.style.display = 'none'; }
+            if (e.target === feedbackModal) { feedbackModal.style.display = 'none'; }
+        });
+
         // Floating Support Widget Actions
         function closeDonationBox() {
             document.getElementById('donation-qr-box').classList.remove('show');
         }
-
         setTimeout(function() {
             document.getElementById('donation-qr-box').classList.add('show');
         }, 1500);
@@ -813,7 +673,6 @@
 
         openBtn.onclick = () => modal.style.display = 'flex';
         closeBtn.onclick = () => modal.style.display = 'none';
-        window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; }
 
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyGdVJyh5pxQg5LxLdPv_l4Tly72TKl4cLKZcW1ieIAubalzILU7qyG4oxp2SnuIXdI/exec';
         const form = document.getElementById('feedbackForm');
