@@ -7,13 +7,54 @@
     <link rel="icon" type="images/png" href="images/favico.png">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Automated Hero Banner Slideshow */
+        /* =========================================================
+           1. ADVANCED ANIMATED PAGE BACKGROUND
+           ========================================================= */
+        body {
+            background: linear-gradient(-45deg, #f0f7f4, #e3f2fd, #e8f5e9, #fffde7);
+            background-size: 400% 400%;
+            animation: gradientBG 18s ease infinite;
+            position: relative;
+            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Ambient Background Orbs */
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(70px);
+            z-index: -1;
+            opacity: 0.45;
+            pointer-events: none;
+            animation: floatOrb 20s infinite alternate ease-in-out;
+        }
+        .orb-1 { width: 350px; height: 350px; background: #81c784; top: 15%; left: -100px; }
+        .orb-2 { width: 400px; height: 400px; background: #64b5f6; top: 55%; right: -120px; animation-delay: -7s; }
+        .orb-3 { width: 300px; height: 300px; background: #dce775; bottom: 10%; left: 20%; animation-delay: -12s; }
+
+        @keyframes floatOrb {
+            0% { transform: translateY(0px) translateX(0px) scale(1); }
+            50% { transform: translateY(-40px) translateX(30px) scale(1.08); }
+            100% { transform: translateY(30px) translateX(-20px) scale(0.95); }
+        }
+
+        /* =========================================================
+           2. HERO BANNER SLIDESHOW
+           ========================================================= */
         .slider-container {
             position: relative;
             width: 100%;
             height: 450px;
             overflow: hidden;
             background-color: #000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
         .slides-wrapper {
             display: flex;
@@ -39,7 +80,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.45);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(15, 45, 25, 0.75));
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -51,53 +92,584 @@
             z-index: 5;
         }
         .animate-school-name {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 2px;
             margin: 0;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            text-shadow: 2px 4px 12px rgba(0, 0, 0, 0.85);
             animation: textFadeTracking 2.5s ease-out infinite alternate;
         }
+        .hero-subtitle {
+            font-size: 1.15rem;
+            margin-top: 12px;
+            font-weight: 400;
+            max-width: 650px;
+            color: #e8f5e9;
+            text-shadow: 1px 2px 6px rgba(0,0,0,0.7);
+        }
         @keyframes textFadeTracking {
-            0% { letter-spacing: 1px; opacity: 0.8; transform: scale(0.98); }
+            0% { letter-spacing: 1px; opacity: 0.85; transform: scale(0.98); }
             100% { letter-spacing: 4px; opacity: 1; transform: scale(1.02); }
         }
 
-        /* Faculty Grid Layout */
-        .faculty-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; margin-top: 30px; }
-        .faculty-card { background: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .faculty-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 15px auto; border: 3px solid #2e7d32; display: block; background-color: #f0f0f0; }
-        .faculty-name { font-size: 18px; font-weight: bold; color: #222; margin-bottom: 5px; }
-        .faculty-designation { font-size: 14px; color: #2e7d32; font-weight: 600; margin-bottom: 8px; }
-        .faculty-dept { font-size: 13px; color: #777; }
+        /* =========================================================
+           3. SECTION HEADERS & INTERACTIVE TOGGLE BANNERS
+           ========================================================= */
+        .main-section {
+            padding: 35px 0 15px 0;
+            position: relative;
+            z-index: 2;
+        }
 
-        /* Centering Footer */
+        .section-banner {
+            background: linear-gradient(135deg, #1b5e20, #2e7d32, #004d40);
+            color: #ffffff;
+            padding: 22px 30px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(46, 125, 50, 0.25);
+            margin-bottom: 15px;
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-banner.clickable {
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .section-banner.clickable::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.18), transparent);
+            transform: skewX(-25deg);
+            transition: 0.6s;
+        }
+
+        .section-banner.clickable:hover::before {
+            left: 130%;
+        }
+
+        .section-banner.clickable:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 30px rgba(27, 94, 32, 0.38);
+        }
+
+        .banner-title-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .banner-title-group h2 {
+            margin: 0;
+            font-size: 1.65rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #fff;
+        }
+
+        .staff-count-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #e8f5e9;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .banner-action-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.22);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #a5d6a7;
+            transition: all 0.3s ease;
+        }
+
+        .section-banner.clickable:hover .banner-action-indicator {
+            background: #ffffff;
+            color: #1b5e20;
+        }
+
+        .chevron-icon {
+            display: inline-block;
+            transition: transform 0.4s ease;
+            font-size: 0.85rem;
+        }
+
+        .section-banner.active .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        /* =========================================================
+           4. ADVANCED FACULTY CARDS & STUDENT MESSAGE BOX
+           ========================================================= */
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+            gap: 28px;
+            margin-top: 25px;
+        }
+
+        .faculty-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(46, 125, 50, 0.15);
+            border-radius: 18px;
+            padding: 26px 20px 22px 20px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Top Accent Ribbon on Card */
+        .faculty-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #2e7d32, #66bb6a, #00897b);
+        }
+
+        .faculty-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 18px 35px rgba(46, 125, 50, 0.18);
+            border-color: rgba(46, 125, 50, 0.4);
+            background: #ffffff;
+        }
+
+        .img-ring {
+            width: 126px;
+            height: 126px;
+            margin: 0 auto 16px auto;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, #2e7d32, #81c784, #004d40);
+            box-shadow: 0 6px 15px rgba(46, 125, 50, 0.25);
+            transition: transform 0.4s ease;
+        }
+
+        .faculty-card:hover .img-ring {
+            transform: scale(1.06) rotate(3deg);
+        }
+
+        .faculty-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            background-color: #f0f0f0;
+            border: 3px solid #ffffff;
+            box-sizing: border-box;
+        }
+
+        .faculty-name {
+            font-size: 1.18rem;
+            font-weight: 700;
+            color: #1a2e22;
+            margin-bottom: 6px;
+        }
+
+        .faculty-designation {
+            font-size: 0.92rem;
+            color: #2e7d32;
+            font-weight: 700;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .faculty-dept {
+            display: inline-block;
+            font-size: 0.78rem;
+            color: #555;
+            background: #e8f5e9;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin: 0 auto 16px auto;
+        }
+
+        /* Teacher's Message to Students Box inside Profile Card */
+        .student-message-box {
+            background: linear-gradient(145deg, #f4fbf7, #e8f5e9);
+            border-left: 4px solid #2e7d32;
+            border-radius: 8px 12px 12px 8px;
+            padding: 12px 14px;
+            margin-top: auto;
+            text-align: left;
+            position: relative;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.04);
+            transition: background 0.3s ease;
+        }
+
+        .faculty-card:hover .student-message-box {
+            background: linear-gradient(145deg, #e8f5e9, #dcedc8);
+        }
+
+        .message-label {
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #1b5e20;
+            letter-spacing: 0.6px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .message-text {
+            font-size: 0.86rem;
+            color: #2c3e35;
+            font-style: italic;
+            line-height: 1.45;
+            margin: 0;
+        }
+
+        /* Card Reveal Animation */
+        @keyframes cardFadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .faculty-card.hidden-card {
+            display: none !important;
+        }
+
+        .faculty-card.animate-in {
+            animation: cardFadeUp 0.45s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+
+        /* =========================================================
+           5. VIEW ALL / SHOW LESS CONTROLS
+           ========================================================= */
+        .controls-wrapper {
+            text-align: center;
+            margin-top: 32px;
+            margin-bottom: 10px;
+            display: none; /* Hidden until section is clicked */
+        }
+
+        .view-all-btn {
+            background: linear-gradient(135deg, #2e7d32, #00695c);
+            color: #ffffff;
+            border: none;
+            padding: 14px 34px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(46, 125, 50, 0.35);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .view-all-btn:hover {
+            background: linear-gradient(135deg, #1b5e20, #004d40);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 25px rgba(27, 94, 32, 0.45);
+        }
+
+        .view-all-btn:active {
+            transform: translateY(0);
+        }
+
+        /* =========================================================
+           6. ANIMATED FAMOUS QUOTATIONS SECTION
+           ========================================================= */
+        .quotes-universe {
+            margin-top: 60px;
+            padding: 70px 20px;
+            background: linear-gradient(-45deg, #0f2027, #203a43, #1b4332, #1a2a3a);
+            background-size: 400% 400%;
+            animation: auroraQuotesBG 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+            color: #ffffff;
+            border-top: 5px solid #4caf50;
+            border-bottom: 5px solid #4caf50;
+        }
+
+        @keyframes auroraQuotesBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Animated Glowing Particles in Quotes Section */
+        .quotes-universe::before,
+        .quotes-universe::after {
+            content: '';
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.25) 0%, transparent 70%);
+            pointer-events: none;
+            animation: pulseGlow 10s infinite alternate ease-in-out;
+        }
+        .quotes-universe::before { top: -150px; left: -100px; }
+        .quotes-universe::after { bottom: -150px; right: -100px; animation-delay: -5s; }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(0.9) translate(0, 0); opacity: 0.4; }
+            100% { transform: scale(1.2) translate(40px, 30px); opacity: 0.8; }
+        }
+
+        .quotes-header {
+            text-align: center;
+            max-width: 750px;
+            margin: 0 auto 45px auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .quotes-header h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin: 0 0 12px 0;
+            background: linear-gradient(90deg, #a5d6a7, #ffffff, #80cbc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .quotes-header p {
+            color: #c8e6c9;
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        .quotes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .quote-box {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 16px;
+            padding: 26px 22px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            animation: floatQuoteBox 6s ease-in-out infinite;
+        }
+
+        /* Staggered floating animation for quote cards */
+        .quote-box:nth-child(even) {
+            animation-duration: 7.5s;
+            animation-delay: 1.5s;
+        }
+        .quote-box:nth-child(3n) {
+            animation-duration: 8.5s;
+            animation-delay: 0.7s;
+        }
+
+        @keyframes floatQuoteBox {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .quote-box:hover {
+            transform: translateY(-12px) scale(1.02) !important;
+            background: rgba(255, 255, 255, 0.14);
+            border-color: #66bb6a;
+            box-shadow: 0 15px 35px rgba(76, 175, 80, 0.3);
+        }
+
+        .quote-icon {
+            font-size: 2.2rem;
+            line-height: 1;
+            color: #66bb6a;
+            opacity: 0.6;
+            margin-bottom: 10px;
+            font-family: Georgia, serif;
+        }
+
+        .quote-words {
+            font-size: 0.98rem;
+            line-height: 1.6;
+            color: #f1f8e9;
+            font-style: italic;
+            margin: 0 0 18px 0;
+        }
+
+        .quote-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            padding-top: 12px;
+        }
+
+        .author-line {
+            width: 24px;
+            height: 2px;
+            background: #66bb6a;
+        }
+
+        .author-name {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #a5d6a7;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* =========================================================
+           7. FOOTER & FLOATING DONATION QR BOX
+           ========================================================= */
         .site-footer {
-            background-color: #222222;
+            background-color: #161b18;
             color: #bbbbbb;
-            padding: 30px 0;
+            padding: 35px 0;
             font-size: 14px;
             text-align: center;
             border-top: 3px solid #2e7d32;
-            margin-top: 40px;
             width: 100%;
+            position: relative;
+            z-index: 2;
         }
-        .site-footer .container { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .site-footer .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
         .site-footer p { margin: 5px 0; }
 
+        /* Floating Donation QR Box */
+        #donation-qr-box {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 220px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.18);
+            padding: 20px;
+            text-align: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        #donation-qr-box.show {
+            opacity: 1;
+            pointer-events: auto;
+            animation: floatHover 4s ease-in-out infinite;
+        }
+        @keyframes floatHover {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        #close-donation-box {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        #close-donation-box:hover { color: #ff0000; }
+        #donation-qr-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 12px;
+            margin-top: 5px;
+        }
+        #qr-code-placeholder img {
+            width: 100%;
+            max-width: 160px;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #f0f0f0;
+        }
+        #qr-scan-label {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Responsive Adjustments */
         @media (max-width: 768px) {
-            .slider-container { height: 250px; }
-            .animate-school-name { font-size: 1.5rem; }
+            .slider-container { height: 260px; }
+            .animate-school-name { font-size: 1.65rem; }
+            .section-banner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 18px 20px;
+            }
+            .banner-action-indicator { align-self: stretch; justify-content: center; }
+            .quotes-header h2 { font-size: 1.6rem; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Ambient Animated Background Orbs -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+
+    <!-- Top Motto Header -->
     <div class="header">
         <div class="container flex-header"><b>Our School Motto:</b> <marquee class="motto-marquee">"To Learn, To Lead"</marquee></div>
     </div>
 
+    <!-- Navigation Bar -->
     <div class="nav-wrapper">
         <div class="container nav-container">
             <img src="images/logo.png" alt="School Logo" class="logo">
@@ -134,368 +706,904 @@
             <img src="images/100.jpg" alt="School Campus View" class="slide-img">
         </div>
         <div class="slider-overlay">
-            <h1 class="animate-school-name">Feculty Members</h1>
-            <p style="font-size: 1.2rem; margin-top: 10px; font-weight: 300; text-shadow: 1px 1px 4px rgba(0,0,0,0.6);"></p>
+            <h1 class="animate-school-name">Faculty Members</h1>
+            <p class="hero-subtitle">Dedicated educators, mentors, and staff shaping the leaders of tomorrow at Good Shepherd Higher Secondary School.</p>
         </div>
     </div>
 
+    <!-- =========================================================
+         SECTION 1: MANAGEMENT STAFF
+         ========================================================= -->
     <div class="main-section">
         <div class="container">
-            <h2 class="heading">Our Management Staff</h2>
-            <div class="faculty-grid">
-                <div class="faculty-card">
-                    <img src="images/staff1.jpg" alt="Principal Photo" class="faculty-img">
-                    <div class="faculty-name">Fr. Joy Francis KK</div>
-                    <div class="faculty-designation">Headmaster / Principal</div>
-                    <div class="faculty-dept">Administration Desk</div>
-                </div>
-                <div class="faculty-card">
-                    <img src="images/staff2.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Sr. Brijitha N Marak</div>
-                    <div class="faculty-designation">Headmistress</div>
-                    <div class="faculty-dept">Academic Management</div>
-                </div>
-                <div class="faculty-card">
-                    <img src="images/staff3.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Sr. Crecencia A Sangma</div>
-                    <div class="faculty-designation">Assistant Headmistress</div>
-                    <div class="faculty-dept">Academic Management</div>
+            <div class="section-banner">
+                <div class="banner-title-group">
+                    <h2>Our Management Staff</h2>
+                    <span class="staff-count-badge">3 Leaders</span>
                 </div>
             </div>
-    </div>
-<div class="main-section">
-        <div class="container">
-            <h2 class="heading">Teaching Staff</h2>
+
             <div class="faculty-grid">
-                <div class="faculty-card">
-                    <img src="images/staff4.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Sir. Jekush D Sangma</div>
-                    <div class="faculty-designation">Head Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
+                <div class="faculty-card animate-in">
+                    <div>
+                        <div class="img-ring">
+                            <img src="images/staff1.jpg" alt="Principal Photo" class="faculty-img">
+                        </div>
+                        <div class="faculty-name">FR JOY FRANCIS KIZHAKKEVELIKKAKATHU</div>
+                        <div class="faculty-designation">Principal</div>
+                        <div class="faculty-dept">Administration Desk</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">✨ Message for Students</div>
+                        <p class="message-text">"Strive for excellence in character and academics. Remember that true education empowers you not just to succeed, but to serve humanity with compassion and integrity."</p>
+                    </div>
                 </div>
-             <div class="faculty-card">
-                    <img src="images/staff8.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Md.Pinali Sangma</div>
-                    <div class="faculty-designation">Asst.Head Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
-            </div>
-                <div class="faculty-card">
-                    <img src="images/staff5.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Sir. Nishit Ranjan Gosh</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
+
+                <div class="faculty-card animate-in">
+                    <div>
+                        <div class="img-ring">
+                            <img src="images/staff2.jpg" alt="Faculty Photo" class="faculty-img">
+                        </div>
+                        <div class="faculty-name">Sr. Brijitha N Marak</div>
+                        <div class="faculty-designation">Headmistress</div>
+                        <div class="faculty-dept">Academic Management</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">✨ Message for Students</div>
+                        <p class="message-text">"Discipline and dedication are the bridges between your goals and accomplishments. Walk into school every day with a heart ready to learn and grow."</p>
+                    </div>
                 </div>
-                <div class="faculty-card">
-                    <img src="images/staff6.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Sir. Growerfield Ch Marak</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
-</div>
-                <div class="faculty-card">
-                    <img src="images/staff7.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Md. Monica D Shira</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
-                </div>
-                <div class="faculty-card">
-                    <img src="images/staff9.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Sir. John Bounthy B Marak</div>
-                    <div class="faculty-designation">Asst. teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
-                </div>
-                <div class="faculty-card">
-                    <img src="images/staff10.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Sir. Sengbath Ch Marak</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
-</div>
-                <div class="faculty-card">
-                    <img src="images/staff11.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Sir. Silgrak Ch Marak</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
-                </div>
-                <div class="faculty-card">
-                    <img src="images/staff12.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Md. Sengvina Ch Marak</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
-                </div>
-                <div class="faculty-card">
-                    <img src="images/staff13.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Miss. Ritu Ch Marak</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
-</div>
-                <div class="faculty-card">
-                    <img src="images/staff14.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Miss. Rikginchi Ch Marak</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
-</div>
-                <div class="faculty-card">
-                    <img src="images/staff15.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Miss. Kalkame S Sangma</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
-</div>
-                <div class="faculty-card">
-                    <img src="images/staff16.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Md. Silmikchi R Marak</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
-</div>
-                <div class="faculty-card">
-                    <img src="images/staff17.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Miss. Chikmikta D Sangma</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
-</div>
-                <div class="faculty-card">
-                    <img src="images/staff18.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Miss. Krins Belsa Sangma</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
-</div>
-                <div class="faculty-card">
-                    <img src="images/staff19.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Miss. Arnikha D Sangma</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div> 
-</div>
-                <div class="faculty-card">
-                    <img src="images/staff20.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Miss. Presilia R Marak</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
-</div>
-                <div class="faculty-card">
-                    <img src="images/staff21.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Md. Salne Sangma</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div> 
-</div>
-                <div class="faculty-card">
-                    <img src="images/staff22.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Md. Silme D Marak</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
-</div>
-                <div class="faculty-card">
-                    <img src="images/staff23.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Sir. Tangseng Ch Marak</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div> 
-</div>
-                <div class="faculty-card">
-                    <img src="images/staff24.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Sir. Jenybar M Marak</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div> 
-</div>
-                <div class="faculty-card">
-                    <img src="images/staff25.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Sir. Ratna Deep Paul</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
-</div>
-                <div class="faculty-card">
-                    <img src="images/staff26.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Sir. Lenush M Sangma</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
-</div>
-                <div class="faculty-card">
-                    <img src="images/staff27.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Miss. Biginchi A Sangma</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>
-</div>
-                <div class="faculty-card">
-                    <img src="images/staff41.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Md. Kalkame Ch Marak</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>                   
-</div>
-                <div class="faculty-card">
-                    <img src="images/staff40.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Miss. Pangrangchi Ch Marak</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>                   
- </div>
-                    <div class="faculty-card">
-                    <img src="images/staff72.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Md. Silkame R Marak</div>
-                    <div class="faculty-designation">Asst. Teacher</div>
-                    <div class="faculty-dept">Teaching Staff</div>                   
+
+                <div class="faculty-card animate-in">
+                    <div>
+                        <div class="img-ring">
+                            <img src="images/celina (2).png" alt="Faculty Photo" class="faculty-img">
+                        </div>
+                        <div class="faculty-name">Sr. CELINA MASLAI</div>
+                        <div class="faculty-designation">Assistant Headmistress</div>
+                        <div class="faculty-dept">Academic Management</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">✨ Message for Students</div>
+                        <p class="message-text">"Every child carries a unique light within. Believe in your capabilities, respect your mentors, and never hesitate to reach for the highest stars."</p>
+                    </div>
                 </div>
             </div>
         </div>
-<div class="main-section">
-        <div class="container">
-            <h2 class="heading">Non - Teaching Staff</h2>
-            <div class="faculty-grid">
-                <div class="faculty-card">
-                    <img src="images/staff28.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Sengkan M Sangma</div>
-                    <div class="faculty-designation">Head Clerk (LDA)</div>
-                    <div class="faculty-dept">LDA</div>
-                </div>
-                <div class="faculty-card">
-                    <img src="images/staff29.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Francis Xeviar G Momin</div>
-                    <div class="faculty-designation">Sweeper/Gate Keeper</div>
-                    <div class="faculty-dept">Non-Teaching Staff</div>
-                </div>
-<div class="faculty-card">
-                    <img src="images/staff30.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Jospina Ch Marak</div>
-                    <div class="faculty-designation">Book Keeper</div>
-                    <div class="faculty-dept">Non-Teaching Staff</div>
-                </div>
-<div class="faculty-card">
-                    <img src="images/staff31.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Mejhina Ch Marak</div>
-                    <div class="faculty-designation">Sweeper</div>
-                    <div class="faculty-dept">Non-Teaching Staff</div>
-                </div>
-<div class="faculty-card">
-                    <img src="images/staff32.jpg" alt="Faculty Photo" class="faculty-img">
-                    <div class="faculty-name">Dome N Marak</div>
-                    <div class="faculty-designation">Sweeper</div>
-                    <div class="faculty-dept">Non-Teaching Staff</div>
-                </div>
-               </div>
-            </div>
-          </div>
-       </div>
     </div>
-        <footer class="site-footer">
+
+    <!-- =========================================================
+         SECTION 2: TEACHING STAFF (Click to Preview -> View All)
+         ========================================================= -->
+    <div class="main-section">
+        <div class="container">
+            <div class="section-banner clickable" id="teaching-banner" onclick="handleSectionClick('teaching')">
+                <div class="banner-title-group">
+                    <h2>Teaching Staff</h2>
+                    <span class="staff-count-badge">27 Educators</span>
+                </div>
+                <div class="banner-action-indicator">
+                    <span id="teaching-status-text">Click to View Staff</span>
+                    <span class="chevron-icon">▼</span>
+                </div>
+            </div>
+
+            <div class="faculty-grid" id="teaching-grid">
+                <!-- 1 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff4.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Sir. Jekush D Sangma</div>
+                        <div class="faculty-designation">Head Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Lead by example and stay humble in your pursuit of knowledge. Hard work today builds the foundation for your leadership tomorrow."</p>
+                    </div>
+                </div>
+
+                <!-- 2 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff8.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Md. Pinali Sangma</div>
+                        <div class="faculty-designation">Asst. Head Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Consistency is the secret to mastery. Read a little more each day, ask thoughtful questions, and always uplift your classmates."</p>
+                    </div>
+                </div>
+
+                <!-- 3 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/banri.jpeg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Sr. BANRIHUN KHARSYIEMLIEH</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Curiosity turns every lesson into an adventure. Never memorize without understanding—seek the 'why' behind every concept."</p>
+                    </div>
+                </div>
+                
+                <!-- 4 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff5.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Sir. Nishit Ranjan Gosh</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Curiosity turns every lesson into an adventure. Never memorize without understanding—seek the 'why' behind every concept."</p>
+                    </div>
+                </div>
+
+                <!-- 5 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff6.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Sir. Growerfield Ch Marak</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Challenges in the classroom are stepping stones, not roadblocks. Keep pushing forward with courage and determination."</p>
+                    </div>
+                </div>
+
+                <!-- 6 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff7.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Md. Monica D Shira</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Kindness and wisdom go hand in hand. Be a student who shines not only on the report card, but also in helping others."</p>
+                    </div>
+                </div>
+
+                <!-- 7 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff9.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Sir. John Bounthy B Marak</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Your potential is limitless when paired with self-discipline. Value your time in school and make every single hour count."</p>
+                    </div>
+                </div>
+
+                <!-- 8 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff10.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Sir. Sengbath Ch Marak</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Mistakes are proof that you are trying and learning. Embrace every correction with a positive mindset and grow stronger."</p>
+                    </div>
+                </div>
+
+                <!-- 9 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff11.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Sir. Silgrak Ch Marak</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Focus on progress rather than perfection. Small daily improvements lead to remarkable achievements over time."</p>
+                    </div>
+                </div>
+
+                <!-- 10 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff12.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Md. Sengvina Ch Marak</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Believe in the power of your dreams. With patience, prayer, and persistent effort, no goal is beyond your reach."</p>
+                    </div>
+                </div>
+
+                <!-- 11 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff13.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Miss. Ritu Ch Marak</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Let your curiosity guide you to new horizons. Every book you open is a doorway to a brighter and wiser future."</p>
+                    </div>
+                </div>
+
+                <!-- 12 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff14.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Miss. Rikginchi Ch Marak</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Stay confident in your abilities and never compare your journey to others. Blossom at your own pace with dedication."</p>
+                    </div>
+                </div>
+
+                <!-- 13 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff15.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Miss. Kalkame S Sangma</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Education is the greatest treasure you can earn. Guard your study habits closely and stay eager to learn something new every day."</p>
+                    </div>
+                </div>
+
+                <!-- 14 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff16.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Md. Silmikchi R Marak</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Respect for teachers, parents, and elders is the true mark of an educated mind. Carry good values wherever life takes you."</p>
+                    </div>
+                </div>
+
+                <!-- 15 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff17.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Miss. Chikmikta D Sangma</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Creativity and hard work make an unstoppable team. Express your ideas boldly and put your whole heart into your studies."</p>
+                    </div>
+                </div>
+
+                <!-- 16 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff18.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Miss. Krins Belsa Sangma</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Even the longest journey begins with a single step. Start preparing today, stay organized, and watch your dreams unfold."</p>
+                    </div>
+                </div>
+
+                <!-- 17 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff19.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Miss. Arnikha D Sangma</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Never be afraid to ask questions in class. An inquiring mind is the brightest sign of a future scholar and leader."</p>
+                    </div>
+                </div>
+
+                <!-- 18 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff20.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Miss. Presilia R Marak</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Cultivate gratitude and perseverance. When you love what you learn, every challenge becomes an opportunity to shine."</p>
+                    </div>
+                </div>
+
+                <!-- 19 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff21.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Md. Salne Sangma</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Your school years are the most precious chapters of your life. Build strong friendships, study sincerely, and aim high."</p>
+                    </div>
+                </div>
+
+                <!-- 20 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff22.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Md. Silme D Marak</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Patience and practice turn difficult subjects into your strongest strengths. Keep trying until you feel proud of your work."</p>
+                    </div>
+                </div>
+
+                <!-- 21 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff23.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Sir. Tangseng Ch Marak</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Strong character and honest effort will always take you further than shortcuts. Be true to yourself and your goals."</p>
+                    </div>
+                </div>
+
+                <!-- 22 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/betse (3).png" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Miss. BETHSEBA P MARAK</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Logic, clarity, and dedication unlock the toughest problems. Approach every exam with calm preparation and self-belief."</p>
+                    </div>
+                </div>
+
+                <!-- 23 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff26.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Sir. Lenush M Sangma</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Success belongs to those who prepare for it today. Stay focused on your ambitions and never stop learning."</p>
+                    </div>
+                </div>
+
+                <!-- 24 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff41.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Md. Kalkame Ch Marak</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Let your actions reflect our school motto: 'To Learn, To Lead'. Be diligent in your studies and generous in spirit."</p>
+                    </div>
+                </div>
+
+                <!-- 25 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff40.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Miss. Pangrangchi Ch Marak</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Your voice and ideas matter. Read widely, think independently, and step into the future with courage and grace."</p>
+                    </div>
+                </div>
+
+                <!-- 26 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff72.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Md. Silkame R Marak</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Dedication turns ordinary students into extraordinary achievers. Keep striving for wisdom and excellence every day."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View All Button for Teaching Staff -->
+            <div class="controls-wrapper" id="teaching-controls">
+                <button class="view-all-btn" id="teaching-view-btn" onclick="toggleViewAll('teaching')">
+                    <span>View All Teaching Staff (27)</span>
+                    <span>↓</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         SECTION 3: NON-TEACHING STAFF (Click to Preview -> View All)
+         ========================================================= -->
+    <div class="main-section">
+        <div class="container">
+            <div class="section-banner clickable" id="nonteaching-banner" onclick="handleSectionClick('nonteaching')">
+                <div class="banner-title-group">
+                    <h2>Non - Teaching Staff</h2>
+                    <span class="staff-count-badge">5 Support Pillars</span>
+                </div>
+                <div class="banner-action-indicator">
+                    <span id="nonteaching-status-text">Click to View Staff</span>
+                    <span class="chevron-icon">▼</span>
+                </div>
+            </div>
+
+            <div class="faculty-grid" id="nonteaching-grid">
+                <!-- 1 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff24.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Sir. Jenybar M Marak</div>
+                        <div class="faculty-designation">Asst. Teacher</div>
+                        <div class="faculty-dept">Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">📚 Note to Students</div>
+                        <p class="message-text">"Develop both your mind and your spirit. Participate actively in class and sports to become a well-rounded individual."</p>
+                    </div>
+                </div>
+                
+                <!-- 2 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff28.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Sengkan M Sangma</div>
+                        <div class="faculty-designation">Head Clerk (LDA)</div>
+                        <div class="faculty-dept">LDA</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">🌟 Message for Students</div>
+                        <p class="message-text">"Stay organized, embrace digital skills, and pursue your academic goals with passion. The administration desk is always here to support your journey."</p>
+                    </div>
+                </div>
+
+                <!-- 3 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff29.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Francis Xeviar G Momin</div>
+                        <div class="faculty-designation">Sweeper/Gate Keeper</div>
+                        <div class="faculty-dept">Non-Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">🌟 Message for Students</div>
+                        <p class="message-text">"Punctuality and safety are the start of a great school day. Walk through the school gates every morning with a smile and a determination to succeed."</p>
+                    </div>
+                </div>
+
+                <!-- 4 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff30.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Jospina Ch Marak</div>
+                        <div class="faculty-designation">Book Keeper</div>
+                        <div class="faculty-dept">Non-Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">🌟 Message for Students</div>
+                        <p class="message-text">"Books are your truest friends. Cherish every page you read, take care of your learning resources, and let knowledge enrich your life."</p>
+                    </div>
+                </div>
+
+                <!-- 5 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff31.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Mejhina Ch Marak</div>
+                        <div class="faculty-designation">Sweeper</div>
+                        <div class="faculty-dept">Non-Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">🌟 Message for Students</div>
+                        <p class="message-text">"A clean campus creates a peaceful mind for learning. Let us all work together to keep our school surroundings neat, green, and beautiful."</p>
+                    </div>
+                </div>
+
+                <!-- 6 -->
+                <div class="faculty-card hidden-card">
+                    <div>
+                        <div class="img-ring"><img src="images/staff32.jpg" alt="Faculty Photo" class="faculty-img"></div>
+                        <div class="faculty-name">Dome N Marak</div>
+                        <div class="faculty-designation">Sweeper</div>
+                        <div class="faculty-dept">Non-Teaching Staff</div>
+                    </div>
+                    <div class="student-message-box">
+                        <div class="message-label">🌟 Message for Students</div>
+                        <p class="message-text">"Every honest effort matters. Respect your environment, work hard in your classes, and make your parents and school proud."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View All Button for Non-Teaching Staff -->
+            <div class="controls-wrapper" id="nonteaching-controls">
+                <button class="view-all-btn" id="nonteaching-view-btn" onclick="toggleViewAll('nonteaching')">
+                    <span>View All Non-Teaching Staff (5)</span>
+                    <span>↓</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         SECTION 4: ANIMATED FAMOUS QUOTATIONS FOR STUDENTS (16 Quotes)
+         ========================================================= -->
+    <section class="quotes-universe">
+        <div class="container">
+            <div class="quotes-header">
+                <h2>Words of Wisdom for Our Students</h2>
+                <p>Timeless inspiration from the world's greatest minds to guide your academic and personal journey.</p>
+            </div>
+
+            <div class="quotes-grid">
+                <!-- Quote 1 -->
+                <div class="quote-box">
+                    <div>
+                        <div class="quote-icon">“</div>
+                        <p class="quote-words">Dream, dream, dream. Dreams transform into thoughts and thoughts result in action.</p>
+                    </div>
+                    <div class="quote-author">
+                        <span class="author-line"></span>
+                        <span class="author-name">Dr. A.P.J. Abdul Kalam</span>
+                    </div>
+                </div>
+
+                <!-- Quote 2 -->
+                <div class="quote-box">
+                    <div>
+                        <div class="quote-icon">“</div>
+                        <p class="quote-words">Education is the most powerful weapon which you can use to change the world.</p>
+                    </div>
+                    <div class="quote-author">
+                        <span class="author-line"></span>
+                        <span class="author-name">Nelson Mandela</span>
+                    </div>
+                </div>
+
+                <!-- Quote 3 -->
+                <div class="quote-box">
+                    <div>
+                        <div class="quote-icon">“</div>
+                        <p class="quote-words">Arise, awake, and stop not till the goal is reached. All power is within you; you can do anything and everything.</p>
+                    </div>
+                    <div class="quote-author">
+                        <span class="author-line"></span>
+                        <span class="author-name">Swami Vivekananda</span>
+                    </div>
+                </div>
+
+                <!-- Quote 4 -->
+                <div class="quote-box">
+                    <div>
+                        <div class="quote-icon">“</div>
+                        <p class="quote-words">Education is not the learning of facts, but the training of the mind to think.</p>
+                    </div>
+                    <div class="quote-author">
+                        <span class="author-line"></span>
+                        <span class="author-name">Albert Einstein</span>
+                    </div>
+                </div>
+
+                <!-- Quote 5 -->
+                <div class="quote-box">
+                    <div>
+                        <div class="quote-icon">“</div>
+                        <p class="quote-words">One child, one teacher, one book, and one pen can change the world.</p>
+                    </div>
+                    <div class="quote-author">
+                        <span class="author-line"></span>
+                        <span class="author-name">Malala Yousafzai</span>
+                    </div>
+                </div>
+
+                <!-- Quote 6 -->
+                <div class="quote-box">
+                    <div>
+                        <div class="quote-icon">“</div>
+                        <p class="quote-words">Live as if you were to die tomorrow. Learn as if you were to live forever.</p>
+                    </div>
+                    <div class="quote-author">
+                        <span class="author-line"></span>
+                        <span class="author-name">Mahatma Gandhi</span>
+                    </div>
+                </div>
+
+                <!-- Quote 7 -->
+                <div class="quote-box">
+                    <div>
+                        <div class="quote-icon">“</div>
+                        <p class="quote-words">The roots of education are bitter, but the fruit is sweet.</p>
+                    </div>
+                    <div class="quote-author">
+                        <span class="author-line"></span>
+                        <span class="author-name">Aristotle</span>
+                    </div>
+                </div>
+
+                <!-- Quote 8 -->
+                <div class="quote-box">
+                    <div>
+                        <div class="quote-icon">“</div>
+                        <p class="quote-words">The highest education is that which does not merely give us information but makes our life in harmony with all existence.</p>
+                    </div>
+                    <div class="quote-author">
+                        <span class="author-line"></span>
+                        <span class="author-name">Rabindranath Tagore</span>
+                    </div>
+                </div>
+
+                <!-- Quote 9 -->
+                <div class="quote-box">
+                    <div>
+                        <div class="quote-icon">“</div>
+                        <p class="quote-words">Cultivation of mind should be the ultimate aim of human existence.</p>
+                    </div>
+                    <div class="quote-author">
+                        <span class="author-line"></span>
+                        <span class="author-name">Dr. B.R. Ambedkar</span>
+                    </div>
+                </div>
+
+                <!-- Quote 10 -->
+                <div class="quote-box">
+                    <div>
+                        <div class="quote-icon">“</div>
+                        <p class="quote-words">Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less.</p>
+                    </div>
+                    <div class="quote-author">
+                        <span class="author-line"></span>
+                        <span class="author-name">Marie Curie</span>
+                    </div>
+                </div>
+
+                <!-- Quote 11 -->
+                <div class="quote-box">
+                    <div>
+                        <div class="quote-icon">“</div>
+                        <p class="quote-words">It does not matter how slowly you go as long as you do not stop.</p>
+                    </div>
+                    <div class="quote-author">
+                        <span class="author-line"></span>
+                        <span class="author-name">Confucius</span>
+                    </div>
+                </div>
+
+                <!-- Quote 12 -->
+                <div class="quote-box">
+                    <div>
+                        <div class="quote-icon">“</div>
+                        <p class="quote-words">The best way to predict your future is to create it through hard work and learning today.</p>
+                    </div>
+                    <div class="quote-author">
+                        <span class="author-line"></span>
+                        <span class="author-name">Abraham Lincoln</span>
+                    </div>
+                </div>
+
+                <!-- Quote 13 -->
+                <div class="quote-box">
+                    <div>
+                        <div class="quote-icon">“</div>
+                        <p class="quote-words">Not all of us can do great things. But we can do small things with great love.</p>
+                    </div>
+                    <div class="quote-author">
+                        <span class="author-line"></span>
+                        <span class="author-name">Mother Teresa</span>
+                    </div>
+                </div>
+
+                <!-- Quote 14 -->
+                <div class="quote-box">
+                    <div>
+                        <div class="quote-icon">“</div>
+                        <p class="quote-words">Ask the right questions, and nature will open the doors to her secrets.</p>
+                    </div>
+                    <div class="quote-author">
+                        <span class="author-line"></span>
+                        <span class="author-name">Sir C.V. Raman</span>
+                    </div>
+                </div>
+
+                <!-- Quote 15 -->
+                <div class="quote-box">
+                    <div>
+                        <div class="quote-icon">“</div>
+                        <p class="quote-words">The future belongs to those who believe in the beauty of their dreams.</p>
+                    </div>
+                    <div class="quote-author">
+                        <span class="author-line"></span>
+                        <span class="author-name">Eleanor Roosevelt</span>
+                    </div>
+                </div>
+
+                <!-- Quote 16 -->
+                <div class="quote-box">
+                    <div>
+                        <div class="quote-icon">“</div>
+                        <p class="quote-words">Education is the kindling of a flame, not the filling of a vessel.</p>
+                    </div>
+                    <div class="quote-author">
+                        <span class="author-line"></span>
+                        <span class="author-name">Socrates</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
         <div class="container">
             <p>&copy; 2026 Good Shepherd Higher Secondary School, Chapahati. All Rights Reserved.</p>
             <p style="font-size: 12px; color: #888;">Managed by Good Shepherd Church Chapahati | Powered by Local Administration Desk</p>
         </div>
     </footer>
 
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <style>
-        /* CSS to make the box float at the bottom right corner */
-        #donation-qr-box {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 220px;
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15); /* Gives it a floating shadow */
-            padding: 20px;
-            text-align: center;
-            z-index: 9999; /* Keeps it on top of other dashboard elements */
-            
-            /* Hidden by default before the JS triggers */
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        /* The class added by JavaScript to show the box */
-        #donation-qr-box.show {
-            opacity: 1;
-            pointer-events: auto;
-            /* Adds a subtle continuous floating animation */
-            animation: floatHover 4s ease-in-out infinite; 
-        }
-
-        /* Animation for the gentle floating effect */
-        @keyframes floatHover {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0px); }
-        }
-
-        /* Styling the close button */
-        #close-donation-box {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            background: transparent;
-            border: none;
-            font-size: 24px;
-            color: #888;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        #close-donation-box:hover {
-            color: #ff0000;
-        }
-
-        /* Title styling */
-        #donation-qr-title {
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: #333;
-            margin-bottom: 12px;
-            margin-top: 5px;
-        }
-
-        /* Ensuring the image stays strictly inside the box */
-        #qr-code-placeholder img {
-            width: 100%; /* Fills the container safely */
-            max-width: 160px;
-            height: auto;
-            border-radius: 8px;
-            border: 2px solid #f0f0f0;
-        }
-
-        /* Label at the bottom */
-        #qr-scan-label {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: #666;
-            font-weight: 500;
-        }
-    </style>
-</head>
-<body>
-
     <!-- Donation QR Code Box -->
     <div id="donation-qr-box">
         <button id="close-donation-box" onclick="closeDonationBox()">&times;</button>
         <div id="donation-qr-title">Support Good Shepherd</div>
-        
         <div id="qr-code-placeholder">
             <img src="https://i.postimg.cc/t42Rp5Mq/ba025f5a-46f7-4f4c-b0fd-fe8be4d93747.jpg" alt="Donation QR Code">
         </div>
-        
         <div id="qr-scan-label">Scan to Donate</div>
     </div>
 
     <script src="JavaScript/script.js"></script>
-    
     <script>
-        function toggleDropdown(contentId, btnElement) {
-            btnElement.classList.toggle('active');
-            var content = document.getElementById(contentId);
-            if (content.style.maxHeight && content.style.maxHeight !== "0px") {
-                content.style.maxHeight = "0px";
+        /* =========================================================
+           INTERACTIVE STAFF REVEAL LOGIC
+           State 0: All Hidden (Initial)
+           State 1: Preview Mode (Shows first few cards + View All button)
+           State 2: Full Mode (Shows all cards + Show Less button)
+           ========================================================= */
+        const staffConfig = {
+            teaching: {
+                state: 0, // 0 = hidden, 1 = preview, 2 = all
+                previewCount: 4,
+                totalCount: 27,
+                label: "Teaching Staff"
+            },
+            nonteaching: {
+                state: 0, // 0 = hidden, 1 = preview, 2 = all
+                previewCount: 2,
+                totalCount: 5,
+                label: "Non-Teaching Staff"
+            }
+        };
+
+        // Triggered when clicking the "Teaching Staff" or "Non-Teaching Staff" banner
+        function handleSectionClick(type) {
+            const config = staffConfig[type];
+            if (config.state === 0) {
+                // Move from Hidden -> Preview (Show only a few)
+                config.state = 1;
             } else {
-                content.style.maxHeight = content.scrollHeight + "px";
+                // Clicking banner again collapses section back to hidden
+                config.state = 0;
+            }
+            renderSectionState(type);
+        }
+
+        // Triggered when clicking "View All" / "Show Less" button
+        function toggleViewAll(type) {
+            const config = staffConfig[type];
+            if (config.state === 1) {
+                config.state = 2; // Expand all
+            } else {
+                config.state = 1; // Back to preview
+                document.getElementById(type + '-banner').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            renderSectionState(type);
+        }
+
+        function renderSectionState(type) {
+            const config = staffConfig[type];
+            const grid = document.getElementById(type + '-grid');
+            const cards = grid.querySelectorAll('.faculty-card');
+            const banner = document.getElementById(type + '-banner');
+            const statusText = document.getElementById(type + '-status-text');
+            const controls = document.getElementById(type + '-controls');
+            const viewBtn = document.getElementById(type + '-view-btn');
+
+            if (config.state === 0) {
+                // Hide all cards
+                banner.classList.remove('active');
+                statusText.textContent = "Click to View Staff";
+                controls.style.display = "none";
+                cards.forEach(card => {
+                    card.classList.add('hidden-card');
+                    card.classList.remove('animate-in');
+                });
+            } else if (config.state === 1) {
+                // Show only previewCount cards
+                banner.classList.add('active');
+                statusText.textContent = `Showing ${config.previewCount} of ${config.totalCount} (Click to Hide)`;
+                controls.style.display = "block";
+                viewBtn.innerHTML = `<span>View All ${config.label} (${config.totalCount})</span> <span>↓</span>`;
+
+                cards.forEach((card, index) => {
+                    if (index < config.previewCount) {
+                        card.classList.remove('hidden-card');
+                        card.style.animationDelay = `${index * 0.08}s`;
+                        card.classList.add('animate-in');
+                    } else {
+                        card.classList.add('hidden-card');
+                        card.classList.remove('animate-in');
+                    }
+                });
+            } else if (config.state === 2) {
+                // Show ALL cards
+                banner.classList.add('active');
+                statusText.textContent = `Showing All ${config.totalCount} Staff (Click to Hide)`;
+                controls.style.display = "block";
+                viewBtn.innerHTML = `<span>Show Less</span> <span>↑</span>`;
+
+                cards.forEach((card, index) => {
+                    card.classList.remove('hidden-card');
+                    const delayIndex = index >= config.previewCount ? (index - config.previewCount) : 0;
+                    card.style.animationDelay = `${delayIndex * 0.05}s`;
+                    card.classList.add('animate-in');
+                });
             }
         }
 
+        // Donation QR Box Functions
         function closeDonationBox() {
-            // Removes the 'show' class to hide it smoothly
             document.getElementById('donation-qr-box').classList.remove('show');
         }
 
-        // Show the box after a 1.5-second delay so it pops up naturally
         setTimeout(function() {
             document.getElementById('donation-qr-box').classList.add('show');
         }, 1500);
