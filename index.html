@@ -129,43 +129,117 @@
             background: transparent !important;
         }
 
-        /* Keep Top Header & Navigation sleek and translucent over the animated background */
+        /* --- WHITE HEADER & WHITE MENU BAR STYLING --- */
         .header {
-            background: rgba(7, 17, 38, 0.82) !important;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            background: #ffffff !important;
+            color: #132247 !important;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 6px 0;
+            font-size: 13.5px;
         }
-        .nav-wrapper {
-            background: rgba(13, 27, 62, 0.88) !important;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        .header b {
+            color: #a80c30;
+        }
+        .header .motto-marquee {
+            color: #132247;
+            font-weight: 600;
         }
 
-        /* --- Compact, Pushed-Up Hero Slider with Bottom Blur --- */
+        .nav-wrapper {
+            background: #ffffff !important;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid #c90f3b;
+        }
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 15px;
+        }
+        .nav-container .logo {
+            height: 56px;
+            width: auto;
+            object-fit: contain;
+        }
+        #nav-menu {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        #nav-menu a {
+            color: #132247 !important;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 8px 13px;
+            border-radius: 5px;
+            transition: all 0.2s ease;
+        }
+        #nav-menu a:hover,
+        #nav-menu a.active {
+            background-color: #c90f3b !important;
+            color: #ffffff !important;
+        }
+
+        /* --- AUTO-SLIDING HERO SLIDESHOW (AUTO-ARRANGED TO PHOTO SIZES) --- */
         .slider-container {
             position: relative;
             width: 100%;
-            max-height: 350px;
+            height: 360px;
             margin-top: 0;
             overflow: hidden;
-            background-color: transparent;
+            background-color: #071126;
         }
 
-        /* Smooth 4-Slide Animation */
+        /* Smooth 4-Slide Auto-Animation Track */
         .slides-wrapper {
             display: flex;
             width: 400%;
-            height: 350px;
+            height: 100%;
             animation: heroSlideshow 20s infinite ease-in-out;
         }
-        .slide-img {
+
+        /* Each Slide Auto-Adapts to Any Photo Aspect Ratio Without Cropping */
+        .slide-frame {
             width: 25%;
-            height: 350px;
-            object-fit: cover;
-            object-position: center 25%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #0a1931;
+        }
+
+        /* Blurred ambient fill behind the photo so portrait/landscape sizes look seamless */
+        .slide-bg-fill {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            background-size: cover;
+            background-position: center;
+            filter: blur(18px) brightness(0.55);
+            z-index: 1;
+        }
+
+        /* Foreground photo arranged cleanly to its true size/aspect ratio */
+        .slide-img {
+            position: relative;
+            z-index: 2;
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: 100%;
+            object-fit: contain;
             display: block;
+            margin: 0 auto;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
         }
 
         @keyframes heroSlideshow {
@@ -184,9 +258,9 @@
             height: 100%;
             background: linear-gradient(
                 to bottom,
-                rgba(7, 17, 38, 0.35) 0%,
-                rgba(7, 17, 38, 0.5) 65%,
-                rgba(13, 27, 62, 0.88) 100%
+                rgba(7, 17, 38, 0.25) 0%,
+                rgba(7, 17, 38, 0.4) 65%,
+                rgba(13, 27, 62, 0.85) 100%
             );
             display: flex;
             flex-direction: column;
@@ -196,7 +270,8 @@
             color: #ffffff;
             padding: 20px 20px 55px 20px;
             box-sizing: border-box;
-            z-index: 2;
+            z-index: 3;
+            pointer-events: none;
         }
 
         /* Blurred Lower Part of the Slideshow blending into the Animated Background */
@@ -208,8 +283,8 @@
             height: 70px;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(10, 25, 49, 0.75) 100%);
-            z-index: 3;
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(10, 25, 49, 0.78) 100%);
+            z-index: 4;
             pointer-events: none;
         }
 
@@ -219,13 +294,13 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             margin: 0;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.85);
             animation: textFadeTracking 2.5s ease-out infinite alternate;
         }
         @keyframes textFadeTracking {
             0% {
                 letter-spacing: 1px;
-                opacity: 0.85;
+                opacity: 0.88;
                 transform: scale(0.98);
             }
             100% {
@@ -259,7 +334,7 @@
             .animate-school-name {
                 font-size: 1.5rem;
             }
-            .slider-container, .slides-wrapper, .slide-img {
+            .slider-container {
                 height: 260px;
             }
         }
@@ -1216,6 +1291,7 @@
     </div>
     <div class="global-animated-grid"></div>
 
+    <!-- WHITE TOP HEADER BAR -->
     <div class="header">
         <div class="container flex-header">
             <b>Our School Motto:</b>
@@ -1223,13 +1299,14 @@
         </div>
     </div>
 
+    <!-- WHITE NAVIGATION MENU BAR -->
     <div class="nav-wrapper">
         <div class="container nav-container">
             <img src="images/logo.png" alt="School Logo" class="logo">
             <button class="menu-toggle" id="mobile-menu">☰</button>
             <nav id="nav-menu">
                 <a href="index.html" class="active">Home</a>
-                <a href="about.html">About</a>
+                <a href="about.html">About Us</a>
                 <a href="admission.html">Admission</a>
                 <a href="events.html">Events</a>
                 <a href="faculty.html">Faculty</a>
@@ -1244,13 +1321,25 @@
         </div>
     </div>
 
-    <!-- Compact Pushed-Up Image Slideshow Hero Block with Blurred Lower Part -->
+    <!-- Auto-Sliding Hero Block (Photos Automatically Arranged to Fit Their Exact Sizes) -->
     <div class="slider-container">
         <div class="slides-wrapper">
-            <img src="images/admissionposter.jpeg" alt="School Campus View" class="slide-img">
-            <img src="images/ceremony001.png" alt="School Campus View" class="slide-img">
-            <img src="images/ceremony01.png" alt="School Campus View" class="slide-img">
-            <img src="images/programe.png" alt="School Campus View" class="slide-img">
+            <div class="slide-frame">
+                <div class="slide-bg-fill" style="background-image: url('images/admissionposter.jpeg');"></div>
+                <img src="images/admissionposter.jpeg" alt="School Campus View" class="slide-img">
+            </div>
+            <div class="slide-frame">
+                <div class="slide-bg-fill" style="background-image: url('images/ceremony001.png');"></div>
+                <img src="images/ceremony001.png" alt="School Campus View" class="slide-img">
+            </div>
+            <div class="slide-frame">
+                <div class="slide-bg-fill" style="background-image: url('images/ceremony01.png');"></div>
+                <img src="images/ceremony01.png" alt="School Campus View" class="slide-img">
+            </div>
+            <div class="slide-frame">
+                <div class="slide-bg-fill" style="background-image: url('images/programe.png');"></div>
+                <img src="images/programe.png" alt="School Campus View" class="slide-img">
+            </div>
         </div>
         <div class="slider-overlay">
             <h1 class="animate-school-name">GOOD SHEPHERD HIGHER SECONDARY SCHOOL</h1>
