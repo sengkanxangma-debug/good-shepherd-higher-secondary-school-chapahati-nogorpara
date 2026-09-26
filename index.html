@@ -129,6 +129,89 @@
             background: transparent !important;
         }
 
+        /* --- NAVIGATION DROPDOWN SUB-MENU (ABOUT US -> FACULTY, CONTACT) --- */
+        .nav-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .nav-dropdown-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .dropdown-arrow {
+            font-size: 0.75em;
+            transition: transform 0.25s ease;
+            display: inline-block;
+        }
+        .nav-dropdown:hover .dropdown-arrow,
+        .nav-dropdown.open .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        .nav-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 175px;
+            background: #102a4c;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 8px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+            padding: 6px 0;
+            z-index: 1000;
+            overflow: hidden;
+        }
+        .nav-dropdown:hover .nav-dropdown-menu,
+        .nav-dropdown.open .nav-dropdown-menu {
+            display: block;
+            animation: dropdownFadeIn 0.2s ease;
+        }
+        @keyframes dropdownFadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        #nav-menu .nav-dropdown-menu a {
+            display: block !important;
+            padding: 10px 18px !important;
+            margin: 0 !important;
+            color: #ffffff !important;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            transition: background 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+            white-space: nowrap;
+        }
+        #nav-menu .nav-dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+        #nav-menu .nav-dropdown-menu a:hover {
+            background: #c90f3b !important;
+            color: #ffffff !important;
+            padding-left: 23px !important;
+        }
+
+        @media (max-width: 992px) {
+            .nav-dropdown {
+                width: 100%;
+                display: block;
+            }
+            .nav-dropdown-menu {
+                position: static;
+                width: 100%;
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                background: rgba(0, 0, 0, 0.2);
+                padding: 0;
+            }
+            #nav-menu .nav-dropdown-menu a {
+                padding-left: 32px !important;
+            }
+        }
+
         /* --- AUTO-SLIDING HERO SLIDESHOW (AUTO-ARRANGED TO PHOTO SIZES) --- */
         .slider-container {
             position: relative;
@@ -1287,7 +1370,7 @@
     </div>
     <div class="global-animated-grid"></div>
 
-    <!-- EXACT HEADER & MENU BAR COPIED FROM GIVEN HTML -->
+    <!-- HEADER & MENU BAR -->
     <div class="header">
         <div class="container flex-header">
             <b>Our School Motto:</b>
@@ -1301,16 +1384,26 @@
             <button class="menu-toggle" id="mobile-menu">☰</button>
             <nav id="nav-menu">
                 <a href="index.html" class="active">Home</a>
-                <a href="about.html">About</a>
-                <a href="admission.html">Admission</a>
-                <a href="events.html">Events</a>
-                <a href="faculty.html">Faculty</a>
+                <div class="nav-dropdown" id="aboutDropdown">
+                    <a href="about.html" class="nav-dropdown-toggle" id="aboutDropdownToggle">About Us <span class="dropdown-arrow">▾</span></a>
+                    <div class="nav-dropdown-menu">
+                        <a href="about.html">About Us</a>
+                        <a href="faculty.html">Faculty</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown" id="eventsDropdown">
+                    <a href="events.html" class="nav-dropdown-toggle" id="eventsDropdownToggle">Events <span class="dropdown-arrow">▾</span></a>
+                    <div class="nav-dropdown-menu">
+                        <a href="events.html">Events</a>
+                        <a href="admission.html">Admission</a>
+                        <a href="registration.html">Registration</a>
+                        <a href="result.html">Result</a>
+                    </div>
+                </div>
                 <a href="gallery.html">Gallery</a>
-                <a href="result.html">Result</a>
-                <a href="registration.html">Registration</a>
                 <a href="udiseentry.html">Udise</a>
                 <a href="notice.html">Notice</a>
-                <a href="contact.html">Contact</a>
                 <a href="blog.html">Blog</a>
             </nav>
         </div>
@@ -1998,6 +2091,25 @@
     <script src="JavaScript/script.js"></script>
     
     <script>
+        // --- 0. About Us Submenu Mobile/Touch Toggle Support ---
+        const aboutDropdown = document.getElementById('aboutDropdown');
+        const aboutDropdownToggle = document.getElementById('aboutDropdownToggle');
+
+        if (aboutDropdown && aboutDropdownToggle) {
+            aboutDropdownToggle.addEventListener('click', function(e) {
+                if (window.innerWidth <= 992) {
+                    e.preventDefault();
+                    aboutDropdown.classList.toggle('open');
+                }
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!aboutDropdown.contains(e.target)) {
+                    aboutDropdown.classList.remove('open');
+                }
+            });
+        }
+
         // --- 1. Read More / Show Less Toggle for History, Logo/Motto & Principal's Message ---
         function toggleSectionText(contentId, dotsId, btnId) {
             const extraContent = document.getElementById(contentId);
