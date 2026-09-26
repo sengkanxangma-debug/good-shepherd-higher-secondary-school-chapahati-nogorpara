@@ -37,7 +37,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Floating Animated Ambient Glow Orbs & Particles across the Whole Page */
+        /* Floating Animated Ambient Glow Orbs across the Whole Page */
         .global-bg-orb {
             position: absolute;
             border-radius: 50%;
@@ -120,7 +120,7 @@
             100% { transform: translateY(40px); }
         }
 
-        /* Make all intermediate section backgrounds transparent so the global animation shows everywhere */
+        /* Make intermediate section wrappers transparent so the animated background flows top-to-bottom */
         .main-section,
         .main-section.gray-bg,
         .feature-showcase-section,
@@ -129,156 +129,16 @@
             background: transparent !important;
         }
 
-        /* --- TOP MOTTO HEADER & WHITE NAVIGATION BAR (MATCHING 2ND IMAGE) --- */
-        .header {
-            background-color: #46b5c1 !important;
-            color: #ffffff !important;
-            padding: 7px 0 !important;
-            border-bottom: none !important;
-        }
-        .flex-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .header b {
-            background-color: #ffffff !important;
-            color: #c0292b !important;
-            padding: 5px 14px !important;
-            border-radius: 5px !important;
-            font-size: 13.5px !important;
-            font-weight: 800 !important;
-            white-space: nowrap;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-            display: inline-block;
-        }
-        .header .motto-marquee {
-            color: #ffffff !important;
-            font-size: 15px !important;
-            font-weight: 600 !important;
-            letter-spacing: 0.3px;
-        }
-
-        /* White Navigation Bar */
-        .nav-wrapper {
-            background: #ffffff !important;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #edf2f7;
-        }
-        .nav-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 18px;
-            position: relative;
-            flex-wrap: wrap;
-        }
-        .nav-container .logo {
-            height: 62px;
-            width: auto;
-            object-fit: contain;
-        }
-
-        /* 3-Line Hamburger Button in Right Corner */
-        .menu-toggle {
-            display: none;
-            background: transparent !important;
-            border: none !important;
-            color: #46b5c1 !important;
-            font-size: 28px !important;
-            line-height: 1;
-            cursor: pointer;
-            padding: 6px 10px;
-            margin-left: auto;
-            transition: transform 0.2s ease, color 0.2s ease;
-        }
-        .menu-toggle:hover {
-            color: #2c8c96 !important;
-        }
-
-        /* Desktop Menu Links */
-        #nav-menu {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 4px;
-        }
-        #nav-menu a {
-            color: #132247 !important;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 700;
-            padding: 8px 13px;
-            border-radius: 5px;
-            transition: all 0.2s ease;
-        }
-        #nav-menu a:hover,
-        #nav-menu a.active {
-            background-color: #c90f3b !important;
-            color: #ffffff !important;
-        }
-
-        /* Mobile View Dropdown Menu (Matching 1st & 2nd Uploaded Images) */
-        @media (max-width: 992px) {
-            .menu-toggle {
-                display: block !important;
-            }
-            #nav-menu {
-                display: none;
-                flex-direction: column;
-                align-items: stretch;
-                width: 100%;
-                background-color: #ffffff !important;
-                margin-top: 10px;
-                border-top: 1px solid #edf2f7;
-                gap: 0;
-                padding: 4px 0;
-            }
-            #nav-menu.active,
-            #nav-menu.show {
-                display: flex !important;
-            }
-            #nav-menu a {
-                display: block;
-                width: 100%;
-                box-sizing: border-box;
-                padding: 12px 16px !important;
-                font-size: 14px !important;
-                font-weight: 700 !important;
-                color: #1a202c !important;
-                border-radius: 0 !important;
-                border-bottom: 1px solid #f1f5f9;
-                text-align: left;
-            }
-            #nav-menu a:last-child {
-                border-bottom: none;
-            }
-            #nav-menu a.active {
-                background-color: #c90f3b !important;
-                color: #ffffff !important;
-                border-radius: 4px !important;
-                border-bottom: none;
-            }
-            #nav-menu a:hover {
-                background-color: #c90f3b !important;
-                color: #ffffff !important;
-            }
-        }
-
         /* --- AUTO-SLIDING HERO SLIDESHOW (AUTO-ARRANGED TO PHOTO SIZES) --- */
         .slider-container {
             position: relative;
             width: 100%;
-            height: 360px;
+            height: 350px;
             margin-top: 0;
             overflow: hidden;
             background-color: #071126;
         }
 
-        /* Smooth 4-Slide Auto-Animation Track */
         .slides-wrapper {
             display: flex;
             width: 400%;
@@ -286,7 +146,6 @@
             animation: heroSlideshow 20s infinite ease-in-out;
         }
 
-        /* Each Slide Auto-Adapts to Any Photo Aspect Ratio Without Cropping */
         .slide-frame {
             width: 25%;
             height: 100%;
@@ -298,7 +157,6 @@
             background-color: #0a1931;
         }
 
-        /* Blurred ambient fill behind the photo so portrait/landscape sizes look seamless */
         .slide-bg-fill {
             position: absolute;
             top: -10%;
@@ -311,7 +169,6 @@
             z-index: 1;
         }
 
-        /* Foreground photo arranged cleanly to its true size/aspect ratio */
         .slide-img {
             position: relative;
             z-index: 2;
@@ -357,7 +214,7 @@
             pointer-events: none;
         }
 
-        /* Blurred Lower Part of the Slideshow blending into the Animated Background */
+        /* Blurred Lower Part of the Slideshow */
         .slider-bottom-blur {
             position: absolute;
             bottom: 0;
@@ -393,7 +250,7 @@
             }
         }
 
-        /* --- 3-Column Feature Grid (School History | School Logo & Motto | News & Updates) --- */
+        /* --- 3-Column Feature Grid (Same Desktop Look & Feel Across All Devices) --- */
         .feature-showcase-section {
             position: relative;
             z-index: 5;
@@ -403,23 +260,12 @@
         .db-three-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+            border-radius: 12px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        @media (max-width: 992px) {
-            .db-three-grid {
-                grid-template-columns: 1fr;
-            }
-            .animate-school-name {
-                font-size: 1.5rem;
-            }
-            .slider-container {
-                height: 260px;
-            }
+            border: 1px solid rgba(255, 255, 255, 0.35);
         }
 
         .db-column {
@@ -814,8 +660,8 @@
             padding: 10px 0 35px 0;
         }
         .principal-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
             border-radius: 12px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.28);
             border: 1px solid rgba(255, 255, 255, 0.35);
@@ -823,13 +669,8 @@
             display: grid;
             grid-template-columns: 290px 1fr;
         }
-        @media (max-width: 850px) {
-            .principal-card {
-                grid-template-columns: 1fr;
-            }
-        }
         .principal-photo-col {
-            background: linear-gradient(160deg, rgba(18, 71, 107, 0.95) 0%, rgba(13, 43, 69, 0.98) 100%);
+            background: linear-gradient(160deg, rgba(18, 71, 107, 0.96) 0%, rgba(13, 43, 69, 0.99) 100%);
             padding: 35px 25px;
             display: flex;
             flex-direction: column;
@@ -873,11 +714,6 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-        }
-        @media (max-width: 600px) {
-            .principal-text-col {
-                padding: 24px 18px;
-            }
         }
         .principal-badge {
             display: inline-block;
@@ -981,11 +817,11 @@
             position: relative;
             z-index: 2;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 28px;
         }
         .portal-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.4);
             border-radius: 14px;
@@ -1098,9 +934,9 @@
             box-shadow: 0 10px 20px rgba(168, 12, 48, 0.45);
         }
 
-        /* --- Footer Styling with Translucent Animated Blend --- */
+        /* --- Footer Styling --- */
         .mbose-footer {
-            background: rgba(10, 31, 51, 0.85);
+            background: rgba(18, 71, 107, 0.9);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-top: 1px solid rgba(255, 255, 255, 0.15);
@@ -1173,12 +1009,12 @@
         /* Contact & Info Section Rows */
         .contact-row-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 30px;
             margin-top: 20px;
         }
         .contact-card-box {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.35);
             border-radius: 12px;
@@ -1237,6 +1073,59 @@
             overflow: hidden;
             border: 2px solid rgba(255, 255, 255, 0.35);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- PRESERVE DESKTOP LOOK & PROPORTIONS ON MOBILE VIEW --- */
+        @media (max-width: 992px) {
+            .slider-container {
+                height: 270px;
+            }
+            .animate-school-name {
+                font-size: 1.55rem;
+            }
+            .db-three-grid {
+                grid-template-columns: 1fr;
+            }
+            .db-column {
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            .db-column:last-child {
+                border-bottom: none;
+            }
+            .principal-card {
+                grid-template-columns: 220px 1fr;
+            }
+            .principal-photo-frame {
+                width: 150px;
+                height: 180px;
+            }
+            .portal-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+            }
+            .contact-row-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .principal-card {
+                grid-template-columns: 1fr;
+            }
+            .principal-text-col {
+                padding: 24px 20px;
+            }
+            .portal-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-item {
+                flex-direction: column;
+                gap: 4px;
+            }
+            .contact-label {
+                width: 100%;
+            }
         }
 
         /* Donation QR Code Box Styles */
@@ -1374,7 +1263,7 @@
     </div>
     <div class="global-animated-grid"></div>
 
-    <!-- TEAL TOP MOTTO HEADER BAR (MATCHING 2ND IMAGE) -->
+    <!-- EXACT HEADER & MENU BAR COPIED FROM GIVEN HTML (Styled Natively by css/style.css & JavaScript/script.js) -->
     <div class="header">
         <div class="container flex-header">
             <b>Our School Motto:</b>
@@ -1382,14 +1271,13 @@
         </div>
     </div>
 
-    <!-- WHITE NAVIGATION MENU BAR WITH RIGHT-CORNER 3-LINE TOGGLE IN MOBILE VIEW -->
     <div class="nav-wrapper">
         <div class="container nav-container">
             <img src="images/logo.png" alt="School Logo" class="logo">
-            <button class="menu-toggle" id="mobile-menu" aria-label="Toggle Navigation">☰</button>
+            <button class="menu-toggle" id="mobile-menu">☰</button>
             <nav id="nav-menu">
                 <a href="index.html" class="active">Home</a>
-                <a href="about.html">About Us</a>
+                <a href="about.html">About</a>
                 <a href="admission.html">Admission</a>
                 <a href="events.html">Events</a>
                 <a href="faculty.html">Faculty</a>
@@ -1763,7 +1651,7 @@
         </div>
     </div>
 
-    <!-- Footer Section -->
+    <!-- Replaced Footer Section -->
     <footer class="mbose-footer">
         <div class="container">
             <div class="mbose-footer-grid">
@@ -1901,18 +1789,6 @@
     <script src="JavaScript/script.js"></script>
     
     <script>
-        // --- 0. Mobile 3-Line Menu Toggle (Fallback / Safe Handler) ---
-        (function() {
-            const mobileMenuBtn = document.getElementById('mobile-menu');
-            const navMenu = document.getElementById('nav-menu');
-            if (mobileMenuBtn && navMenu) {
-                mobileMenuBtn.onclick = function(e) {
-                    e.stopPropagation();
-                    navMenu.classList.toggle('active');
-                };
-            }
-        })();
-
         // --- 1. Read More / Show Less Toggle for History, Logo/Motto & Principal's Message ---
         function toggleSectionText(contentId, dotsId, btnId) {
             const extraContent = document.getElementById(contentId);
@@ -2028,7 +1904,7 @@
             if (isMarqueeRunning && marqueeBox) {
                 const maxScroll = marqueeBox.scrollHeight - marqueeBox.clientHeight;
                 if (maxScroll > 0) {
-                    marqueePos += 0.45; // Smooth upward speed
+                    marqueePos += 0.45;
                     if (marqueePos >= maxScroll) {
                         marqueePos = 0;
                     }
@@ -2075,7 +1951,7 @@
             document.getElementById('donation-qr-box').classList.add('show');
         }, 1500); 
 
-        // --- 5. Feedback Modal & Form Submission ---
+        // ---------------- MODAL CONTROLS ----------------
         const feedbackModal = document.getElementById('feedbackModal');
         const openFeedbackBtn = document.getElementById('openFeedbackBtn');
         const closeFeedbackBtn = document.getElementById('closeFeedbackBtn');
@@ -2087,6 +1963,7 @@
             if (e.target === feedbackModal) feedbackModal.style.display = 'none'; 
         }
 
+        // ---------------- FORM SUBMISSION LOGIC ----------------
         const feedbackScriptURL = 'https://script.google.com/macros/s/AKfycbyGdVJyh5pxQg5LxLdPv_l4Tly72TKl4cLKZcW1ieIAubalzILU7qyG4oxp2SnuIXdI/exec';
         const feedbackForm = document.getElementById('feedbackForm');
         const feedbackMsg = document.getElementById('feedbackStatusMsg');
