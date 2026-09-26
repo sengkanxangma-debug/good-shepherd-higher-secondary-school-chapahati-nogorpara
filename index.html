@@ -459,9 +459,9 @@
             transform: translateX(3px);
         }
 
-        /* --- Column 3: News & Updates (Scrollable Marquee + Pagination) --- */
+        /* --- Column 3: News & Updates (Scrollable Marquee Table + Pagination) --- */
         .news-updates-body {
-            padding: 16px 22px 22px 22px;
+            padding: 16px 20px 22px 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -499,9 +499,9 @@
 
         /* Scrollable Up & Down Container with Auto-Marquee Motion */
         .updates-scroll-box {
-            height: 290px;
+            height: 295px;
             overflow-y: auto;
-            padding-right: 6px;
+            padding-right: 4px;
             cursor: pointer;
             scroll-behavior: auto;
             border-top: 1px solid #edf2f7;
@@ -522,69 +522,93 @@
             background: #94a3b8;
         }
 
-        .updates-clean-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+        /* Table styling for <tr class="notice-row"> inside News & Updates */
+        .updates-notice-table {
+            width: 100%;
+            border-collapse: collapse;
         }
-        .updates-clean-list li {
-            padding: 12px 4px;
+        .updates-notice-table tr.notice-row {
             border-bottom: 1px solid #edf2f7;
-            font-size: 14px;
-            line-height: 1.45;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
+            transition: background-color 0.2s ease;
         }
-        .updates-clean-list li:last-child {
+        .updates-notice-table tr.notice-row:last-child {
             border-bottom: none;
         }
-        .notice-num-badge {
-            background-color: #fce8ed;
-            color: #a80c30;
-            font-weight: 700;
-            font-size: 12px;
-            min-width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            margin-top: 2px;
+        .updates-notice-table tr.notice-row:hover {
+            background-color: #fff5f7;
         }
-        .notice-item-details {
-            flex-grow: 1;
-        }
-        .updates-clean-list li a {
+        .updates-notice-table tr.notice-row td {
+            padding: 10px 5px;
+            vertical-align: middle;
+            font-size: 13px;
             color: #2d3748;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-            display: inline;
+            line-height: 1.4;
         }
-        .updates-clean-list li a:hover {
-            color: #c90f3b;
-            text-decoration: underline;
+        /* Column 1: Notice Number */
+        .updates-notice-table tr.notice-row td:nth-child(1) {
+            width: 26px;
+            text-align: center;
+            font-weight: 700;
+            color: #a80c30;
+            font-size: 12px;
         }
+        /* Column 2: Date */
+        .updates-notice-table tr.notice-row td:nth-child(2) {
+            white-space: nowrap;
+            font-size: 11.5px;
+            color: #718096;
+            font-weight: 600;
+            width: 72px;
+        }
+        /* Column 3: Notice Title */
+        .updates-notice-table tr.notice-row td:nth-child(3) {
+            font-weight: 600;
+            color: #1a202c;
+            padding-right: 8px;
+        }
+        /* Column 4: Action Buttons (Download / Open Link) */
+        .updates-notice-table tr.notice-row td:nth-child(4) {
+            text-align: right;
+            white-space: nowrap;
+        }
+
         .badge-new {
             display: inline-block;
             background-color: #d9230f;
             color: #ffffff;
-            font-size: 10px;
+            font-size: 9.5px;
             font-weight: 700;
-            padding: 2px 6px;
+            padding: 2px 5px;
             border-radius: 3px;
-            margin-left: 5px;
+            margin-left: 4px;
             vertical-align: middle;
             text-transform: uppercase;
             letter-spacing: 0.4px;
         }
-        .update-date-tag {
-            display: block;
+
+        /* Action Button Styling for .btn-action & .btn-link */
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background-color: #fce8ed;
+            color: #a80c30 !important;
+            border: 1px solid #f8bbd0;
+            padding: 4px 8px;
+            border-radius: 4px;
             font-size: 11.5px;
-            color: #718096;
-            margin-top: 3px;
+            font-weight: 700;
+            text-decoration: none !important;
+            margin: 2px 0;
+            transition: all 0.2s ease;
+        }
+        .btn-action:hover {
+            background-color: #c90f3b;
+            color: #ffffff !important;
+            border-color: #c90f3b;
+        }
+        .btn-action svg {
+            flex-shrink: 0;
         }
 
         /* Pagination Footer inside News & Updates */
@@ -1263,7 +1287,7 @@
     </div>
     <div class="global-animated-grid"></div>
 
-    <!-- EXACT HEADER & MENU BAR COPIED FROM GIVEN HTML (Styled Natively by css/style.css & JavaScript/script.js) -->
+    <!-- EXACT HEADER & MENU BAR COPIED FROM GIVEN HTML -->
     <div class="header">
         <div class="container flex-header">
             <b>Our School Motto:</b>
@@ -1401,7 +1425,7 @@
                     </div>
                 </div>
 
-                <!-- COLUMN 3: NEWS & UPDATES (MARQUEE + MANUAL SCROLL UP/DOWN + PAGINATION 1-6 OF 18) -->
+                <!-- COLUMN 3: NEWS & UPDATES (WITH THE 18 PROVIDED NOTICE ROWS + MARQUEE + PAGINATION) -->
                 <div class="db-column">
                     <div class="db-col-header crimson-3">
                         <div class="db-header-icon">
@@ -1416,11 +1440,196 @@
                                 <span>⇅ Scrollable</span>
                             </div>
 
-                            <!-- Scrollable Up & Down Marquee Container -->
+                            <!-- Scrollable Up & Down Marquee Container with the 18 <tr class="notice-row"> items -->
                             <div class="updates-scroll-box" id="newsMarqueeBox">
-                                <ul class="updates-clean-list" id="paginatedNoticeList">
-                                    <!-- Populated dynamically by JS (6 notices per page out of 18) -->
-                                </ul>
+                                <table class="updates-notice-table">
+                                    <tbody id="paginatedNoticeBody">
+                                        <tr class="notice-row">
+                                            <td>1</td>
+                                            <td>24-09-2026</td>
+                                            <td>Notice on Admission Open for the Accademic Year 2027-2028 <span class="badge-new">NEW</span></td>
+                                            <td>
+                                                <a href="images/admissionno05.pdf" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="notice-row">
+                                            <td>2</td>
+                                            <td>21-09-2026</td>
+                                            <td>SSLC Re - Selection Test Result Out <span class="badge-new">NEW</span></td>
+                                            <td>
+                                                <a href="images/reselection26.pdf" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="notice-row">
+                                            <td>3</td>
+                                            <td>11-09-2026</td>
+                                            <td>SSLC Selection Test Result Out <span class="badge-new">NEW</span></td>
+                                            <td>
+                                                <a href="images/list out.pdf" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="notice-row">
+                                            <td>4</td>
+                                            <td>25-08-2026</td>
+                                            <td>Examination Online Form</td>
+                                            <td>
+                                                <a href="examform.html" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Open Link
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="notice-row">
+                                            <td>5</td>
+                                            <td>25-08-2026</td>
+                                            <td>SSLC examination form Notice</td>
+                                            <td>
+                                                <a href="images/notice.pdf" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="notice-row">
+                                            <td>6</td>
+                                            <td>19-08-2026</td>
+                                            <td>Birthday Celebration Programe List out</td>
+                                            <td>
+                                                <a href="images/bcpl.png" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="notice-row">
+                                            <td>7</td>
+                                            <td>12-08-2026</td>
+                                            <td>School Week Programme Schedule</td>
+                                            <td>
+                                                <a href="images/programe.png" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="notice-row">
+                                            <td>8</td>
+                                            <td>12-08-2026</td>
+                                            <td>School Week Starts</td>
+                                            <td>
+                                                <a href="images/banner.png" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="notice-row">
+                                            <td>9</td>
+                                            <td>03-08-2026</td>
+                                            <td>Notice for Parents and Students</td>
+                                            <td>
+                                                <a href="images/ud.pdf" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="notice-row">
+                                            <td>10</td>
+                                            <td>27-07-2026</td>
+                                            <td>Mock Drill Notice</td>
+                                            <td>
+                                                <a href="images/mockdrill.pdf" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="notice-row">
+                                            <td>11</td>
+                                            <td>27-07-2026</td>
+                                            <td>Class XI Registration Checklist</td>
+                                            <td>
+                                                <a href="images/checklist.pdf" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="notice-row">
+                                            <td>12</td>
+                                            <td>23-07-2026</td>
+                                            <td>Submission of the list of students without Birth Certificate </td>
+                                            <td>
+                                                 <a href="images/birthsubmittion.pdf" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download</a>
+                                                <a href="https://forms.gle/JZsw9BX4vfW6VheE9" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Open Link
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="notice-row">
+                                            <td>13</td>
+                                            <td>15-07-2026</td>
+                                            <td>Half Yearly Result - 2026</td>
+                                            <td>
+                                                <a href="https://script.google.com/macros/s/AKfycbzSCx3L_mGG8e60ASCgYBo02-bF8W2EJ43TdsWWcWIvVrC0waYeTEg1ouaVsTIbrp01/exec" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Nursery to V </a>
+                                                <a href="https://script.google.com/macros/s/AKfycbx5J9WWLxfcIZUQj6psnoAfoMPnARbG1VeL1UzYadcy7pXnZdBQLCPiC8GzgECNI_-H/exec" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>VI - X
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="notice-row">
+                                             <td>14</td>
+                                            <td>4-07-2026</td>
+                                            <td>Class XI Registration LINK</td>
+                                            <td>
+                                                <a href="https://script.google.com/macros/s/AKfycbxuwx1EQWZ0d31Q9MJ5U2YcC_MvkVH_0p16_rTtjDYWgBiYt_WbDlYPjBSzH_UwzC5J_w/exec" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Open Link
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="notice-row">
+                                            <td>15</td>
+                                            <td>4-07-2026</td>
+                                            <td>Class XI Registration Notice</td>
+                                            <td>
+                                                <a href="images/registration.png" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="notice-row">
+                                            <td>16</td>
+                                            <td>27-06-2026</td>
+                                            <td>Notice for the Past Pupils and Present Students</td>
+                                            <td>
+                                                <a href="https://script.google.com/macros/s/AKfycbz_ToQmo0Mf9Jl3ljv9iBAMcynYQZrjc_fvFALwuDX9RKAU8v2Fu8cFwQtQvLTAF3h7/exec" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Open Link
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="notice-row">
+                                           <td>17</td>
+                                           <td>23-06-2026</td>
+                                            <td>Notice for Students/Parents</td>
+                                            <td>
+                                               <a href="images/Notice for S_P_01.pdf" class="btn-action" download>
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="notice-row">
+                                          <td>18</td>
+                                            <td>22-06-2026</td>
+                                            <td>ID Card Form - 2026</td>
+                                            <td>
+                                                <a href="https://forms.gle/F3ZBPsQERBaXrYcC7" class="btn-action btn-link" target="_blank">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Open Link
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
@@ -1453,7 +1662,7 @@
             <div class="principal-card">
                 <div class="principal-photo-col">
                     <div class="principal-photo-frame">
-                        <img src="images/staff1.jpg" alt="Fr. Francis KK - Principal">
+                        <img src="images/staff1.png" alt="Fr. Francis KK - Principal">
                     </div>
                     <h3>Fr. Francis KK</h3>
                     <span class="designation">Principal</span>
@@ -1806,63 +2015,30 @@
             }
         }
 
-        // --- 2. 18 Notices Data & Pagination (Showing 1 to 6 of 18 results) ---
-        const allNoticesData = [
-            // Page 1 (1 to 6)
-            { title: "Inter Club Competition on School Week Notice", date: "12-August-2026", link: "images/banner.png", isNew: true, target: "_blank" },
-            { title: "School Week Celebration - 2026 Programme", date: "12-August-2026", link: "images/programe.png", isNew: true, target: "_blank" },
-            { title: "Class XI Registration Notice & Online Link", date: "04-July-2026", link: "registration.html", isNew: true, target: "_self" },
-            { title: "Class XI Registration for ID Card, for the Academic Session 2026-2027", date: "04-July-2026", link: "registration.html", isNew: true, target: "_self" },
-            { title: "Notice for the Past Pupil and Students", date: "27-June-2026", link: "registration.html", isNew: true, target: "_self" },
-            { title: "Notice for Parents & Students to Check Udise Students List 2026-2027", date: "22-June-2026", link: "udiseentry.html", isNew: true, target: "_self" },
-
-            // Page 2 (7 to 12)
-            { title: "Notice for the Class XI Submit the Chosen Subject", date: "18-June-2026", link: "registration.html", isNew: true, target: "_self" },
-            { title: "Anti-Tobacco Awareness Rally Notice", date: "29-May-2026", link: "blog.html", isNew: false, target: "_self" },
-            { title: "Inauguration of the Class XI Higher Secondary Arts Stream (Pioneer Batch 2026)", date: "16-May-2026", link: "blog.html", isNew: false, target: "_self" },
-            { title: "Half Yearly Examination of 2026 Routine & Guidelines", date: "16-May-2026", link: "events.html", isNew: false, target: "_self" },
-            { title: "School Prospectus - 2026 Academic Session", date: "16-May-2026", link: "events.html", isNew: false, target: "_self" },
-            { title: "Inauguration of Higher Secondary Section for the Session of New Academic Term (2026-27)", date: "11-May-2026", link: "https://goodshepherdsecondaryschool.blogspot.com/2026/05/inauguration-of-class-xi-higher.html", isNew: false, target: "_blank" },
-
-            // Page 3 (13 to 18)
-            { title: "Admission Open Notice for Class XI Arts Stream (2026-2027)", date: "25-April-2026", link: "admission.html", isNew: false, target: "_self" },
-            { title: "MBOSE SSLC & Academic Examination Result Portal Notice", date: "10-April-2026", link: "result.html", isNew: false, target: "_self" },
-            { title: "New Academic Term Class Timing & School Uniform Notice", date: "20-March-2026", link: "notice.html", isNew: false, target: "_self" },
-            { title: "Annual Sports Meet Closing Ceremony & Result Updates", date: "28-February-2026", link: "events.html", isNew: false, target: "_self" },
-            { title: "Annual Sports Meet Inter-House Schedule & Rules", date: "15-February-2026", link: "events.html", isNew: false, target: "_self" },
-            { title: "Mandatory APAAR ID Registration Notice for All Students", date: "20-January-2026", link: "udiseentry.html", isNew: false, target: "_self" }
-        ];
-
+        // --- 2. Pagination for the 18 <tr class="notice-row"> items (Showing 1 to 6 of 18 results) ---
         const itemsPerPage = 6;
         let currentNoticePage = 1;
 
         function changeNoticePage(pageNumber) {
             currentNoticePage = pageNumber;
-            const listEl = document.getElementById('paginatedNoticeList');
+            const rows = document.querySelectorAll('#paginatedNoticeBody tr.notice-row');
             const infoEl = document.getElementById('paginationInfoText');
             const scrollBox = document.getElementById('newsMarqueeBox');
 
+            const totalRows = rows.length;
             const startIndex = (pageNumber - 1) * itemsPerPage;
-            const endIndex = Math.min(startIndex + itemsPerPage, allNoticesData.length);
-            const currentItems = allNoticesData.slice(startIndex, endIndex);
+            const endIndex = Math.min(startIndex + itemsPerPage, totalRows);
 
-            listEl.innerHTML = currentItems.map((item, idx) => {
-                const itemNumber = startIndex + idx + 1;
-                const newBadge = item.isNew ? `<span class="badge-new">New</span>` : '';
-                return `
-                    <li>
-                        <span class="notice-num-badge">${itemNumber}</span>
-                        <div class="notice-item-details">
-                            <a href="${item.link}" target="${item.target}">${item.title}</a>
-                            ${newBadge}
-                            <span class="update-date-tag"><i>${item.date}</i></span>
-                        </div>
-                    </li>
-                `;
-            }).join('');
+            rows.forEach((row, idx) => {
+                if (idx >= startIndex && idx < endIndex) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
 
             // Update "Showing X to Y of 18 results"
-            infoEl.innerText = `Showing ${startIndex + 1} to ${endIndex} of ${allNoticesData.length} results`;
+            infoEl.innerText = `Showing ${startIndex + 1} to ${endIndex} of ${totalRows} results`;
 
             // Update active button state
             for (let i = 1; i <= 3; i++) {
@@ -1928,7 +2104,7 @@
 
         // When user clicks on the marquee box (or status bar), continue auto-scrolling from current scroll position
         marqueeBox.addEventListener('click', (e) => {
-            if (e.target.tagName.toLowerCase() !== 'a') {
+            if (!e.target.closest('a')) {
                 marqueePos = marqueeBox.scrollTop;
                 setMarqueeRunning(true);
             }
