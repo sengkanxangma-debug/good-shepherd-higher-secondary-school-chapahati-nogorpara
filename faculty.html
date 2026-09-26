@@ -221,13 +221,17 @@
            4. ADVANCED FACULTY CARDS & STUDENT MESSAGE BOX
            ========================================================= */
         .faculty-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 28px;
             margin-top: 25px;
         }
 
         .faculty-card {
+            flex: 0 1 calc(25% - 21px);
+            min-width: 265px;
+            box-sizing: border-box;
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(46, 125, 50, 0.15);
@@ -654,6 +658,10 @@
             }
             .banner-action-indicator { align-self: stretch; justify-content: center; }
             .quotes-header h2 { font-size: 1.6rem; }
+            .faculty-card {
+                flex: 1 1 100%;
+                max-width: 400px;
+            }
         }
     </style>
 </head>
