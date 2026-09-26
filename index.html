@@ -129,41 +129,77 @@
             background: transparent !important;
         }
 
-        /* --- WHITE HEADER & WHITE MENU BAR STYLING --- */
+        /* --- TOP MOTTO HEADER & WHITE NAVIGATION BAR (MATCHING 2ND IMAGE) --- */
         .header {
-            background: #ffffff !important;
-            color: #132247 !important;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 6px 0;
-            font-size: 13.5px;
+            background-color: #46b5c1 !important;
+            color: #ffffff !important;
+            padding: 7px 0 !important;
+            border-bottom: none !important;
+        }
+        .flex-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
         .header b {
-            color: #a80c30;
+            background-color: #ffffff !important;
+            color: #c0292b !important;
+            padding: 5px 14px !important;
+            border-radius: 5px !important;
+            font-size: 13.5px !important;
+            font-weight: 800 !important;
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+            display: inline-block;
         }
         .header .motto-marquee {
-            color: #132247;
-            font-weight: 600;
+            color: #ffffff !important;
+            font-size: 15px !important;
+            font-weight: 600 !important;
+            letter-spacing: 0.3px;
         }
 
+        /* White Navigation Bar */
         .nav-wrapper {
             background: #ffffff !important;
-            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 3px solid #c90f3b;
+            border-bottom: 1px solid #edf2f7;
         }
         .nav-container {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 8px 15px;
+            padding: 10px 18px;
+            position: relative;
+            flex-wrap: wrap;
         }
         .nav-container .logo {
-            height: 56px;
+            height: 62px;
             width: auto;
             object-fit: contain;
         }
+
+        /* 3-Line Hamburger Button in Right Corner */
+        .menu-toggle {
+            display: none;
+            background: transparent !important;
+            border: none !important;
+            color: #46b5c1 !important;
+            font-size: 28px !important;
+            line-height: 1;
+            cursor: pointer;
+            padding: 6px 10px;
+            margin-left: auto;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+        .menu-toggle:hover {
+            color: #2c8c96 !important;
+        }
+
+        /* Desktop Menu Links */
         #nav-menu {
             display: flex;
             align-items: center;
@@ -183,6 +219,53 @@
         #nav-menu a.active {
             background-color: #c90f3b !important;
             color: #ffffff !important;
+        }
+
+        /* Mobile View Dropdown Menu (Matching 1st & 2nd Uploaded Images) */
+        @media (max-width: 992px) {
+            .menu-toggle {
+                display: block !important;
+            }
+            #nav-menu {
+                display: none;
+                flex-direction: column;
+                align-items: stretch;
+                width: 100%;
+                background-color: #ffffff !important;
+                margin-top: 10px;
+                border-top: 1px solid #edf2f7;
+                gap: 0;
+                padding: 4px 0;
+            }
+            #nav-menu.active,
+            #nav-menu.show {
+                display: flex !important;
+            }
+            #nav-menu a {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+                padding: 12px 16px !important;
+                font-size: 14px !important;
+                font-weight: 700 !important;
+                color: #1a202c !important;
+                border-radius: 0 !important;
+                border-bottom: 1px solid #f1f5f9;
+                text-align: left;
+            }
+            #nav-menu a:last-child {
+                border-bottom: none;
+            }
+            #nav-menu a.active {
+                background-color: #c90f3b !important;
+                color: #ffffff !important;
+                border-radius: 4px !important;
+                border-bottom: none;
+            }
+            #nav-menu a:hover {
+                background-color: #c90f3b !important;
+                color: #ffffff !important;
+            }
         }
 
         /* --- AUTO-SLIDING HERO SLIDESHOW (AUTO-ARRANGED TO PHOTO SIZES) --- */
@@ -1291,7 +1374,7 @@
     </div>
     <div class="global-animated-grid"></div>
 
-    <!-- WHITE TOP HEADER BAR -->
+    <!-- TEAL TOP MOTTO HEADER BAR (MATCHING 2ND IMAGE) -->
     <div class="header">
         <div class="container flex-header">
             <b>Our School Motto:</b>
@@ -1299,11 +1382,11 @@
         </div>
     </div>
 
-    <!-- WHITE NAVIGATION MENU BAR -->
+    <!-- WHITE NAVIGATION MENU BAR WITH RIGHT-CORNER 3-LINE TOGGLE IN MOBILE VIEW -->
     <div class="nav-wrapper">
         <div class="container nav-container">
             <img src="images/logo.png" alt="School Logo" class="logo">
-            <button class="menu-toggle" id="mobile-menu">☰</button>
+            <button class="menu-toggle" id="mobile-menu" aria-label="Toggle Navigation">☰</button>
             <nav id="nav-menu">
                 <a href="index.html" class="active">Home</a>
                 <a href="about.html">About Us</a>
@@ -1482,7 +1565,7 @@
             <div class="principal-card">
                 <div class="principal-photo-col">
                     <div class="principal-photo-frame">
-                        <img src="images/staff1.jpg" alt="Fr. Francis KK - Principal">
+                        <img src="images/frfrincis.png" alt="Fr. Francis KK - Principal">
                     </div>
                     <h3>Fr. Francis KK</h3>
                     <span class="designation">Principal</span>
@@ -1818,6 +1901,18 @@
     <script src="JavaScript/script.js"></script>
     
     <script>
+        // --- 0. Mobile 3-Line Menu Toggle (Fallback / Safe Handler) ---
+        (function() {
+            const mobileMenuBtn = document.getElementById('mobile-menu');
+            const navMenu = document.getElementById('nav-menu');
+            if (mobileMenuBtn && navMenu) {
+                mobileMenuBtn.onclick = function(e) {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('active');
+                };
+            }
+        })();
+
         // --- 1. Read More / Show Less Toggle for History, Logo/Motto & Principal's Message ---
         function toggleSectionText(contentId, dotsId, btnId) {
             const extraContent = document.getElementById(contentId);
