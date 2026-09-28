@@ -64,10 +64,335 @@
             100% { letter-spacing: 4px; opacity: 1; transform: scale(1.02); }
         }
 
-        /* Gallery Layout Configuration */
-        .photo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
-        .gallery-item { border: 1px solid #ddd; padding: 10px; background: #fff; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .gallery-item img { width: 100%; height: auto; display: block; margin-bottom: 10px; }
+        /* =========================================================
+           ADVANCED PROFESSIONAL GALLERY STYLING
+           ========================================================= */
+        .gallery-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 35px auto;
+            color: #555;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* Album Category Grid (1 Cover Photo Per Category) */
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+            margin-top: 20px;
+        }
+
+        .album-card {
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            border: 1px solid #eaeaea;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .album-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 14px 30px rgba(46, 125, 50, 0.18);
+        }
+
+        /* Strict Uniform Length & Breadth for All Images */
+        .uniform-img-box {
+            position: relative;
+            width: 100%;
+            height: 240px; /* Fixed uniform height */
+            overflow: hidden;
+            background-color: #f4f4f4;
+        }
+
+        .uniform-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures identical length & breadth without stretching */
+            object-position: center;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .album-card:hover .uniform-img-box img,
+        .photo-card:hover .uniform-img-box img {
+            transform: scale(1.07);
+        }
+
+        .album-badge {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: rgba(46, 125, 50, 0.92);
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        }
+
+        .album-overlay-hint {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.75));
+            color: #fff;
+            padding: 25px 15px 10px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            box-sizing: border-box;
+        }
+
+        .album-info {
+            padding: 20px;
+            text-align: left;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .album-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1b5e20;
+            margin: 0 0 8px 0;
+        }
+
+        .album-quote {
+            font-style: italic;
+            color: #2e7d32;
+            font-size: 0.92rem;
+            margin-bottom: 10px;
+            border-left: 3px solid #2e7d32;
+            padding-left: 10px;
+        }
+
+        .album-desc {
+            font-size: 0.92rem;
+            color: #666;
+            line-height: 1.55;
+            margin: 0 0 15px 0;
+        }
+
+        .explore-btn {
+            display: inline-block;
+            align-self: flex-start;
+            background-color: #f1f8e9;
+            color: #2e7d32;
+            font-weight: 600;
+            font-size: 0.88rem;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: background 0.25s, color 0.25s;
+        }
+
+        .album-card:hover .explore-btn {
+            background-color: #2e7d32;
+            color: #ffffff;
+        }
+
+        /* Expanded Category Photo View */
+        #category-detail-view {
+            display: none;
+            animation: fadeInView 0.4s ease;
+        }
+
+        @keyframes fadeInView {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .category-TopBar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .back-to-albums-btn {
+            background-color: #2e7d32;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.25s ease;
+        }
+
+        .back-to-albums-btn:hover {
+            background-color: #1b5e20;
+        }
+
+        .category-QuickTabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .quick-tab-btn {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            color: #444;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-tab-btn.active,
+        .quick-tab-btn:hover {
+            background: #2e7d32;
+            color: #fff;
+            border-color: #2e7d32;
+        }
+
+        /* Uniform Grid for All Photos Inside a Category */
+        .category-photos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 24px;
+            margin-bottom: 35px;
+        }
+
+        .photo-card {
+            background: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+            border: 1px solid #eee;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .photo-caption-box {
+            padding: 14px 16px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .photo-caption-title {
+            font-weight: 700;
+            color: #333;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+
+        .photo-caption-quote {
+            font-size: 0.84rem;
+            color: #666;
+            font-style: italic;
+            margin: 0;
+        }
+
+        /* Highlight Story & Quotation Banner Below Photos */
+        .category-reflection-box {
+            background: linear-gradient(135deg, #f1f8e9 0%, #ffffff 100%);
+            border-left: 5px solid #2e7d32;
+            border-radius: 10px;
+            padding: 28px 32px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+            margin-top: 20px;
+        }
+
+        .reflection-quote {
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-style: italic;
+            color: #1b5e20;
+            margin: 0 0 14px 0;
+            line-height: 1.5;
+        }
+
+        .reflection-paragraph {
+            font-size: 1rem;
+            color: #444;
+            line-height: 1.75;
+            margin: 0;
+        }
+
+        /* Fullscreen Lightbox Modal */
+        #lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #lightbox-modal.active {
+            display: flex;
+        }
+
+        #lightbox-img {
+            max-width: 90%;
+            max-height: 75vh;
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+            border: 3px solid #fff;
+            object-fit: contain;
+        }
+
+        #lightbox-caption {
+            color: #fff;
+            margin-top: 16px;
+            text-align: center;
+            max-width: 700px;
+        }
+
+        #lightbox-caption h4 {
+            margin: 0 0 6px 0;
+            font-size: 1.2rem;
+            color: #a5d6a7;
+        }
+
+        #lightbox-caption p {
+            margin: 0;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: #ddd;
+        }
+
+        #close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: #fff;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
 
         /* Centered Bottom-Middle Footer Styling Block */
         .site-footer {
@@ -77,15 +402,86 @@
             font-size: 14px;
             text-align: center;
             border-top: 3px solid #2e7d32;
-            margin-top: 40px;
+            margin-top: 50px;
             width: 100%;
         }
         .site-footer .container { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
         .site-footer p { margin: 5px 0; }
 
+        /* Floating Donation QR Box */
+        #donation-qr-box {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 220px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+            padding: 20px;
+            text-align: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        #donation-qr-box.show {
+            opacity: 1;
+            pointer-events: auto;
+            animation: floatHover 4s ease-in-out infinite; 
+        }
+
+        @keyframes floatHover {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        #close-donation-box {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        #close-donation-box:hover {
+            color: #ff0000;
+        }
+
+        #donation-qr-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 12px;
+            margin-top: 5px;
+        }
+
+        #qr-code-placeholder img {
+            width: 100%;
+            max-width: 160px;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #f0f0f0;
+        }
+
+        #qr-scan-label {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
+        }
+
         @media (max-width: 768px) {
             .slider-container { height: 250px; }
             .animate-school-name { font-size: 1.5rem; }
+            .category-reflection-box { padding: 20px; }
+            .reflection-quote { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -105,7 +501,7 @@
                 <a href="admission.html">Admission</a>
                 <a href="events.html">Events</a>
                 <a href="faculty.html">Faculty</a>
-                <a href="gallery.html"  class="active">Gallery</a>
+                <a href="gallery.html" class="active">Gallery</a>
                 <a href="result.html">Result</a>
                 <a href="registration.html">Registration</a>
                 <a href="udiseentry.html">Udise</a>
@@ -136,173 +532,149 @@
         </div>
     </div>
 
+    <!-- MAIN GALLERY SECTION -->
     <div class="main-section">
         <div class="container">
-            <h2 class="heading">Campus Life Gallery</h2>
-            <div class="photo-grid">
-                <div class="gallery-item">
-                    <img src="images/morning2.jpg" alt="Campus View">
-                    <img src="images/progr (2).jpg" alt="Campus View">
-                     <span>Figure.1:1.1</span>
+            <h2 class="heading" id="gallery-main-title">Campus Life Photo Albums</h2>
+            <p class="gallery-intro" id="gallery-main-subtitle">
+                Every photograph at Good Shepherd Higher Secondary School tells a story of dedication, camaraderie, and holistic growth. Select any category album below to explore all photographs from that event in uniform dimensions.
+            </p>
+
+            <!-- STEP 1: CATEGORY ALBUM VIEW (Shows Only 1 Cover Photo Per Category) -->
+            <div class="album-grid" id="album-grid-view">
+
+                <!-- Category 1: Morning Assembly -->
+                <div class="album-card" onclick="openCategory('assembly')">
+                    <div class="uniform-img-box">
+                        <img src="images/morning2.jpg" alt="Morning Assembly">
+                        <span class="album-badge">3 Photos</span>
+                        <div class="album-overlay-hint">Click to view Morning Assembly Album</div>
+                    </div>
+                    <div class="album-info">
+                        <div>
+                            <h3 class="album-title">Morning Assembly & Prayer</h3>
+                            <div class="album-quote">"Discipline is the bridge between goals and accomplishment."</div>
+                            <p class="album-desc">Starting every school day in unity, mindfulness, and gratitude on our assembly grounds.</p>
+                        </div>
+                        <span class="explore-btn">View All Photos &rarr;</span>
+                    </div>
                 </div>
-                    <div class="gallery-item">
-                    <img src="images/progr (3).jpg" alt="Campus View">
-                    <img src="images/progr (4).jpg" alt="Campus View">
-                    <span>Figure.1:1.2</span>
+
+                <!-- Category 2: Annual School Feast & Cultural Programs -->
+                <div class="album-card" onclick="openCategory('feast')">
+                    <div class="uniform-img-box">
+                        <img src="images/progr (2).jpg" alt="Annual School Feast">
+                        <span class="album-badge">7 Photos</span>
+                        <div class="album-overlay-hint">Click to view Annual School Feast Album</div>
+                    </div>
+                    <div class="album-info">
+                        <div>
+                            <h3 class="album-title">Annual School Feast & Cultural Fest</h3>
+                            <div class="album-quote">"Culture is the widening of the mind and of the spirit."</div>
+                            <p class="album-desc">Vibrant stage performances, traditional dances, music, and joyful fellowship lunches.</p>
+                        </div>
+                        <span class="explore-btn">View All Photos &rarr;</span>
+                    </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="images/progr (1).jpg" alt="Students Activity">
-                    <img src="images/das.jpg" alt="Students Activity">
-                    <span>Figure.1:1.3</span>
+
+                <!-- Category 3: Annual Sports Photo -->
+                <div class="album-card" onclick="openCategory('sports')">
+                    <div class="uniform-img-box">
+                        <img src="images/100.jpg" alt="Annual Sports">
+                        <span class="album-badge">8 Photos</span>
+                        <div class="album-overlay-hint">Click to view Annual Sports Album</div>
+                    </div>
+                    <div class="album-info">
+                        <div>
+                            <h3 class="album-title">Annual Sports & Athletics Meet</h3>
+                            <div class="album-quote">"Champions play until they get it right."</div>
+                            <p class="album-desc">Celebrating sportsmanship, endurance, teamwork, and athletic excellence across the campus.</p>
+                        </div>
+                        <span class="explore-btn">View All Photos &rarr;</span>
+                    </div>
                 </div>
-                    <div class="gallery-item">
-                    <img src="images/performers.jpg" alt="Activity">
-                    <img src="images/pioneer-batch.jpg" alt="Activity">
-                    <span>Figure.1:1.4</span>
+
+                <!-- Category 4: Classroom & Pioneer Batch -->
+                <div class="album-card" onclick="openCategory('academics')">
+                    <div class="uniform-img-box">
+                        <img src="images/pioneer-batch.jpg" alt="Academics and Pioneer Batch">
+                        <span class="album-badge">4 Photos</span>
+                        <div class="album-overlay-hint">Click to view Classroom & Batch Album</div>
+                    </div>
+                    <div class="album-info">
+                        <div>
+                            <h3 class="album-title">Classroom Life & Pioneer Batch</h3>
+                            <div class="album-quote">"Education is not the filling of apail, but the lighting of a fire."</div>
+                            <p class="album-desc">Interactive classroom sessions, dedicated scholars, and milestones of our proud Pioneer Batch.</p>
+                        </div>
+                        <span class="explore-btn">View All Photos &rarr;</span>
+                    </div>
                 </div>
-                    <div class="gallery-item">
-                    <img src="images/tobacco-rally1.jpg" alt="Activity">
-                    <img src="images/tobacco-rally.jpg" alt="Activity">
-                    <span>Figure.1:1.5</span>
+
+                <!-- Category 5: Social Awareness & Eco-Club -->
+                <div class="album-card" onclick="openCategory('awareness')">
+                    <div class="uniform-img-box">
+                        <img src="images/tobacco-rally1.jpg" alt="Social Awareness">
+                        <span class="album-badge">4 Photos</span>
+                        <div class="album-overlay-hint">Click to view Social & Eco Album</div>
+                    </div>
+                    <div class="album-info">
+                        <div>
+                            <h3 class="album-title">Eco-Club & Social Awareness Drives</h3>
+                            <div class="album-quote">"Be the change you wish to see in the world."</div>
+                            <p class="album-desc">Students leading community rallies, anti-tobacco campaigns, and green campus cleanliness drives.</p>
+                        </div>
+                        <span class="explore-btn">View All Photos &rarr;</span>
+                    </div>
                 </div>
-                    <div class="gallery-item">
-                    <img src="images/bla.jpg" alt="Activity">
-                    <img src="images/pry.jpg" alt="Activity">
-                    <span>Figure.1:1.6</span>
-                </div>  
-                    <div class="gallery-item">
-                    <img src="images/lunch.jpg" alt="Activity">
-                    <img src="images/se.jpg" alt="Activity">
-                    <span>Figure.1:1.7</span>
-                </div> 
-                    <div class="gallery-item">
-                    <img src="images/clas.jpg" alt="Activity">
-                    <img src="images/class.jpg" alt="Activity">
-                    <span>Figure.1:1.8</span>
-              </div> 
-                    <div class="gallery-item">
-                    <img src="images/env.jpg" alt="Activity">
-                    <img src="images/cleaning.jpg" alt="Activity">
-                    <span>Figure.1:1.9</span>
-                </div>
-                    <div class="gallery-item">
-                    <img src="images/100.jpg" alt="Activity">
-                    <img src="images/11.jpg" alt="Activity">
-                    <span>Figure.1:2.1</span>
-                </div>
-                    <div class="gallery-item">
-                    <img src="images/66.jpg" alt="Activity">
-                    <img src="images/77.jpg" alt="Activity">
-                    <span>Figure.1:2.2</span>
-                </div>
-                    <div class="gallery-item">
-                    <img src="images/88.jpg" alt="Activity">
-                    <img src="images/99.jpg" alt="Activity">
-                    <span>Figure.1:2.3</span>
+
             </div>
-                    <div class="gallery-item">
-                    <img src="images/22.jpg" alt="Activity">
-                    <img src="images/33.jpg" alt="Activity">
-                    <span>Figure.1:2.4</span>
-             </div>
-          </div>
-       </div>
+
+            <!-- STEP 2: EXPANDED CATEGORY VIEW (Hidden Until a Category is Clicked) -->
+            <div id="category-detail-view">
+                <div class="category-TopBar">
+                    <button class="back-to-albums-btn" onclick="closeCategory()">
+                        &larr; Back to All Category Albums
+                    </button>
+                    <div class="category-QuickTabs" id="category-tabs">
+                        <button class="quick-tab-btn" data-cat="assembly" onclick="openCategory('assembly')">Morning Assembly</button>
+                        <button class="quick-tab-btn" data-cat="feast" onclick="openCategory('feast')">Annual School Feast</button>
+                        <button class="quick-tab-btn" data-cat="sports" onclick="openCategory('sports')">Annual Sports</button>
+                        <button class="quick-tab-btn" data-cat="academics" onclick="openCategory('academics')">Classroom & Pioneers</button>
+                        <button class="quick-tab-btn" data-cat="awareness" onclick="openCategory('awareness')">Awareness & Eco Drives</button>
+                    </div>
+                </div>
+
+                <!-- Dynamic Photos Grid (All uniform size) -->
+                <div class="category-photos-grid" id="category-photos-container"></div>
+
+                <!-- Dynamic Paragraph & Quotation Section Below the Photos -->
+                <div class="category-reflection-box">
+                    <blockquote class="reflection-quote" id="category-quote-text"></blockquote>
+                    <p class="reflection-paragraph" id="category-paragraph-text"></p>
+                </div>
+            </div>
+
+        </div>
     </div>
 
+    <!-- FULLSCREEN PHOTO LIGHTBOX -->
+    <div id="lightbox-modal" onclick="closeLightbox(event)">
+        <button id="close-lightbox" onclick="closeLightbox(event)">&times;</button>
+        <img id="lightbox-img" src="" alt="Enlarged View">
+        <div id="lightbox-caption">
+            <h4 id="lightbox-title"></h4>
+            <p id="lightbox-quote"></p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
     <footer class="site-footer">
         <div class="container">
             <p>&copy; 2026 Good Shepherd Higher Secondary School, Chapahati. All Rights Reserved.</p>
             <p style="font-size: 12px; color: #888;">Managed by Good Shepherd Church Chapahati | Powered by Local Administration Desk</p>
         </div>
     </footer>
-    
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <style>
-        /* CSS to make the box float at the bottom right corner */
-        #donation-qr-box {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 220px;
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15); /* Gives it a floating shadow */
-            padding: 20px;
-            text-align: center;
-            z-index: 9999; /* Keeps it on top of other dashboard elements */
-            
-            /* Hidden by default before the JS triggers */
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        /* The class added by JavaScript to show the box */
-        #donation-qr-box.show {
-            opacity: 1;
-            pointer-events: auto;
-            /* Adds a subtle continuous floating animation */
-            animation: floatHover 4s ease-in-out infinite; 
-        }
-
-        /* Animation for the gentle floating effect */
-        @keyframes floatHover {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0px); }
-        }
-
-        /* Styling the close button */
-        #close-donation-box {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            background: transparent;
-            border: none;
-            font-size: 24px;
-            color: #888;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        #close-donation-box:hover {
-            color: #ff0000;
-        }
-
-        /* Title styling */
-        #donation-qr-title {
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: #333;
-            margin-bottom: 12px;
-            margin-top: 5px;
-        }
-
-        /* Ensuring the image stays strictly inside the box */
-        #qr-code-placeholder img {
-            width: 100%; /* Fills the container safely */
-            max-width: 160px;
-            height: auto;
-            border-radius: 8px;
-            border: 2px solid #f0f0f0;
-        }
-
-        /* Label at the bottom */
-        #qr-scan-label {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: #666;
-            font-weight: 500;
-        }
-    </style>
-</head>
-<body>
 
     <!-- Donation QR Code Box -->
     <div id="donation-qr-box">
@@ -319,22 +691,142 @@
     <script src="JavaScript/script.js"></script>
     
     <script>
-        function toggleDropdown(contentId, btnElement) {
-            btnElement.classList.toggle('active');
-            var content = document.getElementById(contentId);
-            if (content.style.maxHeight && content.style.maxHeight !== "0px") {
-                content.style.maxHeight = "0px";
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
+        // Structured Data for Categories, Uniform Photos, Quotes, and Paragraphs
+        const galleryData = {
+            assembly: {
+                title: "Morning Assembly & Prayer",
+                quote: "“Each morning we are born again. What we do today is what matters most.”",
+                paragraph: "The Morning Assembly at Good Shepherd Higher Secondary School sets a serene and purposeful tone for the entire academic day. Gathering together in neat rows beneath the morning sky, students and faculty unite in prayer, moral reflections, national pride, and daily news readings—instilling self-discipline, mindfulness, and mutual respect before stepping into their classrooms.",
+                photos: [
+                    { src: "images/morning2.jpg", title: "Morning Assembly Lineup", quote: "Unity and discipline in the fresh morning light." },
+                    { src: "images/pry.jpg", title: "Morning Prayer & Reflection", quote: "Gratitude turns what we have into enough." },
+                    { src: "images/bla.jpg", title: "Student Assembly Address", quote: "Today's preparation determines tomorrow's achievement." }
+                ]
+            },
+            feast: {
+                title: "Annual School Feast & Cultural Fest",
+                quote: "“Art and celebration speak where words are unable to explain, uniting every heart in joy.”",
+                paragraph: "Our Annual School Feast and Cultural Celebrations bring the entire Good Shepherd family together in a vibrant tapestry of music, traditional dance, theatrical expression, and shared meals. These moments nurture artistic confidence, celebrate our rich heritage, and create lifelong friendships beyond textbooks.",
+                photos: [
+                    { src: "images/progr (2).jpg", title: "Inaugural Cultural Showcase", quote: "Every stage is a canvas for young dreams." },
+                    { src: "images/progr (3).jpg", title: "Traditional Dance Performance", quote: "Keeping heritage alive through rhythm and grace." },
+                    { src: "images/progr (4).jpg", title: "Annual Feast Stage Ceremony", quote: "Excellence is an art won by training and habituation." },
+                    { src: "images/progr (1).jpg", title: "Student Group Presentation", quote: "Together we shine brighter." },
+                    { src: "images/performers.jpg", title: "Cultural Troupe Performers", quote: "Confidence comes naturally with preparation." },
+                    { src: "images/das.jpg", title: "Celebration & Felicitation", quote: "Honoring talent, effort, and joyful spirit." },
+                    { src: "images/lunch.jpg", title: "Annual Feast Fellowship Meal", quote: "Shared joy is a double joy; shared fellowship is the heart of community." }
+                ]
+            },
+            sports: {
+                title: "Annual Sports & Athletics Meet",
+                quote: "“Hard work beats talent when talent fails to work hard. True victory lies in giving your absolute best.”",
+                paragraph: "During the Annual Sports Meet, our school grounds echo with cheers, determination, and house spirit. From track sprints to team events, our students learn resilience, fair play, leadership, and the courage to push past their limits—proving that a healthy body fuels an awakened mind.",
+                photos: [
+                    { src: "images/100.jpg", title: "Annual Sports March Past", quote: "Strength lies in unity and synchronized spirit." },
+                    { src: "images/11.jpg", title: "Track & Field Competition", quote: "Run when you can, walk if you have to, never give up." },
+                    { src: "images/22.jpg", title: "Team Spirit on the Field", quote: "Individual commitment to a group effort builds champions." },
+                    { src: "images/33.jpg", title: "Outdoor Campus Games", quote: "Play with passion, win with humility." },
+                    { src: "images/66.jpg", title: "Athletic Endurance Event", quote: "It always seems impossible until it is done." },
+                    { src: "images/77.jpg", title: "Inter-House Championship", quote: "Victory belongs to the most persevering." },
+                    { src: "images/88.jpg", title: "Sports Day Spectators & Cheer", quote: "Encouragement is oxygen to the soul." },
+                    { src: "images/99.jpg", title: "Closing Ceremony & Honours", quote: "Medals tarnish, but memories and character last forever." }
+                ]
+            },
+            academics: {
+                title: "Classroom Life & Pioneer Batch",
+                quote: "“Education is the passport to the future, for tomorrow belongs to those who prepare for it today.”",
+                paragraph: "Inside our classrooms, curiosity meets mentorship. Whether it is our proud Pioneer Batch setting historic benchmarks for future generations or everyday interactive learning sessions, Good Shepherd School fosters critical thinking, academic rigor, and moral leadership.",
+                photos: [
+                    { src: "images/pioneer-batch.jpg", title: "Our Proud Pioneer Batch", quote: "Trailblazers who laid the foundation of excellence." },
+                    { src: "images/clas.jpg", title: "Interactive Classroom Session", quote: "Curiosity is the wick in the candle of learning." },
+                    { src: "images/class.jpg", title: "Focused Academic Learning", quote: "An investment in knowledge pays the best interest." },
+                    { src: "images/se.jpg", title: "Student Seminar & Guidance", quote: "To learn is to grow; to lead is to serve." }
+                ]
+            },
+            awareness: {
+                title: "Eco-Club & Social Awareness Drives",
+                quote: "“The greatest threat to our planet and society is the belief that someone else will save it.”",
+                paragraph: "At Good Shepherd Higher Secondary School, education extends far beyond the classroom walls into the community. Through anti-tobacco rallies, environmental preservation initiatives, and campus cleanliness drives, our students actively champion public health, civic responsibility, and ecological stewardship.",
+                photos: [
+                    { src: "images/tobacco-rally1.jpg", title: "Anti-Tobacco Awareness Rally", quote: "Choose health, choose life, inspire the community." },
+                    { src: "images/tobacco-rally.jpg", title: "Community Outreach March", quote: "Young voices marching for a healthier tomorrow." },
+                    { src: "images/env.jpg", title: "World Environment Day Drive", quote: "He who plants a tree plants a hope." },
+                    { src: "images/cleaning.jpg", title: "Clean & Green Campus Initiative", quote: "Cleanliness and care begin with our own hands." }
+                ]
+            }
+        };
+
+        function openCategory(catKey) {
+            const data = galleryData[catKey];
+            if (!data) return;
+
+            // Hide main album grid, show category detail view
+            document.getElementById('album-grid-view').style.display = 'none';
+            document.getElementById('category-detail-view').style.display = 'block';
+
+            // Update main headings
+            document.getElementById('gallery-main-title').textContent = data.title;
+            document.getElementById('gallery-main-subtitle').textContent = "All photographs in this collection are presented in uniform dimensions. Click any photo to view it in full screen.";
+
+            // Highlight active tab
+            const tabs = document.querySelectorAll('.quick-tab-btn');
+            tabs.forEach(tab => {
+                tab.classList.toggle('active', tab.getAttribute('data-cat') === catKey);
+            });
+
+            // Populate uniform photo cards
+            const container = document.getElementById('category-photos-container');
+            container.innerHTML = '';
+
+            data.photos.forEach((photo, index) => {
+                const card = document.createElement('div');
+                card.className = 'photo-card';
+                card.onclick = () => openLightbox(photo.src, photo.title, photo.quote);
+                card.innerHTML = `
+                    <div class="uniform-img-box">
+                        <img src="${photo.src}" alt="${photo.title}">
+                        <span class="album-badge">Photo ${index + 1}</span>
+                    </div>
+                    <div class="photo-caption-box">
+                        <div class="photo-caption-title">${photo.title}</div>
+                        <p class="photo-caption-quote">"${photo.quote}"</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // Populate reflection quote and paragraph below photos
+            document.getElementById('category-quote-text').textContent = data.quote;
+            document.getElementById('category-paragraph-text').textContent = data.paragraph;
+
+            // Smooth scroll to gallery section
+            document.getElementById('gallery-main-title').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function closeCategory() {
+            document.getElementById('category-detail-view').style.display = 'none';
+            document.getElementById('album-grid-view').style.display = 'grid';
+            document.getElementById('gallery-main-title').textContent = "Campus Life Photo Albums";
+            document.getElementById('gallery-main-subtitle').textContent = "Every photograph at Good Shepherd Higher Secondary School tells a story of dedication, camaraderie, and holistic growth. Select any category album below to explore all photographs from that event in uniform dimensions.";
+        }
+
+        function openLightbox(src, title, quote) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-title').textContent = title;
+            document.getElementById('lightbox-quote').textContent = '"' + quote + '"';
+            document.getElementById('lightbox-modal').classList.add('active');
+        }
+
+        function closeLightbox(e) {
+            if (e.target.id === 'lightbox-modal' || e.target.id === 'close-lightbox') {
+                document.getElementById('lightbox-modal').classList.remove('active');
             }
         }
 
         function closeDonationBox() {
-            // Removes the 'show' class to hide it smoothly
             document.getElementById('donation-qr-box').classList.remove('show');
         }
 
-        // Show the box after a 1.5-second delay so it pops up naturally
         setTimeout(function() {
             document.getElementById('donation-qr-box').classList.add('show');
         }, 1500);
