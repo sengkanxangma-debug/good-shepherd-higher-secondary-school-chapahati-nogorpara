@@ -1357,7 +1357,7 @@
         .submit-btn:disabled { background: #a0aec0; cursor: not-allowed; }
         .statusMsg { text-align: center; font-weight: bold; margin-top: 15px; display: none; padding: 10px; border-radius: 6px; font-size: 14px; }
 
-        /* --- NEW IMAGE SLIDER POPUP CSS --- */
+        /* --- NEW IMAGE POPUP MODAL CSS (SLIDER) --- */
         .image-popup-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -1376,18 +1376,18 @@
             pointer-events: auto;
         }
         .image-popup-box {
-            position: relative;
             background: #ffffff;
-            padding: 15px;
+            padding: 20px;
             border-radius: 12px;
             max-width: 90%;
             max-height: 90vh;
+            position: relative;
+            transform: translateY(80px);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            transform: translateY(80px);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .image-popup-overlay.show .image-popup-box {
             transform: translateY(0);
@@ -1410,77 +1410,75 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 3003;
+            z-index: 3001;
             transition: background 0.2s, transform 0.2s;
         }
         .close-img-popup-btn:hover {
             background: #a80c30;
             transform: scale(1.1);
         }
-        
         .popup-images-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            max-height: 80vh;
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 100%;
         }
-        
-        .popup-slide {
+        .notice-slide {
             display: none;
             max-width: 100%;
             max-height: 80vh;
             object-fit: contain;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            animation: popupFade 0.4s ease-in-out;
         }
-        .popup-slide.active {
+        .notice-slide.active {
             display: block;
+            animation: slideFadeIn 0.4s ease;
         }
-
-        @keyframes popupFade {
-            from { opacity: 0.4; }
-            to { opacity: 1; }
+        @keyframes slideFadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
         }
-
-        .popup-nav-btn {
+        .slider-arrow {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
             background: rgba(0, 0, 0, 0.6);
             color: white;
-            border: 2px solid rgba(255,255,255,0.3);
-            cursor: pointer;
-            font-size: 20px;
-            font-weight: bold;
+            border: none;
             border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+            cursor: pointer;
             z-index: 3002;
-            transition: all 0.3s;
             display: flex;
-            align-items: center;
             justify-content: center;
-            width: 45px;
-            height: 45px;
+            align-items: center;
+            transition: background 0.3s ease;
         }
-        .popup-nav-btn:hover {
-            background: #c90f3b; /* Maroon hover */
-            border-color: #fff;
+        .slider-arrow:hover {
+            background: rgba(0, 0, 0, 0.9);
         }
-        .prev-btn { left: -22px; }
-        .next-btn { right: -22px; }
+        .prev-arrow { left: -20px; }
+        .next-arrow { right: -20px; }
 
         @media (max-width: 768px) {
             .image-popup-box {
-                padding: 10px;
+                padding: 15px;
             }
+            .slider-arrow {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+            .prev-arrow { left: -10px; }
+            .next-arrow { right: -10px; }
             .close-img-popup-btn {
                 top: -10px;
                 right: -10px;
             }
-            .prev-btn { left: -10px; }
-            .next-btn { right: -10px; }
         }
     </style>
 </head>
@@ -1654,20 +1652,7 @@
                                 <table class="updates-notice-table">
                                     <tbody id="paginatedNoticeBody">
                                         <tr class="notice-row">
-                                            <td>1</td>        
-                                            <td>05-10-2026</td>
-                                            <td>Notice for the Parents and Student on Two Wheller Vehicle or Bike <span class="badge-new">NEW</span></td>
-                                         <td>
-                                         <a href="n.jpg" class="btn-action btn-link" target="_blank">
-                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> View n.jpg
-                                         </a>
-                                         <a href="no.jpg" class="btn-action btn-link" target="_blank">
-                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> View no.jpg
-                                           </a>
-                                         </td>
-                                         </tr>
-                                           <tr class="notice-row">
-                                            <td>2</td>
+                                            <td>1</td>
                                             <td>24-09-2026</td>
                                             <td>Notice on Admission Open for the Accademic Year 2027-2028 <span class="badge-new">NEW</span></td>
                                             <td>
@@ -1677,7 +1662,7 @@
                                             </td>
                                         </tr>
                                         <tr class="notice-row">
-                                            <td>3</td>
+                                            <td>2</td>
                                             <td>21-09-2026</td>
                                             <td>SSLC Re - Selection Test Result Out <span class="badge-new">NEW</span></td>
                                             <td>
@@ -1687,7 +1672,7 @@
                                             </td>
                                         </tr>
                                         <tr class="notice-row">
-                                            <td>4</td>
+                                            <td>3</td>
                                             <td>11-09-2026</td>
                                             <td>SSLC Selection Test Result Out <span class="badge-new">NEW</span></td>
                                             <td>
@@ -1697,7 +1682,7 @@
                                             </td>
                                         </tr>
                                         <tr class="notice-row">
-                                            <td>5</td>
+                                            <td>4</td>
                                             <td>25-08-2026</td>
                                             <td>Examination Online Form</td>
                                             <td>
@@ -1707,7 +1692,7 @@
                                             </td>
                                         </tr>
                                         <tr class="notice-row">
-                                            <td>6</td>
+                                            <td>5</td>
                                             <td>25-08-2026</td>
                                             <td>SSLC examination form Notice</td>
                                             <td>
@@ -1717,7 +1702,7 @@
                                             </td>
                                         </tr>
                                         <tr class="notice-row">
-                                            <td>7</td>
+                                            <td>6</td>
                                             <td>19-08-2026</td>
                                             <td>Birthday Celebration Programe List out</td>
                                             <td>
@@ -1727,7 +1712,7 @@
                                             </td>
                                         </tr>
                                         <tr class="notice-row">
-                                            <td>8</td>
+                                            <td>7</td>
                                             <td>12-08-2026</td>
                                             <td>School Week Programme Schedule</td>
                                             <td>
@@ -1737,7 +1722,7 @@
                                             </td>
                                         </tr>
                                         <tr class="notice-row">
-                                            <td>9</td>
+                                            <td>8</td>
                                             <td>12-08-2026</td>
                                             <td>School Week Starts</td>
                                             <td>
@@ -1747,7 +1732,7 @@
                                             </td>
                                         </tr>
                                         <tr class="notice-row">
-                                            <td>10</td>
+                                            <td>9</td>
                                             <td>03-08-2026</td>
                                             <td>Notice for Parents and Students</td>
                                             <td>
@@ -1757,7 +1742,7 @@
                                             </td>
                                         </tr>
                                         <tr class="notice-row">
-                                            <td>11</td>
+                                            <td>10</td>
                                             <td>27-07-2026</td>
                                             <td>Mock Drill Notice</td>
                                             <td>
@@ -1767,7 +1752,7 @@
                                             </td>
                                         </tr>
                                         <tr class="notice-row">
-                                            <td>12</td>
+                                            <td>11</td>
                                             <td>27-07-2026</td>
                                             <td>Class XI Registration Checklist</td>
                                             <td>
@@ -1777,7 +1762,7 @@
                                             </td>
                                         </tr>
                                         <tr class="notice-row">
-                                            <td>13</td>
+                                            <td>12</td>
                                             <td>23-07-2026</td>
                                             <td>Submission of the list of students without Birth Certificate </td>
                                             <td>
@@ -1789,7 +1774,7 @@
                                             </td>
                                         </tr>
                                         <tr class="notice-row">
-                                            <td>14</td>
+                                            <td>13</td>
                                             <td>15-07-2026</td>
                                             <td>Half Yearly Result - 2026</td>
                                             <td>
@@ -1801,7 +1786,7 @@
                                             </td>
                                         </tr>
                                         <tr class="notice-row">
-                                             <td>15</td>
+                                             <td>14</td>
                                             <td>4-07-2026</td>
                                             <td>Class XI Registration LINK</td>
                                             <td>
@@ -1811,7 +1796,7 @@
                                             </td>
                                         </tr>
                                         <tr class="notice-row">
-                                            <td>16</td>
+                                            <td>15</td>
                                             <td>4-07-2026</td>
                                             <td>Class XI Registration Notice</td>
                                             <td>
@@ -1821,7 +1806,7 @@
                                             </td>
                                         </tr>
                                         <tr class="notice-row">
-                                            <td>17</td>
+                                            <td>16</td>
                                             <td>27-06-2026</td>
                                             <td>Notice for the Past Pupils and Present Students</td>
                                             <td>
@@ -1831,7 +1816,7 @@
                                             </td>
                                         </tr>
                                         <tr class="notice-row">
-                                           <td>18</td>
+                                           <td>17</td>
                                            <td>23-06-2026</td>
                                             <td>Notice for Students/Parents</td>
                                             <td>
@@ -1841,7 +1826,7 @@
                                             </td>
                                         </tr>
                                         <tr class="notice-row">
-                                          <td>19</td>
+                                          <td>18</td>
                                             <td>22-06-2026</td>
                                             <td>ID Card Form - 2026</td>
                                             <td>
@@ -2221,14 +2206,14 @@
     <div class="image-popup-overlay" id="imageNoticePopup">
         <div class="image-popup-box">
             <button class="close-img-popup-btn" id="closeImageNoticePopup">&times;</button>
-            <button class="popup-nav-btn prev-btn" id="popupPrevBtn">&#10094;</button>
+            <button class="slider-arrow prev-arrow" id="prevNoticeImg">&#10094;</button>
             
             <div class="popup-images-container">
-                <img src="n.jpg" alt="Notice Image 1" class="popup-slide active">
-                <img src="no.jpg" alt="Notice Image 2" class="popup-slide">
+                <img src="images/n.jpg" alt="Notice Image 1" class="notice-slide active">
+                <img src="images/no.jpg" alt="Notice Image 2" class="notice-slide">
             </div>
             
-            <button class="popup-nav-btn next-btn" id="popupNextBtn">&#10095;</button>
+            <button class="slider-arrow next-arrow" id="nextNoticeImg">&#10095;</button>
         </div>
     </div>
 
@@ -2430,44 +2415,38 @@
                 });
         });
 
-        // ---------------- IMAGE NOTICE POPUP SLIDER LOGIC ----------------
+        // ---------------- IMAGE SLIDER NOTICE POPUP LOGIC ----------------
         const imageNoticePopup = document.getElementById('imageNoticePopup');
         const closeImageNoticePopupBtn = document.getElementById('closeImageNoticePopup');
-        const popupSlides = document.querySelectorAll('.popup-slide');
-        const popupPrevBtn = document.getElementById('popupPrevBtn');
-        const popupNextBtn = document.getElementById('popupNextBtn');
         
-        let currentPopupSlide = 0;
+        // Slider elements
+        const noticeSlides = document.querySelectorAll('.notice-slide');
+        const prevNoticeBtn = document.getElementById('prevNoticeImg');
+        const nextNoticeBtn = document.getElementById('nextNoticeImg');
+        let currentSlideIdx = 0;
 
-        function showPopupSlide(index) {
-            // Hide all slides
-            popupSlides.forEach(slide => slide.classList.remove('active'));
-            
-            // Handle looping
-            if (index >= popupSlides.length) {
-                currentPopupSlide = 0;
-            } else if (index < 0) {
-                currentPopupSlide = popupSlides.length - 1;
-            } else {
-                currentPopupSlide = index;
-            }
-            
-            // Show new active slide
-            popupSlides[currentPopupSlide].classList.add('active');
+        // Function to update visible slide
+        function showNoticeSlide(index) {
+            noticeSlides.forEach(slide => slide.classList.remove('active'));
+            if (index >= noticeSlides.length) currentSlideIdx = 0;
+            if (index < 0) currentSlideIdx = noticeSlides.length - 1;
+            noticeSlides[currentSlideIdx].classList.add('active');
         }
 
-        popupNextBtn.addEventListener('click', () => {
-            showPopupSlide(currentPopupSlide + 1);
+        // Arrow Listeners
+        prevNoticeBtn.addEventListener('click', () => {
+            currentSlideIdx--;
+            showNoticeSlide(currentSlideIdx);
         });
 
-        popupPrevBtn.addEventListener('click', () => {
-            showPopupSlide(currentPopupSlide - 1);
+        nextNoticeBtn.addEventListener('click', () => {
+            currentSlideIdx++;
+            showNoticeSlide(currentSlideIdx);
         });
 
         // Automatically slide in the popup 1 second after the page finishes loading
         window.addEventListener('load', () => {
             setTimeout(() => {
-                showPopupSlide(0); // Ensure it starts on the first slide
                 imageNoticePopup.classList.add('show');
             }, 1000);
         });
@@ -2477,7 +2456,7 @@
             imageNoticePopup.classList.remove('show');
         });
 
-        // Close if the user clicks anywhere outside the image box (overlay area)
+        // Optional: Close if the user clicks anywhere outside the image box
         imageNoticePopup.addEventListener('click', (e) => {
             if (e.target === imageNoticePopup) {
                 imageNoticePopup.classList.remove('show');
