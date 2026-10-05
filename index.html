@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Good Shepherd Higher Secondary School</title>
-    <link class="icon" type="images/png" href="images/favico.png">
+    <!-- School Logo as Favicon -->
+    <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="css/style.css">
     <style>
         /* --- GLOBAL FULL-PAGE ANIMATED BACKGROUND (TOP TO BOTTOM) --- */
@@ -1357,7 +1358,7 @@
         .submit-btn:disabled { background: #a0aec0; cursor: not-allowed; }
         .statusMsg { text-align: center; font-weight: bold; margin-top: 15px; display: none; padding: 10px; border-radius: 6px; font-size: 14px; }
 
-        /* --- NEW IMAGE POPUP MODAL CSS (SLIDER) --- */
+        /* --- IMAGE POPUP MODAL CSS (SLIDER) --- */
         .image-popup-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -1507,7 +1508,7 @@
             <img src="images/logo.png" alt="School Logo" class="logo">
             <button class="menu-toggle" id="mobile-menu">☰</button>
             <nav id="nav-menu">
-                <a href="index.html"class="active">Home</a>
+                <a href="index.html" class="active">Home</a>
                 <a href="about.html">About</a>
                 <a href="admission.html">Admission</a>
                 <a href="events.html">Events</a>
@@ -1632,7 +1633,7 @@
                     </div>
                 </div>
 
-                <!-- COLUMN 3: NEWS & UPDATES (WITH THE 18 PROVIDED NOTICE ROWS + MARQUEE + PAGINATION) -->
+                <!-- COLUMN 3: NEWS & UPDATES (10 PER PAGE + MARQUEE + PAGINATION) -->
                 <div class="db-column">
                     <div class="db-col-header crimson-3">
                         <div class="db-header-icon">
@@ -1647,7 +1648,7 @@
                                 <span>⇅ Scrollable</span>
                             </div>
 
-                            <!-- Scrollable Up & Down Marquee Container with the 18 <tr class="notice-row"> items -->
+                            <!-- Scrollable Container with the 18 Notice Rows -->
                             <div class="updates-scroll-box" id="newsMarqueeBox">
                                 <table class="updates-notice-table">
                                     <tbody id="paginatedNoticeBody">
@@ -1840,15 +1841,14 @@
                             </div>
                         </div>
 
-                        <!-- Pagination Controls: Showing 1 to 6 of 18 results -->
+                        <!-- Pagination Controls: 10 per page (Page 1: 1-10, Page 2: 11-18) -->
                         <div class="updates-pagination-wrap">
                             <div class="pagination-info-text" id="paginationInfoText">
-                                Showing 1 to 6 of 18 results
+                                Showing 1 to 10 of 18 results
                             </div>
                             <div class="pagination-btn-group">
                                 <button type="button" class="page-num-btn active" id="pageBtn1" onclick="changeNoticePage(1)">1</button>
                                 <button type="button" class="page-num-btn" id="pageBtn2" onclick="changeNoticePage(2)">2</button>
-                                <button type="button" class="page-num-btn" id="pageBtn3" onclick="changeNoticePage(3)">3</button>
                             </div>
                             <div class="db-quick-banners">
                                 <a href="notice.html" class="db-maroon-banner">
@@ -2202,14 +2202,15 @@
         <div id="qr-scan-label">Scan to Donate</div>
     </div>
 
-    <!-- --- NEW IMAGE SLIDER POPUP (Notice Images) --- -->
+    <!-- IMAGE SLIDER NOTICE POPUP (Starts with images/admissionposter.jpeg) -->
     <div class="image-popup-overlay" id="imageNoticePopup">
         <div class="image-popup-box">
             <button class="close-img-popup-btn" id="closeImageNoticePopup">&times;</button>
             <button class="slider-arrow prev-arrow" id="prevNoticeImg">&#10094;</button>
             
             <div class="popup-images-container">
-                <img src="images/n.jpg" alt="Notice Image 1" class="notice-slide active">
+                <img src="images/admissionposter.jpeg" alt="Admission Poster" class="notice-slide active">
+                <img src="images/n.jpg" alt="Notice Image 1" class="notice-slide">
                 <img src="images/no.jpg" alt="Notice Image 2" class="notice-slide">
             </div>
             
@@ -2256,8 +2257,8 @@
             }
         }
 
-        // --- 2. Pagination for the 18 <tr class="notice-row"> items (Showing 1 to 6 of 18 results) ---
-        const itemsPerPage = 6;
+        // --- 2. Pagination for the 18 <tr class="notice-row"> items (Showing 10 per page) ---
+        const itemsPerPage = 10;
         let currentNoticePage = 1;
 
         function changeNoticePage(pageNumber) {
@@ -2267,6 +2268,7 @@
             const scrollBox = document.getElementById('newsMarqueeBox');
 
             const totalRows = rows.length;
+            const totalPages = Math.ceil(totalRows / itemsPerPage);
             const startIndex = (pageNumber - 1) * itemsPerPage;
             const endIndex = Math.min(startIndex + itemsPerPage, totalRows);
 
@@ -2278,11 +2280,11 @@
                 }
             });
 
-            // Update "Showing X to Y of 18 results"
+            // Update "Showing 1 to 10 of 18 results"
             infoEl.innerText = `Showing ${startIndex + 1} to ${endIndex} of ${totalRows} results`;
 
             // Update active button state
-            for (let i = 1; i <= 3; i++) {
+            for (let i = 1; i <= totalPages; i++) {
                 const btn = document.getElementById('pageBtn' + i);
                 if (btn) {
                     btn.classList.toggle('active', i === pageNumber);
@@ -2356,7 +2358,7 @@
             setMarqueeRunning(true);
         });
 
-        // Initialize Page 1 (1 to 6 of 18) and start marquee
+        // Initialize Page 1 (1 to 10 of 18) and start marquee
         changeNoticePage(1);
         requestAnimationFrame(stepMarquee);
 
@@ -2425,38 +2427,35 @@
         const nextNoticeBtn = document.getElementById('nextNoticeImg');
         let currentSlideIdx = 0;
 
-        // Function to update visible slide
         function showNoticeSlide(index) {
             noticeSlides.forEach(slide => slide.classList.remove('active'));
             if (index >= noticeSlides.length) currentSlideIdx = 0;
-            if (index < 0) currentSlideIdx = noticeSlides.length - 1;
+            else if (index < 0) currentSlideIdx = noticeSlides.length - 1;
+            else currentSlideIdx = index;
             noticeSlides[currentSlideIdx].classList.add('active');
         }
 
-        // Arrow Listeners
         prevNoticeBtn.addEventListener('click', () => {
-            currentSlideIdx--;
-            showNoticeSlide(currentSlideIdx);
+            showNoticeSlide(currentSlideIdx - 1);
         });
 
         nextNoticeBtn.addEventListener('click', () => {
-            currentSlideIdx++;
-            showNoticeSlide(currentSlideIdx);
+            showNoticeSlide(currentSlideIdx + 1);
         });
 
-        // Automatically slide in the popup 1 second after the page finishes loading
+        // Automatically slide in the popup 1 second after page finishes loading
         window.addEventListener('load', () => {
             setTimeout(() => {
                 imageNoticePopup.classList.add('show');
             }, 1000);
         });
 
-        // Close when the cross button is clicked
+        // Close button click
         closeImageNoticePopupBtn.addEventListener('click', () => {
             imageNoticePopup.classList.remove('show');
         });
 
-        // Optional: Close if the user clicks anywhere outside the image box
+        // Close on clicking outside the box
         imageNoticePopup.addEventListener('click', (e) => {
             if (e.target === imageNoticePopup) {
                 imageNoticePopup.classList.remove('show');
