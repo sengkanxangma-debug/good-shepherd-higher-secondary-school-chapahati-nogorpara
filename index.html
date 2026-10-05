@@ -1356,6 +1356,132 @@
         .submit-btn:hover { background: #38a169; }
         .submit-btn:disabled { background: #a0aec0; cursor: not-allowed; }
         .statusMsg { text-align: center; font-weight: bold; margin-top: 15px; display: none; padding: 10px; border-radius: 6px; font-size: 14px; }
+
+        /* --- NEW IMAGE SLIDER POPUP CSS --- */
+        .image-popup-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            backdrop-filter: blur(5px);
+        }
+        .image-popup-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .image-popup-box {
+            position: relative;
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 12px;
+            max-width: 90%;
+            max-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            transform: translateY(80px);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .image-popup-overlay.show .image-popup-box {
+            transform: translateY(0);
+        }
+        .close-img-popup-btn {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: #c90f3b;
+            color: #fff;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 22px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3003;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .close-img-popup-btn:hover {
+            background: #a80c30;
+            transform: scale(1.1);
+        }
+        
+        .popup-images-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-height: 80vh;
+            position: relative;
+            width: 100%;
+        }
+        
+        .popup-slide {
+            display: none;
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            animation: popupFade 0.4s ease-in-out;
+        }
+        .popup-slide.active {
+            display: block;
+        }
+
+        @keyframes popupFade {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+
+        .popup-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 50%;
+            z-index: 3002;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+        }
+        .popup-nav-btn:hover {
+            background: #c90f3b; /* Maroon hover */
+            border-color: #fff;
+        }
+        .prev-btn { left: -22px; }
+        .next-btn { right: -22px; }
+
+        @media (max-width: 768px) {
+            .image-popup-box {
+                padding: 10px;
+            }
+            .close-img-popup-btn {
+                top: -10px;
+                right: -10px;
+            }
+            .prev-btn { left: -10px; }
+            .next-btn { right: -10px; }
+        }
     </style>
 </head>
 <body>
@@ -2078,6 +2204,21 @@
         <div id="qr-scan-label">Scan to Donate</div>
     </div>
 
+    <!-- --- NEW IMAGE SLIDER POPUP (Notice Images) --- -->
+    <div class="image-popup-overlay" id="imageNoticePopup">
+        <div class="image-popup-box">
+            <button class="close-img-popup-btn" id="closeImageNoticePopup">&times;</button>
+            <button class="popup-nav-btn prev-btn" id="popupPrevBtn">&#10094;</button>
+            
+            <div class="popup-images-container">
+                <img src="n.jpg" alt="Notice Image 1" class="popup-slide active">
+                <img src="no.jpg" alt="Notice Image 2" class="popup-slide">
+            </div>
+            
+            <button class="popup-nav-btn next-btn" id="popupNextBtn">&#10095;</button>
+        </div>
+    </div>
+
     <script src="JavaScript/script.js"></script>
     
     <script>
@@ -2229,7 +2370,7 @@
             document.getElementById('donation-qr-box').classList.add('show');
         }, 1500); 
 
-        // ---------------- MODAL CONTROLS ----------------
+        // ---------------- MODAL CONTROLS (Feedback) ----------------
         const feedbackModal = document.getElementById('feedbackModal');
         const openFeedbackBtn = document.getElementById('openFeedbackBtn');
         const closeFeedbackBtn = document.getElementById('closeFeedbackBtn');
@@ -2274,6 +2415,60 @@
                     feedbackMsg.innerText = 'Error submitting feedback. Connection dropped.';
                     console.error('Error!', error.message);
                 });
+        });
+
+        // ---------------- IMAGE NOTICE POPUP SLIDER LOGIC ----------------
+        const imageNoticePopup = document.getElementById('imageNoticePopup');
+        const closeImageNoticePopupBtn = document.getElementById('closeImageNoticePopup');
+        const popupSlides = document.querySelectorAll('.popup-slide');
+        const popupPrevBtn = document.getElementById('popupPrevBtn');
+        const popupNextBtn = document.getElementById('popupNextBtn');
+        
+        let currentPopupSlide = 0;
+
+        function showPopupSlide(index) {
+            // Hide all slides
+            popupSlides.forEach(slide => slide.classList.remove('active'));
+            
+            // Handle looping
+            if (index >= popupSlides.length) {
+                currentPopupSlide = 0;
+            } else if (index < 0) {
+                currentPopupSlide = popupSlides.length - 1;
+            } else {
+                currentPopupSlide = index;
+            }
+            
+            // Show new active slide
+            popupSlides[currentPopupSlide].classList.add('active');
+        }
+
+        popupNextBtn.addEventListener('click', () => {
+            showPopupSlide(currentPopupSlide + 1);
+        });
+
+        popupPrevBtn.addEventListener('click', () => {
+            showPopupSlide(currentPopupSlide - 1);
+        });
+
+        // Automatically slide in the popup 1 second after the page finishes loading
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                showPopupSlide(0); // Ensure it starts on the first slide
+                imageNoticePopup.classList.add('show');
+            }, 1000);
+        });
+
+        // Close when the cross button is clicked
+        closeImageNoticePopupBtn.addEventListener('click', () => {
+            imageNoticePopup.classList.remove('show');
+        });
+
+        // Close if the user clicks anywhere outside the image box (overlay area)
+        imageNoticePopup.addEventListener('click', (e) => {
+            if (e.target === imageNoticePopup) {
+                imageNoticePopup.classList.remove('show');
+            }
         });
     </script>
 </body>
