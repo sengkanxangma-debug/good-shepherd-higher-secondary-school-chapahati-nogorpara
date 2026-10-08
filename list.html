@@ -2,30 +2,82 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>UDISE & APAAR Management Portal</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body { padding: 20px; background-color: #f8f9fa; }
+    /* Multi-color Animated Background */
+    body { 
+      padding: 10px; /* Reduced padding for mobile */
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(-45deg, #4158D0, #C850C0, #FFCC70, #00DBDE, #FC00FF);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    @media (min-width: 768px) {
+      body { padding: 20px; }
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Glassmorphism UI Elements */
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .header-title {
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-weight: 700;
+      font-size: 1.5rem; /* Better scaling for mobile */
+    }
+
+    @media (min-width: 768px) {
+      .header-title { font-size: 2rem; }
+    }
+
     .modal-header { background-color: #0d6efd; color: white; }
     .readonly-field { background-color: #e9ecef; cursor: not-allowed; }
-    .consent-box { border: 1px solid #0d6efd; padding: 20px; border-radius: 5px; background: white;}
+    .consent-box { border: 1px solid #0d6efd; padding: 15px; border-radius: 5px; background: white;}
+    
+    .table-responsive { border-radius: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .table { margin-bottom: 0; min-width: 900px; /* Ensures table doesn't squish too much on mobile */ }
   </style>
 </head>
 <body>
 
-<div class="container-fluid">
-  <h2 class="mb-4 text-center">School UDISE & APAAR Portal</h2>
+<div class="container-fluid px-2 px-md-3">
   
-  <!-- Search Box -->
-  <div class="card mb-4 p-3 shadow-sm">
-    <div class="row g-3">
-      <div class="col-md-4">
-        <input type="text" id="searchName" class="form-control" placeholder="Search by Student Name">
+  <!-- Header & Exit Button -->
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3 text-center text-md-start">
+    <h2 class="header-title m-0">School UDISE & APAAR Portal</h2>
+    <a href="index.html" class="btn btn-danger fw-bold shadow-sm px-4 rounded-pill">
+      🚪 Exit to Home
+    </a>
+  </div>
+  
+  <!-- Advanced Search Box -->
+  <div class="glass-panel p-3 p-md-4 mb-4">
+    <h5 class="mb-3 text-primary fw-bold border-bottom pb-2">Advanced Search</h5>
+    <div class="row g-2 g-md-3">
+      <div class="col-12 col-md-3">
+        <input type="text" id="searchName" class="form-control" placeholder="Student Name">
       </div>
-      <div class="col-md-3">
+      <div class="col-6 col-md-2">
         <select id="searchClass" class="form-select" onchange="toggleSection()">
-          <option value="">Select Class</option>
+          <option value="">Class (All)</option>
           <option value="Nursery/KG/PP3">Nursery/KG/PP3</option>
           <option value="LKG/KG1/PP2">LKG/KG1/PP2</option>
           <option value="UKG/KG2/PP1">UKG/KG2/PP1</option>
@@ -42,80 +94,109 @@
           <option value="XI">XI</option>
         </select>
       </div>
-      <div class="col-md-3">
+      <div class="col-6 col-md-2">
         <select id="searchSection" class="form-select">
-          <option value="">Select Section</option>
+          <option value="">Section (All)</option>
           <option value="A">A</option>
           <option value="B">B</option>
         </select>
       </div>
-      <div class="col-md-2">
-        <button class="btn btn-primary w-100" onclick="performSearch()">Search</button>
+      
+      <!-- Aadhaar Verify Search -->
+      <div class="col-12 col-sm-6 col-md-2">
+        <select id="searchAadhaar" class="form-select border-primary">
+          <option value="">Aadhaar (All)</option>
+          <option value="Verified">Aadhaar Verified</option>
+        </select>
+      </div>
+
+      <!-- APAAR Status Search -->
+      <div class="col-12 col-sm-6 col-md-2">
+        <select id="searchApaar" class="form-select border-primary">
+          <option value="">APAAR Status (All)</option>
+          <option value="Generated">Generated</option>
+          <option value="Requested">Requested</option>
+          <option value="NA">NA / Pending</option>
+        </select>
+      </div>
+
+      <div class="col-12 col-md-1 mt-3 mt-md-0">
+        <button class="btn btn-primary w-100 fw-bold shadow h-100" onclick="performSearch()">Search</button>
       </div>
     </div>
   </div>
 
   <!-- Results Table -->
-  <div class="table-responsive bg-white shadow-sm p-3 rounded">
-    <div id="downloadHistory" class="alert alert-success d-none"></div>
-    <table class="table table-bordered table-hover align-middle">
-      <thead class="table-light">
-        <tr>
-          <th>Class</th>
-          <th>Sec</th>
-          <th>Student Name</th>
-          <th>PEN</th>
-          <th>Father Name</th>
-          <th>Mother Name</th>
-          <th>APAAR Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody id="resultsBody">
-        <tr><td colspan="8" class="text-center">Search to display records</td></tr>
-      </tbody>
-    </table>
+  <div class="glass-panel p-2 p-md-3">
+    <div id="downloadHistory" class="alert alert-success d-none shadow-sm text-break"></div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle bg-white">
+        <thead class="table-dark">
+          <tr>
+            <th>Class</th>
+            <th>Sec</th>
+            <th>Student Name</th>
+            <th>PEN</th>
+            <th>Father Name</th>
+            <th>Mother Name</th>
+            <th>APAAR Status</th>
+            <th class="text-center" style="min-width: 130px;">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="resultsBody">
+          <tr><td colspan="8" class="text-center py-4 text-muted fw-bold">Enter search criteria to display records</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+
+  <!-- Copyright Footer -->
+  <div class="glass-panel mt-4 p-3 text-center shadow-sm">
+    <p class="mb-0 fw-bold text-secondary" style="font-size: 0.9rem;">
+      &copy; 2026 Good Shepherd Higher Secondary School, Chapahati - Nogorpara & developed by Sangma Web Developer. All Rights Reserved.
+    </p>
+  </div>
+
 </div>
 
 <!-- Edit Correction Modal -->
 <div class="modal fade" id="editModal" tabindex="-1">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Correct Student Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <h5 class="modal-title fw-bold">Correct Student Details</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
         <form id="editForm">
-          <p class="text-danger small">* Locked fields cannot be changed.</p>
+          <p class="text-danger small fw-bold">* Locked fields cannot be changed.</p>
           <div class="row g-3">
-            <div class="col-md-6"><label>Student Name</label><input type="text" id="editName" class="form-control readonly-field" readonly></div>
-            <div class="col-md-6"><label>Student PEN</label><input type="text" id="editPen" class="form-control readonly-field" readonly></div>
-            <div class="col-md-4"><label>Class</label><input type="text" id="editClass" class="form-control readonly-field" readonly></div>
-            <div class="col-md-4"><label>DOB</label><input type="text" id="editDob" class="form-control readonly-field" readonly></div>
-            <div class="col-md-4"><label>AADHAAR No</label><input type="text" id="editAadhaar" class="form-control readonly-field" readonly></div>
+            <div class="col-12 col-md-6"><label class="fw-semibold">Student Name</label><input type="text" id="editName" class="form-control readonly-field" readonly></div>
+            <div class="col-12 col-md-6"><label class="fw-semibold">Student PEN</label><input type="text" id="editPen" class="form-control readonly-field" readonly></div>
+            <div class="col-6 col-md-4"><label class="fw-semibold">Class</label><input type="text" id="editClass" class="form-control readonly-field" readonly></div>
+            <div class="col-6 col-md-4"><label class="fw-semibold">DOB</label><input type="text" id="editDob" class="form-control readonly-field" readonly></div>
+            <div class="col-12 col-md-4"><label class="fw-semibold">AADHAAR No</label><input type="text" id="editAadhaar" class="form-control readonly-field" readonly></div>
             
-            <hr>
+            <hr class="d-none d-md-block">
             <!-- Editable Correction Fields -->
-            <div class="col-md-4"><label>Gender</label>
+            <div class="col-12 col-md-4"><label class="fw-semibold">Gender</label>
               <select id="editGender" class="form-select">
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
             </div>
-            <div class="col-md-4"><label>Father Name</label><input type="text" id="editFather" class="form-control"></div>
-            <div class="col-md-4"><label>Mother Name</label><input type="text" id="editMother" class="form-control"></div>
+            <div class="col-12 col-md-4"><label class="fw-semibold">Father Name</label><input type="text" id="editFather" class="form-control"></div>
+            <div class="col-12 col-md-4"><label class="fw-semibold">Mother Name</label><input type="text" id="editMother" class="form-control"></div>
             
-            <div class="col-md-4"><label>Social Category</label><input type="text" id="editCategory" class="form-control" placeholder="e.g. 3-ST"></div>
-            <div class="col-md-4"><label>Minority Group</label><input type="text" id="editMinority" class="form-control" placeholder="e.g. Christian"></div>
-            <div class="col-md-2"><label>BPL</label>
+            <div class="col-6 col-md-4"><label class="fw-semibold">Social Category</label><input type="text" id="editCategory" class="form-control" placeholder="e.g. 3-ST"></div>
+            <div class="col-6 col-md-4"><label class="fw-semibold">Minority Group</label><input type="text" id="editMinority" class="form-control" placeholder="e.g. Christian"></div>
+            <div class="col-6 col-md-2"><label class="fw-semibold">BPL</label>
               <select id="editBpl" class="form-select">
                 <option value="No">No</option>
                 <option value="Yes">Yes</option>
               </select>
             </div>
-            <div class="col-md-2"><label>CWSN</label>
+            <div class="col-6 col-md-2"><label class="fw-semibold">CWSN</label>
               <select id="editCwsn" class="form-select">
                 <option value="No">No</option>
                 <option value="Yes">Yes</option>
@@ -126,7 +207,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" id="submitCorrectionBtn" class="btn btn-primary" onclick="submitCorrection()">Submit Correction</button>
+        <button type="button" id="submitCorrectionBtn" class="btn btn-primary px-4" onclick="submitCorrection()">Submit Correction</button>
       </div>
     </div>
   </div>
@@ -134,19 +215,19 @@
 
 <!-- Consent Form Modal -->
 <div class="modal fade" id="consentModal" tabindex="-1">
-  <div class="modal-dialog modal-xl">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">CONSENT BY FATHER/MOTHER/LEGAL GUARDIAN FOR APAAR ID</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <h5 class="modal-title fw-bold" style="font-size: 1rem;">CONSENT BY FATHER/MOTHER/LEGAL GUARDIAN FOR APAAR ID</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
-      <div class="modal-body consent-box m-3">
+      <div class="modal-body consent-box m-2 m-md-3 shadow-sm">
         <form id="consentForm">
-          <div class="row align-items-center mb-3">
-            <div class="col-auto">I</div>
-            <div class="col-auto"><input type="text" id="cgName" class="form-control" placeholder="Guardian Name" required></div>
-            <div class="col-auto">as the</div>
-            <div class="col-auto">
+          <div class="row align-items-center g-2 mb-3">
+            <div class="col-auto fw-bold">I</div>
+            <div class="col-12 col-sm-auto flex-grow-1"><input type="text" id="cgName" class="form-control" placeholder="Guardian Name" required></div>
+            <div class="col-auto fw-bold">as the</div>
+            <div class="col-12 col-sm-auto flex-grow-1">
               <select id="cgRelation" class="form-select" required>
                 <option value="">SELECT</option>
                 <option value="Father">Father</option>
@@ -154,13 +235,13 @@
                 <option value="Legal Guardian">Legal Guardian</option>
               </select>
             </div>
-            <div class="col-auto">of</div>
-            <div class="col-auto"><input type="text" id="cgStudentName" class="form-control readonly-field" readonly></div>
+            <div class="col-auto fw-bold">of</div>
+            <div class="col-12 col-sm-auto flex-grow-1"><input type="text" id="cgStudentName" class="form-control readonly-field" readonly></div>
           </div>
           
-          <div class="row align-items-center mb-4">
-            <div class="col-auto">with my Identity Proof as</div>
-            <div class="col-auto">
+          <div class="row align-items-center g-2 mb-4">
+            <div class="col-12 col-sm-auto fw-bold">with my Identity Proof as</div>
+            <div class="col-12 col-sm-auto flex-grow-1">
               <select id="cgIdType" class="form-select" required>
                 <option value="">SELECT</option>
                 <option value="Aadhaar">Aadhaar Card</option>
@@ -168,30 +249,30 @@
                 <option value="VoterID">Voter ID</option>
               </select>
             </div>
-            <div class="col-auto">and Identity Proof Number</div>
-            <div class="col-auto"><input type="text" id="cgIdNumber" class="form-control" placeholder="ID Number" required></div>
+            <div class="col-12 col-sm-auto fw-bold">and Identity Proof Number</div>
+            <div class="col-12 col-sm-auto flex-grow-1"><input type="text" id="cgIdNumber" class="form-control" placeholder="ID Number" required></div>
           </div>
 
-          <p class="text-muted" style="font-size: 14px; text-align: justify;">
+          <p class="text-muted" style="font-size: 0.9rem; text-align: justify; border-left: 4px solid #0d6efd; padding-left: 10px;">
             voluntarily give my consent to share his/her AADHAAR Number and demographic information issued by UIDAI with Ministry of Education for the sole purpose of creation of APAAR ID and opening of DIGILOCKER account of my child...
           </p>
 
-          <div class="row mt-4">
-            <div class="col-md-6 d-flex align-items-center">
-              <label class="me-2 fw-bold">Place of Physical Consent:</label>
-              <input type="text" id="cgPlace" class="form-control w-50" required>
+          <div class="row mt-4 bg-light p-2 p-md-3 rounded g-3">
+            <div class="col-12 col-md-6 d-flex flex-column flex-sm-row align-items-sm-center">
+              <label class="me-2 fw-bold text-secondary mb-1 mb-sm-0">Place of Physical Consent:</label>
+              <input type="text" id="cgPlace" class="form-control flex-grow-1" required>
             </div>
-            <div class="col-md-6 d-flex align-items-center justify-content-end">
-              <label class="me-2 fw-bold">Date of Physical Consent:</label>
-              <input type="date" id="cgDate" class="form-control w-50" required>
+            <div class="col-12 col-md-6 d-flex flex-column flex-sm-row align-items-sm-center justify-content-md-end">
+              <label class="me-2 fw-bold text-secondary mb-1 mb-sm-0">Date of Physical Consent:</label>
+              <input type="date" id="cgDate" class="form-control flex-grow-1 w-auto" required>
             </div>
           </div>
           <input type="hidden" id="cgPen">
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" id="submitConsentBtn" class="btn btn-success" onclick="submitConsent()">Submit Consent</button>
+      <div class="modal-footer d-flex justify-content-between justify-content-md-end">
+        <button type="button" class="btn btn-secondary w-100 w-md-auto mb-2 mb-md-0" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" id="submitConsentBtn" class="btn btn-success px-4 w-100 w-md-auto" onclick="submitConsent()">Submit Consent</button>
       </div>
     </div>
   </div>
@@ -199,13 +280,13 @@
 
 <!-- Custom Popup Notification Modal -->
 <div class="modal fade" id="popupModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-sm modal-dialog-centered">
-    <div class="modal-content text-center p-4 shadow">
+  <div class="modal-dialog modal-sm modal-dialog-centered mx-auto" style="max-width: 300px;">
+    <div class="modal-content text-center p-4 shadow-lg border-0" style="border-radius: 15px;">
       <div id="popupContent">
         <!-- Status content injected here -->
       </div>
       <div class="mt-4">
-        <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal">OK</button>
+        <button type="button" class="btn btn-primary px-5 rounded-pill shadow-sm w-100" data-bs-dismiss="modal">OK</button>
       </div>
     </div>
   </div>
@@ -234,9 +315,9 @@
   function showPopup(type, message, onCloseCallback = null) {
     const popupContent = document.getElementById('popupContent');
     if (type === 'error') {
-      popupContent.innerHTML = `<div style="font-size: 50px;">❌</div><h5 class="mt-3 text-danger">Oops!</h5><p class="text-muted mb-0">${message}</p>`;
+      popupContent.innerHTML = `<div style="font-size: 50px; line-height: 1;">❌</div><h5 class="mt-3 text-danger fw-bold">Oops!</h5><p class="text-muted mb-0 small">${message}</p>`;
     } else if (type === 'success') {
-      popupContent.innerHTML = `<div style="font-size: 50px;">✅</div><h5 class="mt-3 text-success">Success</h5><p class="text-muted mb-0">${message}</p>`;
+      popupContent.innerHTML = `<div style="font-size: 50px; line-height: 1;">✅</div><h5 class="mt-3 text-success fw-bold">Success</h5><p class="text-muted mb-0 small">${message}</p>`;
     }
 
     const popupModal = new bootstrap.Modal(document.getElementById('popupModal'));
@@ -255,7 +336,11 @@
     const cls = document.getElementById('searchClass').value;
     const sec = document.getElementById('searchSection').value;
     
-    document.getElementById('resultsBody').innerHTML = '<tr><td colspan="8" class="text-center">Searching...</td></tr>';
+    // Advanced Filters
+    const filterAadhaar = document.getElementById('searchAadhaar').value;
+    const filterApaar = document.getElementById('searchApaar').value;
+
+    document.getElementById('resultsBody').innerHTML = '<tr><td colspan="8" class="text-center py-4 text-primary fw-bold">Fetching records... ⏳</td></tr>';
     
     try {
       const response = await fetch(API_URL, {
@@ -266,12 +351,37 @@
       
       const result = await response.json();
       if (result.status === 'success') {
-        displayResults(result.data);
+        
+        // Client-side filtering logic for the advanced fields
+        const filteredData = result.data.filter(std => {
+            let matchAadhaar = true;
+            let matchApaar = true;
+
+            // Aadhaar Filtering
+            if (filterAadhaar === 'Verified') {
+                matchAadhaar = (std['Aadhaar Verify'] === 'Verified' || (std['AADHAAR No'] && std['AADHAAR No'] !== 'NA' && std['AADHAAR No'] !== ''));
+            }
+
+            // APAAR Filtering
+            if (filterApaar) {
+                const currentStatus = std['APAAR Status'] ? std['APAAR Status'].trim() : 'NA';
+                if (filterApaar === 'NA') {
+                    matchApaar = (currentStatus !== 'Generated' && currentStatus !== 'Requested');
+                } else {
+                    matchApaar = (currentStatus === filterApaar);
+                }
+            }
+
+            return matchAadhaar && matchApaar;
+        });
+
+        displayResults(filteredData);
+
       } else {
-        document.getElementById('resultsBody').innerHTML = `<tr><td colspan="8" class="text-center text-danger">Error: ${result.message}</td></tr>`;
+        document.getElementById('resultsBody').innerHTML = `<tr><td colspan="8" class="text-center py-4 text-danger fw-bold">Error: ${result.message}</td></tr>`;
       }
     } catch (error) {
-      document.getElementById('resultsBody').innerHTML = '<tr><td colspan="8" class="text-center text-danger">Search failed. Check console for details.</td></tr>';
+      document.getElementById('resultsBody').innerHTML = '<tr><td colspan="8" class="text-center py-4 text-danger fw-bold">Search failed. Check console for details.</td></tr>';
       console.error(error);
     }
   }
@@ -281,7 +391,7 @@
     tbody.innerHTML = '';
     
     if (students.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="8" class="text-center">No students found.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-muted fw-bold">No students match your selected filters.</td></tr>';
       return;
     }
     
@@ -291,27 +401,26 @@
       
       if (std['APAAR Status'] === 'Generated') {
         apaarBtn = `<a href="https://accounts.digilocker.gov.in/v3/999702e98847d257631be9acf1cb7713f3c20847e9b08daf96f4fb3a66ba3300--en" 
-                       target="_blank" class="btn btn-sm btn-success w-100" 
-                       onclick="logDownload('${std['Student Name']}')">Download from DigiLocker</a>`;
+                       target="_blank" class="btn btn-sm btn-success w-100 fw-semibold" 
+                       onclick="logDownload('${std['Student Name']}')">⬇️ DigiLocker</a>`;
       } else if (std['APAAR Status'] === 'Requested') {
         apaarBtn = `<div class="btn btn-sm btn-light border text-secondary fw-bold w-100 disabled" style="cursor: not-allowed;">Requested 🟡</div>`;
       } else {
-        apaarBtn = `<button id="btn-consent-${std['Student PEN']}" class="btn btn-sm btn-primary w-100" onclick='openConsent(${JSON.stringify(std)})'>🔵 Generate APAAR ID ⏳</button>`;
+        apaarBtn = `<button id="btn-consent-${std['Student PEN']}" class="btn btn-sm btn-primary w-100 fw-semibold" onclick='openConsent(${JSON.stringify(std)})'>🔵 Generate ⏳</button>`;
       }
 
-      // Check if the student was already edited to disable the edit button
       let editBtn = std['hasEdited'] 
-        ? `<button class="btn btn-sm btn-secondary disabled" style="cursor: not-allowed;">Cannot Edit Anymore</button>`
-        : `<button id="btn-edit-${std['Student PEN']}" class="btn btn-sm btn-outline-dark" onclick='openEdit(${JSON.stringify(std)})'>Edit Details</button>`;
+        ? `<button class="btn btn-sm btn-secondary disabled w-100" style="cursor: not-allowed;">Locked</button>`
+        : `<button id="btn-edit-${std['Student PEN']}" class="btn btn-sm btn-outline-dark fw-semibold w-100" onclick='openEdit(${JSON.stringify(std)})'>✏️ Edit</button>`;
 
       tr.innerHTML = `
-        <td>${std['Class'] || ''}</td>
+        <td class="fw-bold">${std['Class'] || ''}</td>
         <td>${std['Section'] || ''}</td>
-        <td>${std['Student Name'] || ''}</td>
-        <td>${std['Student PEN'] || ''}</td>
+        <td class="fw-semibold text-primary">${std['Student Name'] || ''}</td>
+        <td class="text-muted small">${std['Student PEN'] || ''}</td>
         <td>${std['Father Name'] || ''}</td>
         <td>${std['Mother Name'] || ''}</td>
-        <td><span id="badge-${std['Student PEN']}" class="badge ${std['APAAR Status'] === 'Generated' ? 'bg-success' : 'bg-warning text-dark'}">${std['APAAR Status'] || 'Pending'}</span></td>
+        <td><span id="badge-${std['Student PEN']}" class="badge rounded-pill ${std['APAAR Status'] === 'Generated' ? 'bg-success' : (std['APAAR Status'] === 'Requested' ? 'bg-warning text-dark' : 'bg-secondary')}">${std['APAAR Status'] || 'NA'}</span></td>
         <td>
           <div class="d-flex gap-2 flex-column">
             ${editBtn}
@@ -326,7 +435,7 @@
   function logDownload(studentName) {
     const hist = document.getElementById('downloadHistory');
     hist.classList.remove('d-none');
-    hist.innerHTML = `<strong>Download History:</strong> APAAR ID for ${studentName} accessed via DigiLocker on ${new Date().toLocaleString()}`;
+    hist.innerHTML = `<strong>Download History:</strong> APAAR ID for <span class="text-primary">${studentName}</span> accessed via DigiLocker on ${new Date().toLocaleString()}`;
   }
 
   function openEdit(student) {
@@ -356,7 +465,7 @@
     }
 
     btn.disabled = true;
-    btn.innerText = "Submitting...";
+    btn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submitting...`;
 
     const data = {
       originalName: document.getElementById('editName').value,
@@ -381,11 +490,10 @@
       if (result.status === 'success') {
         bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
         
-        // Disable the Edit button immediately in the UI on success
         const pen = document.getElementById('editPen').value;
         const editBtn = document.getElementById(`btn-edit-${pen}`);
         if(editBtn) {
-            editBtn.outerHTML = `<button class="btn btn-sm btn-secondary disabled" style="cursor: not-allowed;">Cannot Edit Anymore</button>`;
+            editBtn.outerHTML = `<button class="btn btn-sm btn-secondary disabled w-100" style="cursor: not-allowed;">Locked</button>`;
         }
 
         showPopup('success', result.message);
@@ -426,7 +534,7 @@
 
     const btn = document.getElementById('submitConsentBtn');
     btn.disabled = true;
-    btn.innerText = "Submitting...";
+    btn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submitting...`;
 
     try {
       const response = await fetch(API_URL, {
@@ -439,17 +547,15 @@
       if (result.status === 'success') {
         bootstrap.Modal.getInstance(document.getElementById('consentModal')).hide();
         
-        // Update Action Button
         const consentBtn = document.getElementById(`btn-consent-${data.pen}`);
         if(consentBtn) {
             consentBtn.outerHTML = `<div class="btn btn-sm btn-light border text-secondary fw-bold w-100 disabled" style="cursor: not-allowed;">Requested 🟡</div>`;
         }
         
-        // Update Status Badge visually
         const statusBadge = document.getElementById(`badge-${data.pen}`);
         if(statusBadge) {
             statusBadge.innerText = 'Requested';
-            statusBadge.className = 'badge bg-warning text-dark';
+            statusBadge.className = 'badge bg-warning text-dark rounded-pill';
         }
 
         showPopup('success', result.message);
