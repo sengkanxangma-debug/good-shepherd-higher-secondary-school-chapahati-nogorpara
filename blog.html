@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>School Blog - Good Shepherd School</title>
-    <link rel="icon" type="image/png" href="images/favico.png">
+    <link rel="icon" type="images/png" href="images/favico.png">
     <link rel="stylesheet" href="css/style.css">
     <style>
         /* CSS styling for the Automated Hero Banner Slideshow */
@@ -212,81 +212,10 @@
         .site-footer .container { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
         .site-footer p { margin: 5px 0; }
 
-        /* --- SUBMENU DROPDOWN STYLES --- */
-        .dropdown { position: relative; display: inline-block; }
-        .dropdown .active { display: inline-block; }
-        .dropdown-content { display: none; position: absolute; background-color: #ffffff; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000; border-radius: 4px; top: 100%; left: 0; }
-        .dropdown-content a { color: #333333 !important; padding: 12px 16px !important; text-decoration: none; display: block; text-align: left; border-bottom: 1px solid #f1f1f1; font-size: 14px; }
-        .dropdown-content a:last-child { border-bottom: none; }
-        .dropdown-content a:hover { background-color: #f2fbf7 !important; color: #00cc7a !important; }
-        .dropdown:hover .dropdown-content { display: block; }
-
-        /* Floating Box CSS */
-        #donation-qr-box {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 220px;
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15); 
-            padding: 20px;
-            text-align: center;
-            z-index: 9999; 
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        #donation-qr-box.show {
-            opacity: 1;
-            pointer-events: auto;
-            animation: floatHover 4s ease-in-out infinite; 
-        }
-        @keyframes floatHover {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0px); }
-        }
-        #close-donation-box {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            background: transparent;
-            border: none;
-            font-size: 24px;
-            color: #888;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-        #close-donation-box:hover {
-            color: #ff0000;
-        }
-        #donation-qr-title {
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: #333;
-            margin-bottom: 12px;
-            margin-top: 5px;
-        }
-        #qr-code-placeholder img {
-            width: 100%; 
-            max-width: 160px;
-            height: auto;
-            border-radius: 8px;
-            border: 2px solid #f0f0f0;
-        }
-        #qr-scan-label {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: #666;
-            font-weight: 500;
-        }
-
         @media (max-width: 768px) {
             .slider-container { height: 250px; }
             .animate-school-name { font-size: 1.5rem; }
-            .blog-row { flex-direction: column; } 
+            .blog-row { flex-direction: column; } /* Stacks vertical on mobile screens */
             .empty-box { min-height: 150px; }
             .content-box-container { padding: 15px; border-width: 4px; }
             .report-summary-trigger { font-size: 1rem; padding: 14px 18px; }
@@ -307,15 +236,7 @@
                 <a href="index.html">Home</a>
                 <a href="about.html">About</a>
                 <a href="admission.html">Admission</a>
-                
-                <!-- Events Menu with Submenu -->
-                <div class="dropdown">
-                    <a href="events.html">Events ▾</a>
-                    <div class="dropdown-content">
-                        <a href="admissionrecords.html">Admission Record</a>
-                    </div>
-                </div>
-                
+                <a href="events.html">Events</a>
                 <a href="faculty.html">Faculty</a>
                 <a href="gallery.html">Gallery</a>
                 <a href="result.html">Result</a>
@@ -523,6 +444,94 @@
             <p style="font-size: 12px; color: #888;">Managed by Good Shepherd Church Chapahati | Powered by Local Administration Desk</p>
         </div>
     </footer>
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        /* CSS to make the box float at the bottom right corner */
+        #donation-qr-box {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 220px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15); /* Gives it a floating shadow */
+            padding: 20px;
+            text-align: center;
+            z-index: 9999; /* Keeps it on top of other dashboard elements */
+            
+            /* Hidden by default before the JS triggers */
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        /* The class added by JavaScript to show the box */
+        #donation-qr-box.show {
+            opacity: 1;
+            pointer-events: auto;
+            /* Adds a subtle continuous floating animation */
+            animation: floatHover 4s ease-in-out infinite; 
+        }
+
+        /* Animation for the gentle floating effect */
+        @keyframes floatHover {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Styling the close button */
+        #close-donation-box {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        #close-donation-box:hover {
+            color: #ff0000;
+        }
+
+        /* Title styling */
+        #donation-qr-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 12px;
+            margin-top: 5px;
+        }
+
+        /* Ensuring the image stays strictly inside the box */
+        #qr-code-placeholder img {
+            width: 100%; /* Fills the container safely */
+            max-width: 160px;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #f0f0f0;
+        }
+
+        /* Label at the bottom */
+        #qr-scan-label {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
 
     <!-- Donation QR Code Box -->
     <div id="donation-qr-box">
