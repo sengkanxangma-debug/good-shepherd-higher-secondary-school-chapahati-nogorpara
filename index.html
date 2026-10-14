@@ -1481,6 +1481,67 @@
                 right: -10px;
             }
         }
+
+        /* --- ADMISSION PASSED RECORD POPUP CSS --- */
+        #admission-record-popup {
+            position: fixed;
+            bottom: 100px;
+            left: 30px;
+            background-color: #ffffff;
+            border: 2px solid #3182ce;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            z-index: 1001;
+            max-width: 280px;
+            display: none;
+            animation: slideIn 0.4s ease-out;
+        }
+        .close-admission-popup {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #a0aec0;
+            transition: color 0.2s;
+        }
+        .close-admission-popup:hover {
+            color: #4a5568;
+        }
+        .admission-popup-title {
+            color: #2d3748;
+            margin: 0 0 8px 0;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .admission-popup-text {
+            font-size: 13px;
+            color: #4a5568;
+            margin: 0 0 15px 0;
+            line-height: 1.5;
+        }
+        .admission-popup-btn {
+            display: block;
+            background: #3182ce;
+            color: #ffffff !important;
+            text-align: center;
+            padding: 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(49, 130, 206, 0.3);
+            transition: transform 0.2s, background 0.2s;
+        }
+        .admission-popup-btn:hover {
+            background: #2b6cb0;
+            transform: scale(1.03);
+        }
     </style>
 </head>
 <body>
@@ -2221,6 +2282,21 @@
         <div id="qr-scan-label">Scan to Donate</div>
     </div>
 
+    <!-- Admission Passed Record Popup -->
+    <div id="admission-record-popup">
+        <button class="close-admission-popup" onclick="document.getElementById('admission-record-popup').style.display='none'">&times;</button>
+        
+        <h4 class="admission-popup-title">🎓 Admission Records</h4>
+        
+        <p class="admission-popup-text">
+            Check your admission status and download the Admission Passed Record for the years <strong>2005 - 2026</strong>.
+        </p>
+        
+        <a href="admissionrecords.html" class="admission-popup-btn">
+            Check & Download &rarr;
+        </a>
+    </div>
+
     <!-- IMAGE SLIDER NOTICE POPUP (Starts with images/admissionposter.jpeg) -->
     <div class="image-popup-overlay" id="imageNoticePopup">
         <div class="image-popup-box">
@@ -2388,6 +2464,16 @@
         setTimeout(function() {
             document.getElementById('donation-qr-box').classList.add('show');
         }, 1500); 
+
+        // --- 5. Admission Passed Record Popup Script ---
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                var admissionPopup = document.getElementById('admission-record-popup');
+                if(admissionPopup) {
+                    admissionPopup.style.display = 'block';
+                }
+            }, 2000);
+        });
 
         // ---------------- MODAL CONTROLS (Feedback) ----------------
         const feedbackModal = document.getElementById('feedbackModal');
