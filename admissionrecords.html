@@ -9,88 +9,106 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   
   <style>
-    /* Advanced Dynamic Background */
     body { 
       margin: 0; min-height: 100vh;
-      background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1e3c72, #2a5298);
-      background-size: 400% 400%;
+      background: linear-gradient(-45deg, #ff9a9e, #fecfef, #a1c4fd, #c2e9fb, #f6d365, #fda085);
+      background-size: 600% 600%;
       animation: gradientBG 15s ease infinite;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #333;
     }
     @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     
+    .dashboard-animated-bg {
+      background: linear-gradient(-45deg, #ffffff, #f8fafc, #f1f5f9, #ffffff);
+      background-size: 300% 300%;
+      animation: gradientDash 8s ease infinite;
+      color: #000 !important; 
+    }
+    .dashboard-animated-bg h4, .dashboard-animated-bg h6, .dashboard-animated-bg label { color: #000 !important; }
+    @keyframes gradientDash { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
     .glass-panel { 
       background: rgba(255, 255, 255, 0.95); 
-      backdrop-filter: blur(12px);
-      border-radius: 8px; 
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
-      border: 1px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(12px); border-radius: 8px; 
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); border: 1px solid rgba(255,255,255,0.3); color: #000; 
     }
     
-    /* Header Branding */
-    .school-header {
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(10px);
-      border-radius: 10px;
-      padding: 12px 20px;
-      margin-bottom: 15px;
-      color: white;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-    
+    .school-header { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px); border-radius: 10px; padding: 12px 20px; margin-bottom: 15px; color: white; border: 1px solid rgba(255,255,255,0.1); }
     .sidebar { height: calc(100vh - 120px); overflow-y: auto; }
-    .year-item { 
-      cursor: pointer; transition: all 0.2s; border-radius: 6px; font-weight: 500; 
-      font-size: 0.9rem; padding: 8px 12px; margin-bottom: 4px;
-    }
-    .year-item:hover { background: #e2e8f0; }
-    .year-item.active { background: #0f2027; color: #ffffff; font-weight: 600; }
+    .year-item { cursor: pointer; transition: all 0.2s; border-radius: 6px; font-weight: 500; font-size: 0.9rem; padding: 8px 12px; margin-bottom: 4px; color: #333; }
+    .year-item:hover { background: #e2e8f0; color: #000 !important; }
+    .year-item.active { background: #0f2027; color: #ffffff !important; font-weight: 600; }
     .all-students-btn { background: #0f2027; color: white !important; font-weight: bold; text-align: center; }
-    .all-students-btn:hover { background: #1e3c72; }
     
-    .stat-card { border-radius: 8px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: transform 0.2s; padding: 20px;}
+    .stat-card { border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s; padding: 20px;}
     .stat-card:hover { transform: translateY(-3px); }
+    .stat-card h6 { font-size: 0.8rem; font-weight: 700; text-transform: uppercase;}
+    .stat-card h2 { color: #000 !important; }
     .card-pink { border-top: 4px solid #ec4899; }
     .card-yellow { border-top: 4px solid #f59e0b; }
     .card-blue { border-top: 4px solid #3b82f6; }
-    .stat-card h6 { color: #6b7280; font-size: 0.85rem; font-weight: 600; text-transform: uppercase;}
+    .card-green { border-top: 4px solid #10b981; }
     
-    .wide-table-wrapper { max-height: 55vh; overflow-y: auto; }
-    .table th { background-color: #f8fafc; color: #475569; font-size: 0.85rem; text-transform: uppercase; }
-    .table td { font-size: 0.9rem; vertical-align: middle; white-space: nowrap; }
-    .table thead th { position: sticky; top: 0; z-index: 1; border-bottom: 2px solid #e2e8f0; }
-    .readonly-field { background-color: #f1f5f9 !important; color: #64748b; }
+    .wide-table-wrapper { max-height: 55vh; overflow-x: auto; overflow-y: auto; cursor: grab; }
+    .wide-table-wrapper:active { cursor: grabbing; }
+    .table th { background-color: #f8fafc; color: #212529 !important; font-size: 0.85rem; text-transform: capitalize; border-bottom: 2px solid #ccc;} 
+    .table td { font-size: 0.9rem; vertical-align: middle; white-space: nowrap; color: #000; border-color: #dee2e6;}
+    .table thead th { position: sticky; top: 0; z-index: 1; }
+    .readonly-field { background-color: #e9ecef !important; color: #495057 !important; font-weight: bold;}
     
-    /* Language Selection Overlay */
-    #languageOverlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(15, 32, 39, 0.95); z-index: 9999;
-      display: flex; justify-content: center; align-items: center;
-    }
-    .lang-box { background: #fff; padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; width: 90%; }
+    #languageOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 32, 39, 0.95); z-index: 9999; display: flex; justify-content: center; align-items: center; }
+    .lang-box { background: #fff; padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; width: 90%; color: #000; }
     .lang-btn { margin: 5px; width: 100%; font-weight: bold; }
+    
+    /* PDF Print Styles */
+    @media print {
+      @page { size: A4; margin: 15mm; }
+      body * { visibility: hidden; background: white; padding: 0; margin: 0; }
+      #printArea, #printArea * { visibility: visible; }
+      #printArea { position: absolute; left: 0; top: 0; width: 100%; font-family: 'Times New Roman', Times, serif; color: #000; }
+      .no-print { display: none !important; }
+      
+      .print-header { text-align: center; border-bottom: 3px double #000; padding-bottom: 15px; margin-bottom: 25px; }
+      .print-header h1 { font-size: 26px; font-weight: bold; margin: 0; letter-spacing: 1px; color: #000; text-transform: uppercase;}
+      .print-header p { font-size: 14px; margin: 5px 0 0 0; }
+      .print-header h3 { font-size: 18px; text-decoration: underline; margin-top: 15px; text-transform: uppercase;}
+      
+      .print-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px 30px; }
+      .print-item { border-bottom: 1px dashed #ccc; padding-bottom: 5px; }
+      .print-label { font-size: 11px; color: #555; font-weight: bold; text-transform: uppercase; }
+      .print-val { font-size: 16px; font-weight: bold; color: #000; margin-top: 4px; }
+      
+      .print-footer { margin-top: 60px; display: flex; justify-content: space-between; padding: 0 40px; }
+      .print-sig { text-align: center; font-size: 14px; font-weight: bold; border-top: 1px solid #000; padding-top: 5px; width: 200px; }
+    }
   </style>
 </head>
 <body class="p-3 d-flex flex-column">
 
-<!-- Language Selection Modal (Mandatory) -->
-<div id="languageOverlay">
+<div id="languageOverlay" class="no-print">
   <div class="lang-box shadow-lg">
     <h4 class="fw-bold mb-3" data-translate="lang_sel">Select Your Language</h4>
-    <button class="btn btn-outline-primary lang-btn" onclick="selectLanguage('English')">English</button>
-    <button class="btn btn-outline-success lang-btn" onclick="selectLanguage('Garo')">Garo</button>
-    <button class="btn btn-outline-danger lang-btn" onclick="selectLanguage('Hindi')">हिंदी (Hindi)</button>
-    <button class="btn btn-outline-warning lang-btn" onclick="selectLanguage('Bengali')">বাংলা (Bengali)</button>
+    <button class="btn btn-outline-primary lang-btn" onclick="selectLanguage('English', true)">English</button>
+    <button class="btn btn-outline-success lang-btn" onclick="selectLanguage('Garo', true)">Garo</button>
+    <button class="btn btn-outline-danger lang-btn" onclick="selectLanguage('Hindi', true)">हिंदी (Hindi)</button>
+    <button class="btn btn-outline-warning lang-btn" onclick="selectLanguage('Bengali', true)">বাংলা (Bengali)</button>
   </div>
 </div>
 
 <div class="container-fluid flex-grow-1 no-print">
-  
-  <!-- School Branding Header -->
-  <div class="school-header d-flex align-items-center shadow-sm">
-    <img src="favico.png" alt="Logo" onerror="this.src='https://via.placeholder.com/50'" style="width: 50px; height: 50px; margin-right: 15px; border-radius: 50%; border: 2px solid white;">
-    <h3 class="m-0 fw-bold text-shadow" style="letter-spacing: 0.5px;">Good Shepherd Higher Secondary School, Chapahati - Nogopara</h3>
+  <div class="school-header d-flex justify-content-between align-items-center shadow-sm flex-wrap gap-2">
+    <div class="d-flex align-items-center">
+      <img src="favico.png" alt="Logo" onerror="this.src='https://via.placeholder.com/50'" style="width: 50px; height: 50px; margin-right: 15px; border-radius: 50%; border: 2px solid white;">
+      <h3 class="m-0 fw-bold text-shadow" style="letter-spacing: 0.5px; font-size: 1.4rem;">Good Shepherd Higher Secondary School, Chapahati - Nogopara</h3>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+       <span id="serverStatus" class="badge bg-success fs-6"><i class="bi bi-lightning-charge-fill"></i> Server: Ready</span>
+       <select id="dashLangSelect" class="form-select form-select-sm fw-bold w-auto" onchange="selectLanguage(this.value, false)">
+         <option value="English">English</option><option value="Garo">Garo</option><option value="Hindi">हिंदी</option><option value="Bengali">বাংলা</option>
+       </select>
+       <a href="index.html" class="btn btn-danger btn-sm fw-bold shadow-sm"><i class="bi bi-box-arrow-right"></i> <span data-translate="exit">Exit</span></a>
+    </div>
   </div>
 
   <div class="row h-100 g-3">
@@ -101,18 +119,17 @@
         <div id="btnAllStudents" class="year-item all-students-btn p-2 mb-3 shadow-sm" onclick="selectAllStudents()">
           <i class="bi bi-people-fill"></i> <span data-translate="all_students">Total Students</span>
         </div>
-        <div class="mb-2 text-muted small fw-bold text-uppercase" data-translate="year_grp">Year Groups</div>
+        <div class="mb-2 text-muted small fw-bold text-uppercase" data-translate="year_grp">Academic Years</div>
         <div id="yearList" class="d-flex flex-column gap-1"></div>
       </div>
     </div>
 
     <!-- MAIN DASHBOARD -->
     <div class="col-12 col-md-9 col-lg-10 d-flex flex-column gap-3">
-      <!-- Top Header -->
-      <div class="glass-panel p-3 d-flex flex-column gap-3">
+      <div class="glass-panel p-3 d-flex flex-column gap-3 dashboard-animated-bg">
         <div class="d-flex justify-content-between align-items-center flex-wrap">
-            <h4 class="m-0 fw-bold" style="color: #111827;"><span data-translate="dashboard">Student Performance Dashboard</span> <span id="currentYearDisplay" class="text-secondary fs-6 ms-2">(All Years)</span></h4>
-            <div id="liveClock" class="badge bg-dark fs-6 fw-semibold">Loading Date & Time...</div>
+            <h4 class="m-0 fw-bold"><span data-translate="dashboard">Student Performance Dashboard</span> <span id="currentYearDisplay" class="text-secondary fs-6 ms-2">(All Years)</span></h4>
+            <div id="liveClock" class="badge bg-dark fs-6 fw-semibold text-white">Loading Date & Time...</div>
         </div>
         <div class="d-flex gap-2 align-items-center flex-wrap">
           <input type="number" id="searchYearInput" class="form-control px-3" placeholder="Year" style="width: 100px;">
@@ -124,40 +141,57 @@
             <option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option>
             <option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option>
           </select>
-          <button class="btn btn-dark px-4" onclick="fetchRecords()" data-translate="search_btn">Search</button>
+          <button class="btn btn-dark px-4" onclick="lightningFetch()" data-translate="search_btn"><i class="bi bi-arrow-clockwise"></i> Fast Search</button>
+          <button class="btn btn-primary px-4 fw-bold shadow-sm" onclick="openNewForm()" data-translate="missing_reports"><i class="bi bi-file-earmark-plus"></i> Missing Reports</button>
         </div>
       </div>
 
       <!-- Stat Cards -->
       <div class="row g-3">
-        <div class="col-md-4"><div class="stat-card card-blue"><h6 data-translate="total_adm">Total Admissions</h6><h2 id="statTotal" class="fw-bold m-0">0</h2></div></div>
-        <div class="col-md-4"><div class="stat-card card-yellow"><h6 data-translate="pending">Pending Updates</h6><h2 id="statPending" class="fw-bold m-0">0</h2></div></div>
-        <div class="col-md-4"><div class="stat-card card-pink"><h6 data-translate="locked">Locked / Verified</h6><h2 id="statLocked" class="fw-bold m-0">0</h2></div></div>
+        <div class="col-md-3"><div class="stat-card card-blue dashboard-animated-bg"><h6 data-translate="total_adm">Total Admissions</h6><h2 id="statTotal" class="fw-bold m-0">0</h2></div></div>
+        <div class="col-md-3"><div class="stat-card card-yellow dashboard-animated-bg"><h6 data-translate="pending">Pending Updates</h6><h2 id="statPending" class="fw-bold m-0">0</h2></div></div>
+        <div class="col-md-3"><div class="stat-card card-pink dashboard-animated-bg"><h6 data-translate="locked">Completed / Locked</h6><h2 id="statLocked" class="fw-bold m-0">0</h2></div></div>
+        <div class="col-md-3"><div class="stat-card card-green dashboard-animated-bg"><h6 data-translate="fresh_reports">Missing Reports</h6><h2 id="statMissing" class="fw-bold m-0">0</h2></div></div>
       </div>
 
-      <!-- Massive Records Table -->
-      <div class="glass-panel p-4 flex-grow-1 d-flex flex-column">
-        <div class="table-responsive wide-table-wrapper rounded">
-          <table class="table table-hover align-middle bg-white m-0 border-0">
+      <!-- Draggable Data Table -->
+      <div class="glass-panel p-4 flex-grow-1 d-flex flex-column dashboard-animated-bg">
+        <div class="wide-table-wrapper rounded" id="dragTable">
+          <table class="table table-hover align-middle m-0 border-0 shadow-sm" style="background: transparent;">
             <thead>
               <tr>
-                <th data-translate="admn_no">Admn No.</th><th data-translate="year_adm">Year</th><th data-translate="date_adm">Adm Date</th><th data-translate="name">Student Name</th>
-                <th data-translate="dob">DOB</th><th data-translate="sex">Sex</th><th data-translate="religion">Religion</th><th data-translate="community">Community</th>
-                <th data-translate="father">Father</th><th data-translate="mother">Mother</th><th data-translate="contact">Contact No</th><th data-translate="address">Address</th>
-                <th data-translate="occupation">Occupation</th><th data-translate="pen">PEN</th><th data-translate="blood">Blood Grp</th><th data-translate="aadhar">Aadhar</th>
-                <th data-translate="class_last">Prev Class</th><th data-translate="last_tc">Prev TC Date</th><th data-translate="class_adm">Adm Class</th>
-                <th data-translate="class_leave">Leave Class</th><th data-translate="tc_leave">Leave TC Date</th><th data-translate="status">Status</th>
+                <th data-translate="admn_no">Admn No.</th>
+                <th data-translate="year_adm">Year of Admission</th>
+                <th data-translate="date_adm">Date of Admission</th>
+                <th data-translate="name">Name of the Student</th>
+                <th data-translate="dob">Date of Birth</th>
+                <th data-translate="sex">Sex</th>
+                <th data-translate="religion">Religion</th>
+                <th data-translate="community">Community</th>
+                <th data-translate="father">Father</th>
+                <th data-translate="mother">Mother</th>
+                <th data-translate="contact">Contact No</th>
+                <th data-translate="address">Address</th>
+                <th data-translate="occupation">Occupation</th>
+                <th data-translate="pen">PEN</th>
+                <th data-translate="blood">Blood Group</th>
+                <th data-translate="aadhar">Aadhar</th>
+                <th data-translate="class_last">Class last</th>
+                <th data-translate="last_tc">last TC Date</th>
+                <th data-translate="class_adm">Class on Admission</th>
+                <th data-translate="class_leave">Class of Leaving</th>
+                <th data-translate="tc_leave">Date of T.C. (Leaving)</th>
+                <th data-translate="status">Status</th>
                 <th class="text-center sticky-end bg-light" data-translate="action">Action</th>
               </tr>
             </thead>
             <tbody id="resultsBody">
-              <tr><td colspan="23" class="text-center py-5 text-muted fw-bold">Select an option to view records</td></tr>
+              <tr><td colspan="23" class="text-center py-5 fw-bold" style="color: #333;"><i class="bi bi-rocket-takeoff text-primary fs-3 d-block mb-2"></i> Dashboard Ready. Please select a year or click Search.</td></tr>
             </tbody>
           </table>
         </div>
       </div>
       
-      <!-- Footer -->
       <div class="text-center mt-2 mb-1 text-white small fw-bold" style="text-shadow: 1px 1px 2px black;">
         &copy; Copyright by Good Shepherd Hr. Sec. School Chapahati - Nogopara. <br> Developed by Sangmawebdeveloper by Sengkan M Sangma.
       </div>
@@ -165,171 +199,159 @@
   </div>
 </div>
 
-<!-- EDIT MODAL -->
+<!-- EDIT / NEW FORM MODAL -->
 <div class="modal fade no-print" id="editModal" tabindex="-1" data-bs-backdrop="static">
   <div class="modal-dialog modal-xl modal-dialog-scrollable">
     <div class="modal-content border-0 shadow-lg">
       <div class="modal-header bg-dark text-white border-0">
-        <h5 class="modal-title fw-bold" data-translate="edit_title">Update Admission Record</h5>
+        <h5 class="modal-title fw-bold" id="modalTitle" data-translate="edit_title">Update Admission Record</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
-      <div class="modal-body p-4 bg-light">
+      <div class="modal-body p-4 bg-light dashboard-animated-bg">
+        <div class="alert alert-info py-2 small fw-bold"><i class="bi bi-info-circle-fill"></i> Fields marked with <span class="text-danger">*</span> are mandatory.</div>
         <form id="recordForm">
           <input type="hidden" id="editRow">
+          <input type="hidden" id="editSheetName">
+          <input type="hidden" id="formActionType">
           
           <h6 class="text-primary fw-bold border-bottom pb-2 mb-3" data-translate="basic_det">Basic Details</h6>
           <div class="row g-3 mb-4">
-            <div class="col-md-3"><label class="fw-semibold small text-danger" data-translate="admn_no">Admn. No.</label><input type="text" id="f_Admn_No" class="form-control readonly-field" readonly></div>
-            <div class="col-md-3"><label class="fw-semibold small" data-translate="year_adm">Year of Admission</label><input type="number" id="f_Year_of_Admission" class="form-control" onchange="validateAdmissionDate()"></div>
-            <div class="col-md-3"><label class="fw-semibold small" data-translate="date_adm">Date of Admission</label><input type="date" id="f_Date_of_Admission" class="form-control"></div>
-            <div class="col-md-3"><label class="fw-semibold small" data-translate="name">Name of the Student</label><input type="text" id="f_Name_of_the_Student" class="form-control"></div>
-            <div class="col-md-3"><label class="fw-semibold small" data-translate="dob">Date of Birth</label><input type="date" id="f_Date_of_Birth" class="form-control" onchange="validateDOB()"></div>
-            <div class="col-md-3"><label class="fw-semibold small" data-translate="sex">Sex</label>
-              <select id="f_Sex" class="form-select"><option value="">Select</option><option value="Male">Male</option><option value="Female">Female</option></select>
+            <div class="col-md-3"><label class="fw-semibold small text-danger req" data-translate="admn_no">Admn No.</label><input type="text" id="f_Admn_No" class="form-control readonly-field" readonly></div>
+            <div class="col-md-3"><label class="fw-semibold small req" data-translate="year_adm">Year of Admission</label><input type="number" id="f_Year_of_Admission" class="form-control" required></div>
+            <div class="col-md-3"><label class="fw-semibold small req" data-translate="date_adm">Date of Admission</label><input type="date" id="f_Date_of_Admission" class="form-control" required></div>
+            <div class="col-md-3"><label class="fw-semibold small req" data-translate="name">Name of the Student</label><input type="text" id="f_Name_of_the_Student" class="form-control" required></div>
+            <div class="col-md-3"><label class="fw-semibold small req" data-translate="dob">Date of Birth</label><input type="date" id="f_Date_of_Birth" class="form-control" required></div>
+            <div class="col-md-3"><label class="fw-semibold small req" data-translate="sex">Sex</label>
+              <select id="f_Sex" class="form-select" required><option value="">Select</option><option value="Male">Male</option><option value="Female">Female</option></select>
             </div>
-            <div class="col-md-3"><label class="fw-semibold small" data-translate="religion">Religion</label>
-              <select id="f_Religion" class="form-select"><option value="">Select</option><option value="Christianity">Christianity</option><option value="Hinduism">Hinduism</option><option value="Islam">Islam</option><option value="Other">Other</option></select>
+            <div class="col-md-3"><label class="fw-semibold small req" data-translate="religion">Religion</label>
+              <select id="f_Religion" class="form-select" required><option value="">Select</option><option value="Christianity">Christianity</option><option value="Hinduism">Hinduism</option><option value="Islam">Islam</option><option value="Other">Other</option></select>
             </div>
-            <div class="col-md-3"><label class="fw-semibold small" data-translate="community">Community</label>
-              <select id="f_Community" class="form-select"><option value="">Select</option><option value="ST">ST</option><option value="SC">SC</option><option value="OBC">OBC</option><option value="General">General</option></select>
+            <div class="col-md-3"><label class="fw-semibold small req" data-translate="community">Community</label>
+              <select id="f_Community" class="form-select" required><option value="">Select</option><option value="ST">ST</option><option value="SC">SC</option><option value="OBC">OBC</option><option value="General">General</option></select>
             </div>
           </div>
 
           <h6 class="text-primary fw-bold border-bottom pb-2 mb-3" data-translate="guard_cont">Guardian & Contact</h6>
           <div class="row g-3 mb-4">
-            <div class="col-md-4"><label class="fw-semibold small" data-translate="father">Father's Name</label><input type="text" id="f_Father" class="form-control"></div>
-            <div class="col-md-4"><label class="fw-semibold small" data-translate="mother">Mother's Name</label><input type="text" id="f_Mother" class="form-control"></div>
-            <div class="col-md-4"><label class="fw-semibold small" data-translate="contact">Contact No. (10 Digits)</label><input type="text" id="f_Contact_No" class="form-control" pattern="\d{10}" maxlength="10"></div>
-            <div class="col-md-8"><label class="fw-semibold small" data-translate="address">Address</label><input type="text" id="f_Address" class="form-control"></div>
-            <div class="col-md-4"><label class="fw-semibold small" data-translate="occupation">Occupation</label><input type="text" id="f_Occupation" class="form-control"></div>
+            <div class="col-md-4"><label class="fw-semibold small req" data-translate="father">Father</label><input type="text" id="f_Father" class="form-control" required></div>
+            <div class="col-md-4"><label class="fw-semibold small req" data-translate="mother">Mother</label><input type="text" id="f_Mother" class="form-control" required></div>
+            <div class="col-md-4"><label class="fw-semibold small req" data-translate="contact">Contact No</label><input type="text" id="f_Contact_No" class="form-control" pattern="\d{10}" maxlength="10" required></div>
+            <div class="col-md-8"><label class="fw-semibold small req" data-translate="address">Address</label><input type="text" id="f_Address" class="form-control" required></div>
+            <div class="col-md-4"><label class="fw-semibold small req" data-translate="occupation">Occupation</label><input type="text" id="f_Occupation" class="form-control" required></div>
           </div>
 
           <h6 class="text-primary fw-bold border-bottom pb-2 mb-3" data-translate="id_health">ID & Health</h6>
           <div class="row g-3 mb-4">
-            <div class="col-md-4"><label class="fw-semibold small" data-translate="pen">PEN Number (12 digits)</label><input type="text" id="f_PEN" class="form-control" pattern="\d{12}" maxlength="12"></div>
-            <div class="col-md-4"><label class="fw-semibold small" data-translate="blood">Blood Group</label>
-              <select id="f_Blood_Group" class="form-select"><option value="">Select</option><option value="A+">A+</option><option value="B+">B+</option><option value="O+">O+</option><option value="AB+">AB+</option><option value="A-">A-</option><option value="B-">B-</option><option value="O-">O-</option><option value="AB-">AB-</option></select>
+            <div class="col-md-4"><label class="fw-semibold small" data-translate="pen">PEN (Optional)</label><input type="text" id="f_PEN" class="form-control" pattern="\d{12}" maxlength="12"></div>
+            <div class="col-md-4"><label class="fw-semibold small req" data-translate="blood">Blood Group</label>
+              <select id="f_Blood_Group" class="form-select" required><option value="">Select</option><option value="A+">A+</option><option value="B+">B+</option><option value="O+">O+</option><option value="AB+">AB+</option><option value="A-">A-</option><option value="B-">B-</option><option value="O-">O-</option><option value="AB-">AB-</option></select>
             </div>
-            <div class="col-md-4"><label class="fw-semibold small" data-translate="aadhar">Aadhar Card No. (12 digits)</label><input type="text" id="f_Aadhar" class="form-control" pattern="\d{12}" maxlength="12"></div>
+            <div class="col-md-4"><label class="fw-semibold small" data-translate="aadhar">Aadhar (Optional)</label><input type="text" id="f_Aadhar" class="form-control" pattern="\d{12}" maxlength="12"></div>
           </div>
 
           <h6 class="text-primary fw-bold border-bottom pb-2 mb-3" data-translate="acad_hist">Academic History</h6>
           <div class="row g-3">
-            <div class="col-md-3"><label class="fw-semibold small" data-translate="class_adm">Class on Admission</label>
-              <select id="f_Class_on_Admission" class="form-select" onchange="validateClasses()"><option value="Nursery">Nursery</option><option value="LKG">LKG</option><option value="UKG">UKG</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option><option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option></select>
+            <div class="col-md-3"><label class="fw-semibold small req" data-translate="class_adm">Class on Admission</label>
+              <select id="f_Class_on_Admission" class="form-select" required><option value="">Select</option><option value="Nursery">Nursery</option><option value="LKG">LKG</option><option value="UKG">UKG</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option><option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option></select>
             </div>
-            <div class="col-md-3"><label class="fw-semibold small" data-translate="class_last">Class last Attended</label>
-              <select id="f_Class_last" class="form-select" onchange="validateClasses()"><option value="">Select</option><option value="Nursery">Nursery</option><option value="LKG">LKG</option><option value="UKG">UKG</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option><option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option></select>
+            <div class="col-md-3"><label class="fw-semibold small" data-translate="class_last">Class last</label>
+              <select id="f_Class_last" class="form-select"><option value="">Select</option><option value="Nursery">Nursery</option><option value="LKG">LKG</option><option value="UKG">UKG</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option><option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option></select>
             </div>
-            <div class="col-md-3"><label class="fw-semibold small" data-translate="last_tc">Date of T.C. (Previous)</label><input type="date" id="f_last_TC_Date" class="form-control"></div>
-            <div class="col-md-3"><label class="fw-semibold small" data-translate="class_leave">Class of Leaving</label>
-              <select id="f_Class_of_Leaving" class="form-select"><option value="">Select</option><option value="Nursery">Nursery</option><option value="LKG">LKG</option><option value="UKG">UKG</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option><option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option></select>
+            <div class="col-md-3"><label class="fw-semibold small" data-translate="last_tc">last TC Date</label><input type="date" id="f_last_TC_Date" class="form-control"></div>
+            
+            <div class="col-md-3"><label class="fw-semibold small req" data-translate="class_leave">Class of Leaving</label>
+              <select id="f_Class_of_Leaving" class="form-select" required><option value="">Select</option><option value="Nursery">Nursery</option><option value="LKG">LKG</option><option value="UKG">UKG</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option><option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option></select>
             </div>
-            <div class="col-md-3"><label class="fw-semibold small" data-translate="tc_leave">Date of T.C. (Leaving)</label><input type="date" id="f_Date_of_TC_Leaving" class="form-control"></div>
-            <div class="col-md-3"><label class="fw-semibold small" data-translate="status">Status</label>
-              <select id="f_Remarks" class="form-select"><option value="Pending">Pending</option><option value="Completed">Completed</option></select>
+            <div class="col-md-3"><label class="fw-semibold small req" data-translate="tc_leave">Date of T.C. (Leaving)</label><input type="date" id="f_Date_of_TC_Leaving" class="form-control" required></div>
+            <div class="col-md-3 d-none"><label class="fw-semibold small" data-translate="status">Status</label>
+              <input type="text" id="f_Remarks" class="form-control" value="Pending">
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer border-0 bg-light">
         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-dark px-5 fw-bold" data-translate="save">Save Changes</button>
+        <button type="button" id="submitBtn" class="btn btn-dark px-5 fw-bold" onclick="submitRecord()" data-translate="save">Save Data</button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- PDF PRINT TEMPLATE -->
+<div id="printArea" class="d-none">
+  <div class="print-header">
+    <h1>GOOD SHEPHERD HIGHER SECONDARY SCHOOL</h1>
+    <p>Chapahati - Nogorpara, South West Garo Hills, Meghalaya</p>
+    <h3>STUDENTS ADMISSION RECORD OF THE PAST</h3>
+  </div>
+  <div id="printContent" class="print-grid"></div>
+  <div class="print-footer">
+    <div class="print-sig">Signature of Parent/Guardian</div>
+    <div class="print-sig">Signature of Headmaster</div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  // TRANSLATION DICTIONARY
+  // ===============================================
+  // PASTE YOUR GOOGLE SCRIPT API URL HERE
+  // ===============================================
+  const API_URL = "https://script.google.com/macros/s/AKfycbx-WwTAjP_-EangtXEyN-OHNzZUQNnCY7XN6HovhTTwcrKEi5FsE2CgaG6OWjYAgnNn/exec";
+
   const translations = {
     English: {
-      schooling: "Schooling", all_students: "Total Students", dashboard: "Student Performance Dashboard",
-      search_ph: "🔍 Search student name...", search_btn: "Search",
-      admn_no: "Admn. No.", year_adm: "Year of Admission", date_adm: "Date of Admission",
+      exit: "Exit", schooling: "Schooling", all_students: "Total Students", dashboard: "Student Performance Dashboard",
+      search_ph: "🔍 Search student name...", search_btn: "Fast Search", missing_reports: "Missing Reports",
+      admn_no: "Admn No.", year_adm: "Year of Admission", date_adm: "Date of Admission",
       name: "Name of the Student", dob: "Date of Birth", sex: "Sex", religion: "Religion",
-      community: "Community", father: "Father's Name", mother: "Mother's Name",
-      contact: "Contact No.", address: "Address", occupation: "Occupation",
-      pen: "PEN Number", blood: "Blood Group", aadhar: "Aadhar Card No.",
-      class_adm: "Class on Admission", class_last: "Class last Attended",
-      last_tc: "Date of T.C. (Previous)", class_leave: "Class of Leaving",
+      community: "Community", father: "Father", mother: "Mother",
+      contact: "Contact No", address: "Address", occupation: "Occupation",
+      pen: "PEN (Optional)", blood: "Blood Group", aadhar: "Aadhar (Optional)",
+      class_adm: "Class on Admission", class_last: "Class last",
+      last_tc: "last TC Date", class_leave: "Class of Leaving",
       tc_leave: "Date of T.C. (Leaving)", status: "Status", action: "Action",
-      basic_det: "Basic Details", guard_cont: "Guardian & Contact", id_health: "ID & Health", acad_hist: "Academic History",
-      save: "Save Changes", total_adm: "Total Admissions", pending: "Pending Updates", locked: "Locked / Verified",
-      lang_sel: "Select Your Language", year_grp: "Year Groups", edit_title: "Update Admission Record"
+      basic_det: "Basic Details", guard_cont: "Guardian & Contact", id_health: "ID & Health", acad_hist: "Academic History", 
+      save: "Save Data", total_adm: "Total Admissions", pending: "Pending Updates", locked: "Completed / Locked", fresh_reports: "Missing Reports",
+      lang_sel: "Select Your Language", year_grp: "Academic Years", edit_title: "Update Admission Record"
     },
     Garo: {
-      schooling: "Skul", all_students: "Gimik Chatrorang", dashboard: "Chatrorangni Dashboard",
-      search_ph: "🔍 Chatroni bimingko am'a...", search_btn: "Am'a",
-      admn_no: "Admn. No.", year_adm: "Bilsi (Admission)", date_adm: "Tarik (Admission)",
-      name: "Chatroni Biming", dob: "Atchiani Tarik", sex: "Me'asa/Me'chik", religion: "Dhorom",
-      community: "Jatni Bak", father: "Paani Biming", mother: "Maani Biming",
-      contact: "Contact No.", address: "Thikana", occupation: "Kam",
-      pen: "PEN Number", blood: "An'chi", aadhar: "Aadhar Number",
+      exit: "Ong·kata", schooling: "Skul", all_students: "Gimik Chatrorang", dashboard: "Chatrorangni Dashboard",
+      search_ph: "🔍 Chatroni bimingko am'a...", search_btn: "Ta·rake Am'a", missing_reports: "Missing Reports",
+      admn_no: "Admn No.", year_adm: "Bilsi (Admission)", date_adm: "Tarik (Admission)",
+      name: "Chatroni Biming", dob: "Atchiani", sex: "Me'a/Me'chik", religion: "Dhorom",
+      community: "Jat", father: "Paa", mother: "Maa",
+      contact: "Contact", address: "Thikana", occupation: "Kam",
+      pen: "PEN (Optional)", blood: "An'chi", aadhar: "Aadhar (Optional)",
       class_adm: "Admission ra'gipa Class", class_last: "Skangni Class",
       last_tc: "Skangni T.C. Tarik", class_leave: "Ong'katgipa Class",
       tc_leave: "Ong'katgipa T.C. Tarik", status: "Obosta", action: "Kam",
       basic_det: "Mongsonggipa U'iatani", guard_cont: "Maa-Paa & Contact", id_health: "ID & An'seng-Baljokani", acad_hist: "Lekha Porani Itihas",
-      save: "Save ka'a", total_adm: "Gimik Admission", pending: "Pending donggiparang", locked: "Lock ka'gimin",
+      save: "Save Data", total_adm: "Gimik Admission", pending: "Pending donggiparang", locked: "Lock ka'gimin", fresh_reports: "Missing Reports",
       lang_sel: "Ku'sikko seokbo", year_grp: "Bilsini Dol", edit_title: "Recordko Taridapbo"
-    },
-    Hindi: {
-      schooling: "विद्यालय", all_students: "कुल छात्र", dashboard: "छात्र प्रदर्शन डैशबोर्ड",
-      search_ph: "🔍 छात्र का नाम खोजें...", search_btn: "खोजें",
-      admn_no: "प्रवेश संख्या", year_adm: "प्रवेश का वर्ष", date_adm: "प्रवेश तिथि",
-      name: "छात्र का नाम", dob: "जन्म तिथि", sex: "लिंग", religion: "धर्म",
-      community: "समुदाय", father: "पिता का नाम", mother: "माता का नाम",
-      contact: "संपर्क नंबर", address: "पता", occupation: "पेशा",
-      pen: "PEN नंबर", blood: "रक्त समूह", aadhar: "आधार कार्ड नं.",
-      class_adm: "प्रवेश के समय कक्षा", class_last: "पिछली कक्षा",
-      last_tc: "टी.सी. की तिथि (पिछला)", class_leave: "छोड़ने की कक्षा",
-      tc_leave: "टी.सी. की तिथि (छोड़ने की)", status: "स्थिति", action: "कार्रवाई",
-      basic_det: "मूल विवरण", guard_cont: "अभिभावक और संपर्क", id_health: "पहचान और स्वास्थ्य", acad_hist: "शैक्षणिक इतिहास",
-      save: "परिवर्तन सहेजें", total_adm: "कुल प्रवेश", pending: "लंबित अपडेट", locked: "लॉक / सत्यापित",
-      lang_sel: "अपनी भाषा चुनें", year_grp: "वर्ष समूह", edit_title: "प्रवेश रिकॉर्ड अपडेट करें"
-    },
-    Bengali: {
-      schooling: "বিদ্যালয়", all_students: "মোট ছাত্রছাত্রী", dashboard: "ছাত্র কর্মক্ষমতা ড্যাশবোর্ড",
-      search_ph: "🔍 ছাত্রের নাম অনুসন্ধান করুন...", search_btn: "অনুসন্ধান",
-      admn_no: "ভর্তি নং", year_adm: "ভর্তির বছর", date_adm: "ভর্তির তারিখ",
-      name: "ছাত্রের নাম", dob: "জন্ম তারিখ", sex: "লিঙ্গ", religion: "ধর্ম",
-      community: "সম্প্রদায়", father: "পিতার নাম", mother: "মাতার নাম",
-      contact: "যোগাযোগ নম্বর", address: "ঠিকানা", occupation: "পেশা",
-      pen: "PEN নম্বর", blood: "রক্তের গ্রুপ", aadhar: "আধার কার্ড নং",
-      class_adm: "ভর্তির শ্রেণী", class_last: "পূর্ববর্তী শ্রেণী",
-      last_tc: "টি.সি. তারিখ (পূর্ববর্তী)", class_leave: "ত্যাগের শ্রেণী",
-      tc_leave: "টি.সি. তারিখ (ত্যাগের)", status: "অবস্থা", action: "পদক্ষেপ",
-      basic_det: "প্রাথমিক বিবরণ", guard_cont: "অভিভাবক ও যোগাযোগ", id_health: "পরিচয় ও স্বাস্থ্য", acad_hist: "শিক্ষাগত ইতিহাস",
-      save: "সংরক্ষণ করুন", total_adm: "মোট ভর্তি", pending: "মুলতুবি আপডেট", locked: "লক / যাচাইকৃত",
-      lang_sel: "আপনার ভাষা নির্বাচন করুন", year_grp: "বছরের গ্রুপ", edit_title: "ভর্তি রেকর্ড আপডেট করুন"
     }
   };
+  translations.Hindi = translations.English; translations.Bengali = translations.English; 
 
-  // Language Selection Logic
-  function selectLanguage(lang) {
-    document.getElementById('languageOverlay').style.display = 'none';
+  function selectLanguage(lang, hideOverlay) {
+    if(hideOverlay) document.getElementById('languageOverlay').style.display = 'none';
+    document.getElementById('dashLangSelect').value = lang;
     
-    // Translate text elements
     document.querySelectorAll('[data-translate]').forEach(el => {
       let key = el.getAttribute('data-translate');
       if(translations[lang] && translations[lang][key]) {
-        el.innerText = translations[lang][key];
+          let text = translations[lang][key];
+          if(el.classList.contains('req')) text += ' <span class="text-danger">*</span>';
+          el.innerHTML = text;
       }
     });
-
-    // Translate placeholders
+    
     document.querySelectorAll('[data-translate-ph]').forEach(el => {
       let key = el.getAttribute('data-translate-ph');
-      if(translations[lang] && translations[lang][key]) {
-        el.placeholder = translations[lang][key];
-      }
+      if(translations[lang] && translations[lang][key]) el.placeholder = translations[lang][key];
     });
-
-    Swal.fire({ title: 'Language Set', text: `Dashboard loaded in ${lang}`, icon: 'success', timer: 1500, showConfirmButton: false });
   }
 
-  // Live Clock
   function updateClock() {
     const clockElement = document.getElementById('liveClock');
     const now = new Date();
@@ -338,19 +360,19 @@
   setInterval(updateClock, 1000); updateClock();
 
   let currentSelectedYear = "ALL"; 
-  const classOrder = ["Nursery", "LKG", "UKG", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
+  const fields = ["Admn_No", "Year_of_Admission", "Date_of_Admission", "Name_of_the_Student", "Date_of_Birth", "Sex", "Religion", "Community", "Father", "Mother", "Contact_No", "Address", "Occupation", "PEN", "Blood_Group", "Aadhar", "Class_last", "last_TC_Date", "Class_on_Admission", "Class_of_Leaving", "Date_of_TC_Leaving", "Remarks"];
 
   function generateYears() {
     const list = document.getElementById('yearList');
     for (let y = 2026; y >= 2005; y--) {
       let div = document.createElement('div');
-      div.className = "year-item text-white"; div.innerText = "Year " + y;
+      div.className = "year-item"; div.innerText = "Academic Year " + y; 
       div.onclick = function() {
         document.querySelectorAll('.year-item').forEach(el => el.classList.remove('active'));
         document.getElementById('btnAllStudents').classList.remove('active');
         this.classList.add('active'); currentSelectedYear = y.toString();
         document.getElementById('currentYearDisplay').innerText = `(${y})`;
-        fetchRecords();
+        lightningFetch();
       };
       list.appendChild(div);
     }
@@ -360,49 +382,239 @@
     document.querySelectorAll('.year-item').forEach(el => el.classList.remove('active'));
     document.getElementById('btnAllStudents').classList.add('active');
     currentSelectedYear = "ALL"; document.getElementById('currentYearDisplay').innerText = `(All Years)`;
-    fetchRecords();
+    lightningFetch();
   }
 
-  // Custom Validations
-  function validateAdmissionDate() {
-    let year = document.getElementById('f_Year_of_Admission').value;
-    let adDate = document.getElementById('f_Date_of_Admission');
-    if(year) {
-      adDate.min = `${year}-01-01`;
-      adDate.max = `${year}-01-07`; // Force first week
-      if(adDate.value && (adDate.value < adDate.min || adDate.value > adDate.max)) {
-        adDate.value = "";
-        Swal.fire('Notice', `Admission date must be within the first week of ${year}.`, 'info');
-      }
-    }
-  }
+  const slider = document.getElementById('dragTable');
+  let isDown = false; let startX; let scrollLeft;
+  slider.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft; });
+  slider.addEventListener('mouseleave', () => { isDown = false; });
+  slider.addEventListener('mouseup', () => { isDown = false; });
+  slider.addEventListener('mousemove', (e) => { if(!isDown) return; e.preventDefault(); const walk = (e.pageX - slider.offsetLeft - startX) * 2; slider.scrollLeft = scrollLeft - walk; });
 
-  function validateDOB() {
-    let dob = document.getElementById('f_Date_of_Birth').value;
-    let admYear = document.getElementById('f_Year_of_Admission').value;
-    if(dob && admYear) {
-      let dobYear = new Date(dob).getFullYear();
-      if(dobYear > parseInt(admYear)) {
-        document.getElementById('f_Date_of_Birth').value = "";
-        Swal.fire('Error', 'Date of Birth year cannot be greater than the Admission Year.', 'error');
-      }
-    }
-  }
-
-  function validateClasses() {
-    let admClass = document.getElementById('f_Class_on_Admission').value;
-    let prevClass = document.getElementById('f_Class_last').value;
-    if(admClass && prevClass) {
-      if(classOrder.indexOf(admClass) < classOrder.indexOf(prevClass)) {
-        document.getElementById('f_Class_on_Admission').value = prevClass;
-        Swal.fire('Warning', 'Admission class cannot be strictly lower than the previously attended class.', 'warning');
-      }
-    }
-  }
-
-  async function fetchRecords() {
+  async function lightningFetch() {
+    const statusBadge = document.getElementById('serverStatus');
     const tbody = document.getElementById('resultsBody');
-    tbody.innerHTML = '<tr><td colspan="23" class="text-center py-5"><div class="spinner-border text-primary"></div></td></tr>';
+    
+    statusBadge.className = "badge bg-warning text-dark fs-6";
+    statusBadge.innerHTML = '<i class="bi bi-arrow-repeat"></i> Fetching...';
+    tbody.innerHTML = '<tr><td colspan="23" class="text-center py-5"><div class="spinner-grow text-primary" role="status"></div> <h5 class="mt-2 text-primary fw-bold">Downloading Data...</h5></td></tr>';
+    
+    try {
+      let searchName = document.getElementById('searchName').value;
+      let searchClass = document.getElementById('searchClass').value;
+      let yearParam = document.getElementById('searchYearInput').value || currentSelectedYear;
+
+      const response = await fetch(`${API_URL}?action=getRecords&year=${yearParam}&name=${searchName}&class=${searchClass}`);
+      const result = await response.json();
+
+      if(result.success) {
+        document.getElementById('statTotal').innerText = result.stats.total || 0;
+        document.getElementById('statPending').innerText = result.stats.pending || 0;
+        document.getElementById('statLocked').innerText = result.stats.locked || 0;
+        document.getElementById('statMissing').innerText = result.stats.missing || 0;
+        
+        statusBadge.className = "badge bg-success fs-6";
+        statusBadge.innerHTML = '<i class="bi bi-check-circle-fill"></i> Server: Synced';
+        
+        tbody.innerHTML = '';
+        if(result.data.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="23" class="text-center py-4 text-danger fw-bold">No records found for this selection.</td></tr>';
+            return;
+        }
+
+        result.data.forEach(std => {
+          const fmtDate = (d) => { return d ? new Date(d).toLocaleDateString() : ''; };
+          
+          let isCompleted = (std.Status === 'Completed' || std.Remarks === 'Updated' || std.Remarks === 'Completed');
+          
+          let bBadge = isCompleted 
+             ? `<span class="badge bg-success px-3 py-2 fw-bold">Completed</span>` 
+             : `<span class="badge bg-warning text-dark px-3 py-2 fw-bold">Pending</span>`;
+          
+          let enc = encodeURIComponent(JSON.stringify(std)).replace(/'/g, "%27");
+          
+          let actionBtn = isCompleted 
+            ? `<div class="d-flex gap-1">
+                 <button class="btn btn-secondary btn-sm fw-bold shadow-sm" style="flex:1;" disabled><i class="bi bi-lock-fill"></i> Locked</button>
+                 <button class="btn btn-danger btn-sm fw-bold shadow-sm" style="flex:1;" onclick="printPDF('${enc}')"><i class="bi bi-file-earmark-pdf"></i> PDF</button>
+               </div>`
+            : `<button class="btn btn-dark btn-sm fw-bold w-100 shadow-sm" onclick="openEdit('${enc}')"><i class="bi bi-pencil-square"></i> Edit</button>`;
+
+          let tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="fw-bold">${std.Admn_No || ''}</td>
+            <td>${std.Year_of_Admission || ''}</td>
+            <td>${fmtDate(std.Date_of_Admission)}</td>
+            <td class="fw-bold text-primary">${std.Name_of_the_Student || ''}</td>
+            <td>${fmtDate(std.Date_of_Birth)}</td>
+            <td>${std.Sex || ''}</td>
+            <td>${std.Religion || ''}</td>
+            <td>${std.Community || ''}</td>
+            <td>${std.Father || ''}</td>
+            <td>${std.Mother || ''}</td>
+            <td>${std.Contact_No || ''}</td>
+            <td>${std.Address || ''}</td>
+            <td>${std.Occupation || ''}</td>
+            <td>${std.PEN || ''}</td>
+            <td>${std.Blood_Group || ''}</td>
+            <td>${std.Aadhar || ''}</td>
+            <td>${std.Class_last || ''}</td>
+            <td>${fmtDate(std.last_TC_Date)}</td>
+            <td>${std.Class_on_Admission || ''}</td>
+            <td>${std.Class_of_Leaving || ''}</td>
+            <td>${fmtDate(std.Date_of_TC_Leaving)}</td>
+            <td>${bBadge}</td>
+            <td class="bg-light sticky-end" style="min-width: 170px;">${actionBtn}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+      } else { throw new Error(result.message); }
+    } catch (e) {
+      statusBadge.className = "badge bg-danger fs-6";
+      statusBadge.innerHTML = '<i class="bi bi-x-circle"></i> Error';
+      tbody.innerHTML = `<tr><td colspan="23" class="text-center py-4 text-danger fw-bold"><i class="bi bi-exclamation-triangle-fill fs-3 d-block mb-2"></i> Failed to fetch data. Ensure your Google App Script is updated.</td></tr>`;
+    }
+  }
+
+  function openNewForm() {
+    document.getElementById('recordForm').reset();
+    document.getElementById('editRow').value = "";
+    document.getElementById('editSheetName').value = "";
+    document.getElementById('formActionType').value = "new";
+    document.getElementById('f_Admn_No').value = "Auto-Generated";
+    document.getElementById('modalTitle').innerText = "Submit Missing Report / New Form";
+    bootstrap.Modal.getOrCreateInstance(document.getElementById('editModal')).show();
+  }
+
+  function openEdit(encodedData) {
+    let student = JSON.parse(decodeURIComponent(encodedData.replace(/%27/g, "'")));
+    document.getElementById('recordForm').reset();
+    document.getElementById('editRow').value = student.row;
+    document.getElementById('editSheetName').value = student.sheetName;
+    document.getElementById('formActionType').value = "update";
+    document.getElementById('modalTitle').innerText = "Update Existing Record";
+    
+    fields.forEach(f => {
+      let input = document.getElementById("f_" + f);
+      if (input) {
+        let val = student[f] || "";
+        if (input.type === 'date' && val) { let d = new Date(val); if(!isNaN(d)) val = d.toISOString().split('T')[0]; }
+        input.value = val;
+      }
+    });
+    bootstrap.Modal.getOrCreateInstance(document.getElementById('editModal')).show();
+  }
+
+  // --- STRICT LOGICAL VALIDATION ---
+  function validateForm() {
+    // 1. Core Mandatory Fields Check
+    const mandatory = ["Year_of_Admission", "Date_of_Admission", "Name_of_the_Student", "Date_of_Birth", "Sex", "Religion", "Community", "Father", "Mother", "Contact_No", "Address", "Occupation", "Blood_Group", "Class_on_Admission", "Class_of_Leaving", "Date_of_TC_Leaving"];
+    for (let f of mandatory) {
+      if (!document.getElementById("f_" + f).value) {
+        Swal.fire('Required Field Missing', 'Please fill up all mandatory fields. Missing: ' + f.replace(/_/g, ' '), 'warning');
+        return false;
+      }
+    }
+
+    // 2. Class Specific Mandatory Rules (Ignore Previous Class/TC if Nursery, LKG, UKG)
+    const admClass = document.getElementById("f_Class_on_Admission").value;
+    if (!["Nursery", "LKG", "UKG"].includes(admClass)) {
+      if (!document.getElementById("f_Class_last").value || !document.getElementById("f_last_TC_Date").value) {
+        Swal.fire('Required Fields Missing', 'Class Last and Last TC Date are strictly mandatory for classes above UKG.', 'warning');
+        return false;
+      }
+    }
+
+    // 3. Admission Date Chronology (Oct previous year -> Dec current year)
+    const yearAdm = parseInt(document.getElementById("f_Year_of_Admission").value);
+    const dateAdm = new Date(document.getElementById("f_Date_of_Admission").value);
+    const minAdmDate = new Date(`${yearAdm - 1}-10-01`);
+    const maxAdmDate = new Date(`${yearAdm}-12-31`);
+    
+    if (dateAdm < minAdmDate || dateAdm > maxAdmDate) {
+      Swal.fire('Invalid Admission Date', `Date of Admission for Year ${yearAdm} must be between October ${yearAdm - 1} and December${yearAdm}.`, 'error');
+      return false;
+    }
+
+    // 4. DOB Validation (DOB must be strictly older than Admission Date)
+    const dob = new Date(document.getElementById("f_Date_of_Birth").value);
+    if (dob >= dateAdm) {
+      Swal.fire('Invalid DOB', 'Date of Birth must be older than the Date of Admission.', 'error');
+      return false;
+    }
+
+    // 5. Previous TC Chronology (If supplied, must be older than Date of Admission)
+    if (document.getElementById("f_last_TC_Date").value) {
+      const lastTcDate = new Date(document.getElementById("f_last_TC_Date").value);
+      if (lastTcDate >= dateAdm) {
+        Swal.fire('Invalid TC Date', 'Previous TC Date must be strictly older than the Date of Admission.', 'error');
+        return false;
+      }
+    }
+
+    // 6. Leaving TC Chronology & Max 2-Year Failing Gap logic
+    const leaveTcDate = new Date(document.getElementById("f_Date_of_TC_Leaving").value);
+    if (leaveTcDate <= dateAdm) {
+      Swal.fire('Invalid Leaving Date', 'Date of T.C. (Leaving) must occur AFTER the Date of Admission.', 'error');
+      return false;
+    }
+    
+    const leaveYear = leaveTcDate.getFullYear();
+    if (leaveYear > yearAdm + 2 || leaveYear < yearAdm) {
+      Swal.fire('Invalid Leaving Date', `Date of T.C. (Leaving) year (${leaveYear}) must match the admission year (${yearAdm}) or be within a maximum of 2 years (max${yearAdm + 2}) to account for failing.`, 'error');
+      return false;
+    }
+
+    return true; 
+  }
+
+  async function submitRecord() {
+    // Stop submission if validation fails
+    if (!validateForm()) return; 
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true; btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Saving...';
+
+    const actionType = document.getElementById('formActionType').value;
+    const data = { action: actionType, row: document.getElementById('editRow').value, sheetName: document.getElementById('editSheetName').value };
+    
+    fields.forEach(f => { let el = document.getElementById("f_" + f); if(el) data[f] = el.value; });
+
+    try {
+      const response = await fetch(API_URL, { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
+      const result = await response.json();
+      
+      if(result.success) {
+        Swal.fire({ icon: 'success', title: 'Data Saved & Locked', text: 'Record has been securely submitted to the database.', confirmButtonColor: '#198754' });
+        bootstrap.Modal.getOrCreateInstance(document.getElementById('editModal')).hide();
+        lightningFetch(); 
+      } else { Swal.fire({ icon: 'error', title: 'Save Failed', text: result.message, confirmButtonColor: '#dc3545' }); }
+    } catch(e) { Swal.fire({ icon: 'error', title: 'Connection Error', text: 'Could not connect to Google Sheets.', confirmButtonColor: '#dc3545' }); } 
+    finally { btn.disabled = false; btn.innerHTML = 'Save Data'; }
+  }
+
+  // GENERATE PDF 
+  function printPDF(encodedData) {
+    let student = JSON.parse(decodeURIComponent(encodedData.replace(/%27/g, "'")));
+    const printContent = document.getElementById('printContent');
+    document.getElementById('printArea').classList.remove('d-none');
+    
+    let html = ``;
+    fields.forEach(f => {
+      let label = f.replace(/_/g, ' ');
+      let val = student[f] || "____________________";
+      
+      if ((f.includes('Date') || f === 'DOB' || f.includes('TC')) && student[f]) {
+          let d = new Date(student[f]); if(!isNaN(d)) val = d.toLocaleDateString('en-GB');
+      }
+      html += `<div class="print-item"><span class="print-label">${label}</span><div class="print-val">${val}</div></div>`;
+    });
+    printContent.innerHTML = html;
+    
+    window.print();
+    setTimeout(() => document.getElementById('printArea').classList.add('d-none'), 1000);
   }
 
   window.onload = () => { generateYears(); };
