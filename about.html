@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Good Shepherd School</title>
-    <link rel="icon" type="images/png" href="images/favico.png">
+    <!-- Fixed favicon link to resolve the continuous loading issue -->
+    <link rel="icon" type="image/png" href="images/favico.png">
+    <link rel="shortcut icon" href="images/favico.png" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
     <style>
         /* Highly Professional & Colourful Animated Background */
@@ -1009,7 +1011,7 @@
             document.getElementById('donation-qr-box').style.display = 'none';
         }
 
-        // Popups Trigger on Page Load
+        // Script to handle initial displays
         window.addEventListener('load', function() {
             // Show Donation Box
             setTimeout(function() {
