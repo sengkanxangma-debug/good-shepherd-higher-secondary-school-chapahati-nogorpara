@@ -255,10 +255,10 @@
             <div class="col-md-3"><label class="fw-semibold small req" data-translate="class_adm">Class on Admission</label>
               <select id="f_Class_on_Admission" class="form-select" required><option value="">Select</option><option value="Nursery">Nursery</option><option value="LKG">LKG</option><option value="UKG">UKG</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option><option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option></select>
             </div>
-            <div class="col-md-3"><label class="fw-semibold small" data-translate="class_last">Class last</label>
-              <select id="f_Class_last" class="form-select"><option value="">Select</option><option value="Nursery">Nursery</option><option value="LKG">LKG</option><option value="UKG">UKG</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option><option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option></select>
+            <div class="col-md-3"><label id="label_Class_last" class="fw-semibold small req dynamic-req" data-translate="class_last">Class last</label>
+              <select id="f_Class_last" class="form-select" required><option value="">Select</option><option value="Nursery">Nursery</option><option value="LKG">LKG</option><option value="UKG">UKG</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option><option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option></select>
             </div>
-            <div class="col-md-3"><label class="fw-semibold small" data-translate="last_tc">last TC Date</label><input type="date" id="f_last_TC_Date" class="form-control"></div>
+            <div class="col-md-3"><label id="label_last_TC_Date" class="fw-semibold small req dynamic-req" data-translate="last_tc">last TC Date</label><input type="date" id="f_last_TC_Date" class="form-control" required></div>
             
             <div class="col-md-3"><label class="fw-semibold small req" data-translate="class_leave">Class of Leaving</label>
               <select id="f_Class_of_Leaving" class="form-select" required><option value="">Select</option><option value="Nursery">Nursery</option><option value="LKG">LKG</option><option value="UKG">UKG</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option><option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option></select>
@@ -294,9 +294,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  // ===============================================
-  // PASTE YOUR GOOGLE SCRIPT API URL HERE
-  // ===============================================
   const API_URL = "https://script.google.com/macros/s/AKfycbx-WwTAjP_-EangtXEyN-OHNzZUQNnCY7XN6HovhTTwcrKEi5FsE2CgaG6OWjYAgnNn/exec";
 
   const translations = {
@@ -329,9 +326,38 @@
       basic_det: "Mongsonggipa U'iatani", guard_cont: "Maa-Paa & Contact", id_health: "ID & An'seng-Baljokani", acad_hist: "Lekha Porani Itihas",
       save: "Save Data", total_adm: "Gimik Admission", pending: "Pending donggiparang", locked: "Lock ka'gimin", fresh_reports: "Missing Reports",
       lang_sel: "Ku'sikko seokbo", year_grp: "Bilsini Dol", edit_title: "Recordko Taridapbo"
+    },
+    Hindi: {
+      exit: "बाहर जाएं", schooling: "स्कूलिंग", all_students: "कुल छात्र", dashboard: "छात्र प्रदर्शन डैशबोर्ड",
+      search_ph: "🔍 छात्र का नाम खोजें...", search_btn: "तेज़ खोज", missing_reports: "गुम रिपोर्ट",
+      admn_no: "प्रवेश संख्या", year_adm: "प्रवेश का वर्ष", date_adm: "प्रवेश की तिथि",
+      name: "छात्र का नाम", dob: "जन्म तिथि", sex: "लिंग", religion: "धर्म",
+      community: "समुदाय", father: "पिता", mother: "माता",
+      contact: "संपर्क नंबर", address: "पता", occupation: "पेशा",
+      pen: "PEN (वैकल्पिक)", blood: "रक्त समूह", aadhar: "आधार (वैकल्पिक)",
+      class_adm: "प्रवेश पर कक्षा", class_last: "पिछली कक्षा",
+      last_tc: "अंतिम टीसी तिथि", class_leave: "छोड़ने की कक्षा",
+      tc_leave: "टीसी (छोड़ने) की तिथि", status: "स्थिति", action: "कार्रवाई",
+      basic_det: "मूल विवरण", guard_cont: "अभिभावक और संपर्क", id_health: "आईडी और स्वास्थ्य", acad_hist: "शैक्षणिक इतिहास", 
+      save: "डेटा सहेजें", total_adm: "कुल प्रवेश", pending: "लंबित अपडेट", locked: "पूरा / लॉक किया गया", fresh_reports: "गुम रिपोर्ट",
+      lang_sel: "अपनी भाषा चुनें", year_grp: "शैक्षणिक वर्ष", edit_title: "प्रवेश रिकॉर्ड अपडेट करें"
+    },
+    Bengali: {
+      exit: "প্রস্থান", schooling: "স্কুলিং", all_students: "মোট ছাত্র", dashboard: "ছাত্র কর্মক্ষমতা ড্যাশবোর্ড",
+      search_ph: "🔍 ছাত্রের নাম অনুসন্ধান করুন...", search_btn: "দ্রুত অনুসন্ধান", missing_reports: "নিখোঁজ রিপোর্ট",
+      admn_no: "ভর্তি নং", year_adm: "ভর্তির বছর", date_adm: "ভর্তির তারিখ",
+      name: "ছাত্রের নাম", dob: "জন্ম তারিখ", sex: "লিঙ্গ", religion: "ধর্ম",
+      community: "সম্প্রদায়", father: "পিতা", mother: "মাতা",
+      contact: "যোগাযোগ নম্বর", address: "ঠিকানা", occupation: "পেশা",
+      pen: "PEN (ঐচ্ছিক)", blood: "রক্তের গ্রুপ", aadhar: "আধার (ঐচ্ছিক)",
+      class_adm: "ভর্তির সময় ক্লাস", class_last: "আগের ক্লাস",
+      last_tc: "শেষ টিসির তারিখ", class_leave: "ছেড়ে যাওয়ার ক্লাস",
+      tc_leave: "টিসির (ছেড়ে যাওয়ার) তারিখ", status: "স্ট্যাটাস", action: "কর্ম",
+      basic_det: "মৌলিক বিবরণ", guard_cont: "অভিভাবক ও যোগাযোগ", id_health: "আইডি এবং স্বাস্থ্য", acad_hist: "একাডেমিক ইতিহাস", 
+      save: "ডেটা সংরক্ষণ করুন", total_adm: "মোট ভর্তি", pending: "মুলতুবি আপডেট", locked: "সম্পন্ন / লক করা", fresh_reports: "নিখোঁজ রিপোর্ট",
+      lang_sel: "আপনার ভাষা নির্বাচন করুন", year_grp: "শিক্ষাবর্ষ", edit_title: "ভর্তি রেকর্ড আপডেট করুন"
     }
   };
-  translations.Hindi = translations.English; translations.Bengali = translations.English; 
 
   function selectLanguage(lang, hideOverlay) {
     if(hideOverlay) document.getElementById('languageOverlay').style.display = 'none';
@@ -425,7 +451,6 @@
 
         result.data.forEach(std => {
           const fmtDate = (d) => { return d ? new Date(d).toLocaleDateString() : ''; };
-          
           let isCompleted = (std.Status === 'Completed' || std.Remarks === 'Updated' || std.Remarks === 'Completed');
           
           let bBadge = isCompleted 
@@ -469,7 +494,6 @@
           `;
           tbody.appendChild(tr);
         });
-
       } else { throw new Error(result.message); }
     } catch (e) {
       statusBadge.className = "badge bg-danger fs-6";
@@ -478,13 +502,60 @@
     }
   }
 
+  // --- NEW: DYNAMIC DATE OF ADMISSION LOCKER ---
+  document.getElementById('f_Year_of_Admission').addEventListener('input', function() {
+    let year = parseInt(this.value);
+    let dateAdmField = document.getElementById('f_Date_of_Admission');
+    if (year && !isNaN(year)) {
+      dateAdmField.min = `${year - 1}-10-01`;
+      dateAdmField.max = `${year}-12-31`;
+    } else {
+      dateAdmField.removeAttribute('min');
+      dateAdmField.removeAttribute('max');
+    }
+  });
+
+  // --- NEW: DYNAMIC CLASS MANDATORY TOGGLE ---
+  function evaluateClassRules() {
+    let cls = document.getElementById('f_Class_on_Admission').value;
+    let classLast = document.getElementById('f_Class_last');
+    let lastTc = document.getElementById('f_last_TC_Date');
+    let labelClassLast = document.getElementById('label_Class_last');
+    let labelLastTC = document.getElementById('label_last_TC_Date');
+    
+    if (["Nursery", "LKG", "UKG"].includes(cls)) {
+      classLast.required = false;
+      lastTc.required = false;
+      labelClassLast.classList.remove('req');
+      labelLastTC.classList.remove('req');
+      
+      let lang = document.getElementById('dashLangSelect').value;
+      labelClassLast.innerHTML = translations[lang] && translations[lang].class_last ? translations[lang].class_last : 'Class last';
+      labelLastTC.innerHTML = translations[lang] && translations[lang].last_tc ? translations[lang].last_tc : 'last TC Date';
+    } else {
+      classLast.required = true;
+      lastTc.required = true;
+      labelClassLast.classList.add('req');
+      labelLastTC.classList.add('req');
+      if (!labelClassLast.innerHTML.includes('*')) labelClassLast.innerHTML += ' <span class="text-danger">*</span>';
+      if (!labelLastTC.innerHTML.includes('*')) labelLastTC.innerHTML += ' <span class="text-danger">*</span>';
+    }
+  }
+  document.getElementById('f_Class_on_Admission').addEventListener('change', evaluateClassRules);
+
   function openNewForm() {
     document.getElementById('recordForm').reset();
     document.getElementById('editRow').value = "";
     document.getElementById('editSheetName').value = "";
     document.getElementById('formActionType').value = "new";
     document.getElementById('f_Admn_No').value = "Auto-Generated";
-    document.getElementById('modalTitle').innerText = "Submit Missing Report / New Form";
+    
+    let lang = document.getElementById('dashLangSelect').value;
+    document.getElementById('modalTitle').innerText = translations[lang] && translations[lang].edit_title ? translations[lang].edit_title : "Submit Missing Report / New Form";
+    
+    document.getElementById('f_Date_of_Admission').removeAttribute('min');
+    document.getElementById('f_Date_of_Admission').removeAttribute('max');
+    evaluateClassRules();
     bootstrap.Modal.getOrCreateInstance(document.getElementById('editModal')).show();
   }
 
@@ -494,7 +565,9 @@
     document.getElementById('editRow').value = student.row;
     document.getElementById('editSheetName').value = student.sheetName;
     document.getElementById('formActionType').value = "update";
-    document.getElementById('modalTitle').innerText = "Update Existing Record";
+    
+    let lang = document.getElementById('dashLangSelect').value;
+    document.getElementById('modalTitle').innerText = translations[lang] && translations[lang].edit_title ? translations[lang].edit_title : "Update Existing Record";
     
     fields.forEach(f => {
       let input = document.getElementById("f_" + f);
@@ -504,30 +577,21 @@
         input.value = val;
       }
     });
+
+    document.getElementById('f_Year_of_Admission').dispatchEvent(new Event('input'));
+    evaluateClassRules();
+    
     bootstrap.Modal.getOrCreateInstance(document.getElementById('editModal')).show();
   }
 
   // --- STRICT LOGICAL VALIDATION ---
   function validateForm() {
-    // 1. Core Mandatory Fields Check
-    const mandatory = ["Year_of_Admission", "Date_of_Admission", "Name_of_the_Student", "Date_of_Birth", "Sex", "Religion", "Community", "Father", "Mother", "Contact_No", "Address", "Occupation", "Blood_Group", "Class_on_Admission", "Class_of_Leaving", "Date_of_TC_Leaving"];
-    for (let f of mandatory) {
-      if (!document.getElementById("f_" + f).value) {
-        Swal.fire('Required Field Missing', 'Please fill up all mandatory fields. Missing: ' + f.replace(/_/g, ' '), 'warning');
+    const form = document.getElementById('recordForm');
+    if (!form.checkValidity()) {
+        form.reportValidity();
         return false;
-      }
     }
 
-    // 2. Class Specific Mandatory Rules (Ignore Previous Class/TC if Nursery, LKG, UKG)
-    const admClass = document.getElementById("f_Class_on_Admission").value;
-    if (!["Nursery", "LKG", "UKG"].includes(admClass)) {
-      if (!document.getElementById("f_Class_last").value || !document.getElementById("f_last_TC_Date").value) {
-        Swal.fire('Required Fields Missing', 'Class Last and Last TC Date are strictly mandatory for classes above UKG.', 'warning');
-        return false;
-      }
-    }
-
-    // 3. Admission Date Chronology (Oct previous year -> Dec current year)
     const yearAdm = parseInt(document.getElementById("f_Year_of_Admission").value);
     const dateAdm = new Date(document.getElementById("f_Date_of_Admission").value);
     const minAdmDate = new Date(`${yearAdm - 1}-10-01`);
@@ -538,14 +602,12 @@
       return false;
     }
 
-    // 4. DOB Validation (DOB must be strictly older than Admission Date)
     const dob = new Date(document.getElementById("f_Date_of_Birth").value);
     if (dob >= dateAdm) {
       Swal.fire('Invalid DOB', 'Date of Birth must be older than the Date of Admission.', 'error');
       return false;
     }
 
-    // 5. Previous TC Chronology (If supplied, must be older than Date of Admission)
     if (document.getElementById("f_last_TC_Date").value) {
       const lastTcDate = new Date(document.getElementById("f_last_TC_Date").value);
       if (lastTcDate >= dateAdm) {
@@ -554,7 +616,6 @@
       }
     }
 
-    // 6. Leaving TC Chronology & Max 2-Year Failing Gap logic
     const leaveTcDate = new Date(document.getElementById("f_Date_of_TC_Leaving").value);
     if (leaveTcDate <= dateAdm) {
       Swal.fire('Invalid Leaving Date', 'Date of T.C. (Leaving) must occur AFTER the Date of Admission.', 'error');
@@ -571,10 +632,10 @@
   }
 
   async function submitRecord() {
-    // Stop submission if validation fails
     if (!validateForm()) return; 
 
     const btn = document.getElementById('submitBtn');
+    let lang = document.getElementById('dashLangSelect').value;
     btn.disabled = true; btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Saving...';
 
     const actionType = document.getElementById('formActionType').value;
@@ -592,10 +653,12 @@
         lightningFetch(); 
       } else { Swal.fire({ icon: 'error', title: 'Save Failed', text: result.message, confirmButtonColor: '#dc3545' }); }
     } catch(e) { Swal.fire({ icon: 'error', title: 'Connection Error', text: 'Could not connect to Google Sheets.', confirmButtonColor: '#dc3545' }); } 
-    finally { btn.disabled = false; btn.innerHTML = 'Save Data'; }
+    finally { 
+        btn.disabled = false; 
+        btn.innerHTML = translations[lang] && translations[lang].save ? translations[lang].save : 'Save Data'; 
+    }
   }
 
-  // GENERATE PDF 
   function printPDF(encodedData) {
     let student = JSON.parse(decodeURIComponent(encodedData.replace(/%27/g, "'")));
     const printContent = document.getElementById('printContent');
