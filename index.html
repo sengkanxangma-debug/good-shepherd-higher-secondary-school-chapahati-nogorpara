@@ -1542,6 +1542,45 @@
             background: #2b6cb0;
             transform: scale(1.03);
         }
+
+        /* --- EXAM ROUTINE POPUP CSS --- */
+        .routine-popup-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(7, 17, 38, 0.85); display: flex; justify-content: center; align-items: center;
+            z-index: 5000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; backdrop-filter: blur(6px);
+        }
+        .routine-popup-overlay.show { opacity: 1; pointer-events: auto; }
+        .routine-popup-box {
+            background: #ffffff; width: 92%; max-width: 750px; border-radius: 12px;
+            padding: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            transform: translateY(50px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-height: 90vh; overflow-y: auto; position: relative; border-top: 6px solid #c90f3b;
+        }
+        .routine-popup-overlay.show .routine-popup-box { transform: translateY(0); }
+        .close-routine-btn {
+            position: absolute; top: 15px; right: 20px; font-size: 28px; color: #a0aec0;
+            cursor: pointer; border: none; background: none; transition: color 0.2s;
+        }
+        .close-routine-btn:hover { color: #c90f3b; }
+        .routine-header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; }
+        .routine-header h2 { color: #102a4c; margin: 5px 0; font-size: 22px; font-weight: 800; text-transform: uppercase; }
+        .routine-header .school-name { font-size: 13px; color: #718096; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        .routine-header .ref-date { font-size: 12px; color: #a0aec0; display: flex; justify-content: space-between; margin-top: 10px; font-weight: 600; }
+        .routine-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13.5px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .routine-table th { background: #102a4c; color: #ffffff; padding: 12px; text-align: left; font-weight: 600; }
+        .routine-table td { padding: 10px 12px; border-bottom: 1px solid #e2e8f0; color: #2d3748; }
+        .routine-table tr:last-child td { border-bottom: none; }
+        .routine-table tr:nth-child(even) { background: #f8fafc; }
+        .routine-table tr:hover { background: #fff5f7; }
+        .routine-footer { margin-top: 25px; text-align: right; }
+        .routine-footer .signoff { font-weight: 700; color: #102a4c; font-size: 15px; }
+        .routine-footer .wishes { font-style: italic; color: #c90f3b; font-size: 14px; margin-bottom: 10px; display: block; text-align: center; }
+        @media (max-width: 600px) {
+            .routine-popup-box { padding: 20px; }
+            .routine-header h2 { font-size: 18px; }
+            .routine-table { font-size: 12px; display: block; overflow-x: auto; white-space: nowrap; }
+            .routine-header .ref-date { flex-direction: column; gap: 5px; align-items: center; }
+        }
     </style>
 </head>
 <body>
@@ -2314,6 +2353,90 @@
         </div>
     </div>
 
+    <!-- EXAM ROUTINE POPUP -->
+    <div class="routine-popup-overlay" id="routineNoticePopup">
+        <div class="routine-popup-box">
+            <button class="close-routine-btn" id="closeRoutinePopup">&times;</button>
+            
+            <div class="routine-header">
+                <div class="school-name">Good Shepherd Hr. Sec. School Chapahati</div>
+                <h2>Annual Examination Routine – 2026</h2>
+                <div class="ref-date">
+                    <span>Ref No: GSSS/2026/Notice-1/S_P/Notice_No_16</span>
+                    <span>Date: 22 October 2026</span>
+                </div>
+            </div>
+            
+            <table class="routine-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Day</th>
+                        <th>Nursery</th>
+                        <th>L.K.G.</th>
+                        <th>U.K.G.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>04-11-2026</td>
+                        <td>Wednesday</td>
+                        <td>English</td>
+                        <td>Spelling Dictation</td>
+                        <td>Reading & conversation / Handwriting</td>
+                    </tr>
+                    <tr>
+                        <td>05-11-2026</td>
+                        <td>Thursday</td>
+                        <td>Numbers</td>
+                        <td>Conversation / Rhymes</td>
+                        <td>Spelling/Dictation & Rhymes</td>
+                    </tr>
+                    <tr>
+                        <td>06-11-2026</td>
+                        <td>Friday</td>
+                        <td>Drawing</td>
+                        <td>Handwriting</td>
+                        <td>Catechism & Drawing</td>
+                    </tr>
+                    <tr>
+                        <td>09-11-2026</td>
+                        <td>Monday</td>
+                        <td>G.K.</td>
+                        <td>Drawing / Catechism</td>
+                        <td>English</td>
+                    </tr>
+                    <tr>
+                        <td>10-11-2026</td>
+                        <td>Tuesday</td>
+                        <td>Conversation / Rhymes</td>
+                        <td>English</td>
+                        <td>Garo</td>
+                    </tr>
+                    <tr>
+                        <td>11-11-2026</td>
+                        <td>Wednesday</td>
+                        <td>Picture Description</td>
+                        <td>Mathematic</td>
+                        <td>General Knowledge</td>
+                    </tr>
+                    <tr>
+                        <td>12-11-2026</td>
+                        <td>Thursday</td>
+                        <td>Catechism</td>
+                        <td>General Knowledge</td>
+                        <td>Mathematics</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="routine-footer">
+                <span class="wishes">We wish all the students the very best for their upcoming examinations.</span>
+                <span class="signoff">Yours Faithfully,<br>Principal</span>
+            </div>
+        </div>
+    </div>
+
     <script src="JavaScript/script.js"></script>
     
     <script>
@@ -2565,6 +2688,26 @@
         imageNoticePopup.addEventListener('click', (e) => {
             if (e.target === imageNoticePopup) {
                 imageNoticePopup.classList.remove('show');
+            }
+        });
+
+        // ---------------- EXAM ROUTINE POPUP LOGIC ----------------
+        const routinePopup = document.getElementById('routineNoticePopup');
+        const closeRoutinePopupBtn = document.getElementById('closeRoutinePopup');
+        
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (routinePopup) routinePopup.classList.add('show');
+            }, 2500); 
+        });
+
+        closeRoutinePopupBtn.addEventListener('click', () => {
+            routinePopup.classList.remove('show');
+        });
+
+        routinePopup.addEventListener('click', (e) => {
+            if (e.target === routinePopup) {
+                routinePopup.classList.remove('show');
             }
         });
     </script>
