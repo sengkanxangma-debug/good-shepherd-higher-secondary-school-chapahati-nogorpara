@@ -184,7 +184,7 @@
             <option value="Nursery">Nursery</option><option value="LKG">LKG</option><option value="UKG">UKG</option>
             <option value="I">I</option><option value="II">II</option><option value="III">III</option>
             <option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option>
-            <option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option>
+            <option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option><option value="XI">XI</option>
           </select>
           <button class="btn btn-dark px-4 shadow-sm" onclick="lightningFetch()" data-translate="search_btn"><i class="bi bi-arrow-clockwise"></i> Fast Search</button>
           <button class="btn btn-primary px-4 fw-bold shadow-sm" onclick="openNewForm()" data-translate="missing_reports"><i class="bi bi-file-earmark-plus"></i> Missing Reports</button>
@@ -296,10 +296,10 @@
           <h6 class="text-primary fw-bold border-bottom pb-2 mb-3" data-translate="acad_hist">Academic History</h6>
           <div class="row g-3">
             <div class="col-md-3"><label class="fw-semibold small req" data-translate="class_adm">Class on Admission</label>
-              <select id="f_Class_on_Admission" class="form-select" required><option value="">Select</option><option value="Nursery">Nursery</option><option value="LKG">LKG</option><option value="UKG">UKG</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option><option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option></select>
+              <select id="f_Class_on_Admission" class="form-select" required><option value="">Select</option><option value="Nursery">Nursery</option><option value="LKG">LKG</option><option value="UKG">UKG</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option><option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option><option value="XI">XI</option></select>
             </div>
             <div class="col-md-3"><label id="label_Class_last" class="fw-semibold small req dynamic-req" data-translate="class_last">Class last</label>
-              <select id="f_Class_last" class="form-select" required><option value="">Select</option><option value="Nursery">Nursery</option><option value="LKG">LKG</option><option value="UKG">UKG</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option><option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option></select>
+              <select id="f_Class_last" class="form-select" required><option value="">Select</option><option value="Nursery">Nursery</option><option value="LKG">LKG</option><option value="UKG">UKG</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option><option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option><option value="XI">XI</option></select>
             </div>
             <div class="col-md-3"><label id="label_last_TC_Date" class="fw-semibold small req dynamic-req" data-translate="last_tc">last TC Date</label><input type="date" id="f_last_TC_Date" class="form-control" required></div>
           </div>
@@ -314,7 +314,7 @@
               </select>
             </div>
             <div class="col-md-3"><label id="label_Class_of_Leaving" class="fw-semibold small req" data-translate="class_leave">Class of Leaving</label>
-              <select id="f_Class_of_Leaving" class="form-select" required><option value="">Select</option><option value="Nursery">Nursery</option><option value="LKG">LKG</option><option value="UKG">UKG</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option><option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option></select>
+              <select id="f_Class_of_Leaving" class="form-select" required><option value="">Select</option><option value="Nursery">Nursery</option><option value="LKG">LKG</option><option value="UKG">UKG</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option><option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option><option value="XI">XI</option></select>
             </div>
             <div class="col-md-3"><label id="label_Date_of_TC_Leaving" class="fw-semibold small req" data-translate="tc_leave">Date of T.C. (Leaving)</label><input type="date" id="f_Date_of_TC_Leaving" class="form-control" required></div>
             <div class="col-md-3 d-none"><label class="fw-semibold small" data-translate="status">Status</label>
@@ -427,7 +427,7 @@
       exit: "প্রস্থান", schooling: "স্কুলিং", all_students: "মোট ছাত্র", dashboard: "ছাত্র কর্মক্ষমতা ড্যাশবোর্ড",
       search_ph: "🔍 ছাত্রের নাম অনুসন্ধান করুন...", search_btn: "দ্রুত অনুসন্ধান", missing_reports: "নিখোঁজ রিপোর্ট",
       admn_no: "ভর্তি নং", year_adm: "ভর্তির বছর", date_adm: "ভর্তির তারিখ",
-      name: "ছাত্রের নাম", dob: "জন্ম তারিখ", sex: "লিঙ্গ", religion: "ধর্ম",
+      name: "ছাত্রের নাম", dob: "জন্ম তারিখ", sex: "লিঙ্গ", religion: "धर्म",
       community: "সম্প্রদায়", father: "পিতা", mother: "মাতা",
       contact: "যোগাযোগ নম্বর", address: "ঠিকানা", occupation: "পেশা",
       form_pen: "PEN (ঐচ্ছিক)", pen: "PEN", blood: "রক্তের গ্রুপ", form_aadhar: "আধার (ঐচ্ছিক)", aadhar: "আধার",
@@ -876,7 +876,10 @@
     setTimeout(() => document.getElementById('printArea').classList.add('d-none'), 1000);
   }
 
-  window.onload = () => { generateYears(); };
+  window.onload = () => { 
+    generateYears(); 
+    selectAllStudents();
+  };
 </script>
 </body>
 </html>
