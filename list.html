@@ -3,17 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>UDISE & APAAR Management Portal</title>
+  <title>UDISE & APAAR Management Portal Dashboard</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    /* Multi-color Animated Background */
     body { 
-      padding: 10px; /* Reduced padding for mobile */
+      padding: 10px;
       margin: 0;
       min-height: 100vh;
-      background: linear-gradient(-45deg, #4158D0, #C850C0, #FFCC70, #00DBDE, #FC00FF);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
+      background-color: #f0f2f5;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
@@ -21,39 +18,90 @@
       body { padding: 20px; }
     }
 
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Glassmorphism UI Elements */
     .glass-panel {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 15px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+      padding: 20px;
+      margin-bottom: 20px;
     }
 
     .header-title {
-      color: #fff;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-      font-weight: 700;
-      font-size: 1.5rem; /* Better scaling for mobile */
+      color: #1a1a1a;
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -0.5px;
     }
 
     @media (min-width: 768px) {
-      .header-title { font-size: 2rem; }
+      .header-title { font-size: 2.2rem; }
     }
 
+    /* Stat Box Styles */
+    .stat-card {
+      border-radius: 10px;
+      padding: 15px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      border: none;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    }
+    
+    .stat-card.active {
+      box-shadow: 0 0 0 4px #333;
+      transform: scale(0.98);
+    }
+
+    .stat-title { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; opacity: 0.9; }
+    .stat-value { font-size: 1.8rem; font-weight: 800; margin: 5px 0 0 0; line-height: 1; }
+
+    /* Colors */
+    .bg-total { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    
+    .bg-a-verified { background-color: #198754; } /* Green */
+    .bg-a-pending { background-color: #ffc107; color: #000; } /* Yellow */
+    .bg-a-failed { background-color: #dc3545; } /* Red */
+    .bg-a-na { background-color: #0d6efd; } /* Blue */
+    
+    .bg-m-notreq { background-color: #198754; } /* Green */
+    .bg-m-pending { background-color: #ffc107; color: #000; } /* Yellow */
+    .bg-m-check { background-color: #20c997; } /* Blur Green / Teal */
+    
+    .bg-ap-gen { background-color: #198754; } /* Green */
+    .bg-ap-req { background-color: #ffc107; color: #000; } /* Yellow */
+    .bg-ap-na { background-color: #dc3545; } /* Red */
+    .bg-ap-failed { background-color: #00008B; } /* Dark Blue */
+
+    .table-responsive { border-radius: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .table { margin-bottom: 0; min-width: 1200px; font-size: 0.95rem; }
+    
+    .badge-custom-blur { background-color: #20c997; color: white; }
+    .badge-custom-darkblue { background-color: #00008B; color: white; }
+    
+    .category-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #495057;
+        margin-bottom: 12px;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 5px;
+    }
+    
     .modal-header { background-color: #0d6efd; color: white; }
     .readonly-field { background-color: #e9ecef; cursor: not-allowed; }
     .consent-box { border: 1px solid #0d6efd; padding: 15px; border-radius: 5px; background: white;}
-    
-    .table-responsive { border-radius: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .table { margin-bottom: 0; min-width: 900px; /* Ensures table doesn't squish too much on mobile */ }
   </style>
 </head>
 <body>
@@ -62,21 +110,75 @@
   
   <!-- Header & Exit Button -->
   <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3 text-center text-md-start">
-    <h2 class="header-title m-0">School UDISE & APAAR Portal</h2>
+    <h2 class="header-title m-0">Dashboard Academic Year 2026-2027</h2>
     <a href="udiseentry.html" class="btn btn-danger fw-bold shadow-sm px-4 rounded-pill">
       🚪 Exit to Home
     </a>
   </div>
+
+  <!-- Interactive Analytics Dashboard -->
+  <div class="glass-panel" id="dashboardPanel" style="display: none;">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="stat-card bg-total text-center" onclick="setFilter('all', 'all', this)">
+                <div class="stat-title">Total Students (All Classes & Sections)</div>
+                <div class="stat-value" id="count-total">0</div>
+                <small class="mt-2 text-white-50">Click to view all students</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-12 col-xl-4">
+            <div class="glass-panel h-100 m-0 p-3 shadow-sm border-0 bg-light">
+                <div class="category-title">Aadhaar Status</div>
+                <div class="row g-2">
+                    <div class="col-6"><div class="stat-card bg-a-verified" onclick="setFilter('aadhaar', 'Verified', this)"><div class="stat-title">Verified</div><div class="stat-value" id="count-a-verified">0</div></div></div>
+                    <div class="col-6"><div class="stat-card bg-a-pending" onclick="setFilter('aadhaar', 'Pending', this)"><div class="stat-title">Pending</div><div class="stat-value" id="count-a-pending">0</div></div></div>
+                    <div class="col-6"><div class="stat-card bg-a-failed" onclick="setFilter('aadhaar', 'Validation failed', this)"><div class="stat-title">Failed</div><div class="stat-value" id="count-a-failed">0</div></div></div>
+                    <div class="col-6"><div class="stat-card bg-a-na" onclick="setFilter('aadhaar', 'AADHAAR not available', this)"><div class="stat-title">Not Available</div><div class="stat-value" id="count-a-na">0</div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-xl-4">
+            <div class="glass-panel h-100 m-0 p-3 shadow-sm border-0 bg-light">
+                <div class="category-title">MBU Status</div>
+                <div class="row g-2">
+                    <div class="col-6"><div class="stat-card bg-m-notreq" onclick="setFilter('mbu', 'MBU Not Required', this)"><div class="stat-title">Not Required</div><div class="stat-value" id="count-m-notreq">0</div></div></div>
+                    <div class="col-6"><div class="stat-card bg-m-check" onclick="setFilter('mbu', 'Status Check to be done', this)"><div class="stat-title">Status Check</div><div class="stat-value" id="count-m-check">0</div></div></div>
+                    <div class="col-6"><div class="stat-card bg-m-pending" onclick="setFilter('mbu', 'MBU Pending (Age 5-15)', this)"><div class="stat-title">Pending (5-15)</div><div class="stat-value" id="count-m-p1">0</div></div></div>
+                    <div class="col-6"><div class="stat-card bg-m-pending" onclick="setFilter('mbu', 'MBU Pending (Age 15 and above)', this)"><div class="stat-title">Pending (15+)</div><div class="stat-value" id="count-m-p2">0</div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-xl-4">
+            <div class="glass-panel h-100 m-0 p-3 shadow-sm border-0 bg-light">
+                <div class="category-title">APAAR Status</div>
+                <div class="row g-2">
+                    <div class="col-6"><div class="stat-card bg-ap-gen" onclick="setFilter('apaar', 'Generated', this)"><div class="stat-title">Generated</div><div class="stat-value" id="count-ap-gen">0</div></div></div>
+                    <div class="col-6"><div class="stat-card bg-ap-req" onclick="setFilter('apaar', 'Requested', this)"><div class="stat-title">Requested</div><div class="stat-value" id="count-ap-req">0</div></div></div>
+                    <div class="col-6"><div class="stat-card bg-ap-na" onclick="setFilter('apaar', 'NA', this)"><div class="stat-title">Not Requested (NA)</div><div class="stat-value" id="count-ap-na">0</div></div></div>
+                    <div class="col-6"><div class="stat-card bg-ap-failed" onclick="setFilter('apaar', 'Failed', this)"><div class="stat-title">Failed</div><div class="stat-value" id="count-ap-failed">0</div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
   
-  <!-- Advanced Search Box -->
-  <div class="glass-panel p-3 p-md-4 mb-4">
-    <h5 class="mb-3 text-primary fw-bold border-bottom pb-2">Advanced Search</h5>
-    <div class="row g-2 g-md-3">
-      <div class="col-12 col-md-3">
-        <input type="text" id="searchName" class="form-control" placeholder="Student Name">
+  <!-- Auto-Filtering Controls -->
+  <div class="glass-panel p-3 mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+        <h5 class="text-primary fw-bold m-0">Filter Students</h5>
+        <button class="btn btn-sm btn-outline-secondary" onclick="resetAllFilters()">Reset All Filters</button>
+    </div>
+    <div class="row g-3">
+      <div class="col-12 col-md-4">
+        <input type="text" id="filterName" class="form-control" placeholder="Search by Student Name..." oninput="applyFilters()">
       </div>
-      <div class="col-6 col-md-2">
-        <select id="searchClass" class="form-select" onchange="toggleSection()">
+      <div class="col-6 col-md-4">
+        <select id="filterClass" class="form-select" onchange="toggleSectionAndFilter()">
           <option value="">Class (All)</option>
           <option value="Nursery/KG/PP3">Nursery/KG/PP3</option>
           <option value="LKG/KG1/PP2">LKG/KG1/PP2</option>
@@ -94,42 +196,32 @@
           <option value="XI">XI</option>
         </select>
       </div>
-      <div class="col-6 col-md-2">
-        <select id="searchSection" class="form-select">
+      <div class="col-6 col-md-4">
+        <select id="filterSection" class="form-select" onchange="applyFilters()">
           <option value="">Section (All)</option>
           <option value="A">A</option>
           <option value="B">B</option>
         </select>
       </div>
-      
-      <!-- Aadhaar Verify Search -->
-      <div class="col-12 col-sm-6 col-md-2">
-        <select id="searchAadhaar" class="form-select border-primary">
-          <option value="">Aadhaar (All)</option>
-          <option value="Verified">Aadhaar Verified</option>
-        </select>
-      </div>
-
-      <!-- APAAR Status Search -->
-      <div class="col-12 col-sm-6 col-md-2">
-        <select id="searchApaar" class="form-select border-primary">
-          <option value="">APAAR Status (All)</option>
-          <option value="Generated">Generated</option>
-          <option value="Requested">Requested</option>
-          <option value="NA">NA / Pending</option>
-        </select>
-      </div>
-
-      <div class="col-12 col-md-1 mt-3 mt-md-0">
-        <button class="btn btn-primary w-100 fw-bold shadow h-100" onclick="performSearch()">Search</button>
-      </div>
     </div>
   </div>
 
+  <!-- Loading State -->
+  <div id="loadingIndicator" class="text-center py-5">
+      <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+          <span class="visually-hidden">Loading...</span>
+      </div>
+      <h4 class="mt-3 text-primary fw-bold">Fetching Student Database...</h4>
+      <p class="text-muted">Please wait while we load all records for the 2026-2027 Academic Year.</p>
+  </div>
+
   <!-- Results Table -->
-  <div class="glass-panel p-2 p-md-3">
-    <div id="downloadHistory" class="alert alert-success d-none shadow-sm text-break"></div>
-    <div class="table-responsive">
+  <div class="glass-panel p-0 overflow-hidden" id="tableContainer" style="display: none;">
+    <div class="p-3 bg-light border-bottom d-flex justify-content-between align-items-center">
+        <h6 class="m-0 fw-bold text-dark">Student List <span id="currentViewText" class="badge bg-secondary ms-2">Showing All</span></h6>
+        <span class="fw-bold text-primary">Count: <span id="tableCount">0</span></span>
+    </div>
+    <div class="table-responsive p-3">
       <table class="table table-bordered table-hover align-middle bg-white">
         <thead class="table-dark">
           <tr>
@@ -138,23 +230,17 @@
             <th>Student Name</th>
             <th>PEN</th>
             <th>Father Name</th>
-            <th>Mother Name</th>
-            <th>APAAR Status</th>
+            <th class="text-center">Aadhaar Status</th>
+            <th class="text-center">MBU Status</th>
+            <th class="text-center">APAAR Status</th>
             <th class="text-center" style="min-width: 130px;">Actions</th>
           </tr>
         </thead>
         <tbody id="resultsBody">
-          <tr><td colspan="8" class="text-center py-4 text-muted fw-bold">Enter search criteria to display records</td></tr>
+          <!-- Populated by JS -->
         </tbody>
       </table>
     </div>
-  </div>
-
-  <!-- Copyright Footer -->
-  <div class="glass-panel mt-4 p-3 text-center shadow-sm">
-    <p class="mb-0 fw-bold text-secondary" style="font-size: 0.9rem;">
-      &copy; 2026 Good Shepherd Higher Secondary School, Chapahati - Nogorpara & developed by Sangma Web Developer. All Rights Reserved.
-    </p>
   </div>
 
 </div>
@@ -278,13 +364,11 @@
   </div>
 </div>
 
-<!-- Custom Popup Notification Modal -->
+<!-- Popup Notification Modal -->
 <div class="modal fade" id="popupModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-sm modal-dialog-centered mx-auto" style="max-width: 300px;">
     <div class="modal-content text-center p-4 shadow-lg border-0" style="border-radius: 15px;">
-      <div id="popupContent">
-        <!-- Status content injected here -->
-      </div>
+      <div id="popupContent"></div>
       <div class="mt-4">
         <button type="button" class="btn btn-primary px-5 rounded-pill shadow-sm w-100" data-bs-dismiss="modal">OK</button>
       </div>
@@ -294,156 +378,247 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  // ==========================================
-  // IMPORTANT: PASTE YOUR DEPLOYED WEB APP URL HERE
-  // ==========================================
+  // Linked to your live Google Apps Script URL
   const API_URL = "https://script.google.com/macros/s/AKfycbx91MoGtUYg3wPBTDL2ARdA2b8tBySDPRfLCp7jhIJHWPvLjPrkI5qbN_IyuqoXr8H0/exec"; 
   
-  function toggleSection() {
-    const cls = document.getElementById('searchClass').value;
-    const secSelect = document.getElementById('searchSection');
+  // Global Data Store
+  let globalStudents = [];
+  
+  // Current active box filter
+  let activeBoxFilter = { type: 'all', value: 'all' };
+
+  // Trigger data fetch on load
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchAllData();
+  });
+
+  async function fetchAllData() {
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'search', name: '', classQuery: '', section: '' }),
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+      });
+      
+      const result = await response.json();
+      if (result.status === 'success') {
+        globalStudents = result.data;
+        
+        // Hide loader, show UI
+        document.getElementById('loadingIndicator').style.display = 'none';
+        document.getElementById('dashboardPanel').style.display = 'block';
+        document.getElementById('tableContainer').style.display = 'block';
+        
+        calculateDashboardMetrics();
+        applyFilters(); 
+      } else {
+        showPopup('error', result.message);
+      }
+    } catch (error) {
+      showPopup('error', 'Connection failed. Unable to fetch records.');
+      console.error(error);
+    }
+  }
+
+  function calculateDashboardMetrics() {
+    let counts = {
+        total: globalStudents.length,
+        a_verified: 0, a_pending: 0, a_failed: 0, a_na: 0,
+        m_notreq: 0, m_check: 0, m_p1: 0, m_p2: 0,
+        ap_gen: 0, ap_req: 0, ap_na: 0, ap_failed: 0
+    };
+
+    globalStudents.forEach(std => {
+        let aStatus = std['AADHAAR Validation Status'] ? std['AADHAAR Validation Status'].trim() : 'NA';
+        if(aStatus === 'Verified') counts.a_verified++;
+        else if(aStatus === 'Pending') counts.a_pending++;
+        else if(aStatus === 'Validation failed') counts.a_failed++;
+        else if(aStatus === 'AADHAAR not available') counts.a_na++;
+
+        let mStatus = std['MBU Status'] ? std['MBU Status'].trim() : 'NA';
+        if(mStatus === 'MBU Not Required') counts.m_notreq++;
+        else if(mStatus === 'Status Check to be done') counts.m_check++;
+        else if(mStatus === 'MBU Pending (Age 5-15)') counts.m_p1++;
+        else if(mStatus === 'MBU Pending (Age 15 and above)') counts.m_p2++;
+
+        let apStatus = std['APAAR Status'] ? std['APAAR Status'].trim() : 'NA';
+        if(apStatus === 'Generated') counts.ap_gen++;
+        else if(apStatus === 'Requested') counts.ap_req++;
+        else if(apStatus === 'Failed') counts.ap_failed++;
+        else if(apStatus === 'NA') counts.ap_na++;
+    });
+
+    document.getElementById('count-total').innerText = counts.total;
+    document.getElementById('count-a-verified').innerText = counts.a_verified;
+    document.getElementById('count-a-pending').innerText = counts.a_pending;
+    document.getElementById('count-a-failed').innerText = counts.a_failed;
+    document.getElementById('count-a-na').innerText = counts.a_na;
+    document.getElementById('count-m-notreq').innerText = counts.m_notreq;
+    document.getElementById('count-m-check').innerText = counts.m_check;
+    document.getElementById('count-m-p1').innerText = counts.m_p1;
+    document.getElementById('count-m-p2').innerText = counts.m_p2;
+    document.getElementById('count-ap-gen').innerText = counts.ap_gen;
+    document.getElementById('count-ap-req').innerText = counts.ap_req;
+    document.getElementById('count-ap-na').innerText = counts.ap_na;
+    document.getElementById('count-ap-failed').innerText = counts.ap_failed;
+  }
+
+  function setFilter(type, value, element = null) {
+      activeBoxFilter = { type: type, value: value };
+      if(element) {
+          document.querySelectorAll('.stat-card').forEach(el => el.classList.remove('active'));
+          element.classList.add('active');
+          document.getElementById('currentViewText').innerText = value === 'all' ? 'Showing All' : `Filtered: ${value}`;
+          document.getElementById('currentViewText').className = 'badge bg-primary ms-2';
+      }
+      applyFilters();
+  }
+  
+  function resetAllFilters() {
+      document.getElementById('filterName').value = '';
+      document.getElementById('filterClass').value = '';
+      document.getElementById('filterSection').value = '';
+      document.getElementById('filterSection').disabled = false;
+      document.querySelectorAll('.stat-card').forEach(el => el.classList.remove('active'));
+      document.querySelector('.bg-total').classList.add('active');
+      activeBoxFilter = { type: 'all', value: 'all' };
+      document.getElementById('currentViewText').innerText = 'Showing All';
+      document.getElementById('currentViewText').className = 'badge bg-secondary ms-2';
+      applyFilters();
+  }
+
+  function toggleSectionAndFilter() {
+    const cls = document.getElementById('filterClass').value;
+    const secSelect = document.getElementById('filterSection');
     const seniorClasses = ['VII', 'VIII', 'IX', 'X', 'XI'];
-    
     if (seniorClasses.includes(cls)) {
       secSelect.value = "";
       secSelect.disabled = true;
     } else {
       secSelect.disabled = false;
     }
+    applyFilters();
   }
 
-  function showPopup(type, message, onCloseCallback = null) {
-    const popupContent = document.getElementById('popupContent');
-    if (type === 'error') {
-      popupContent.innerHTML = `<div style="font-size: 50px; line-height: 1;">❌</div><h5 class="mt-3 text-danger fw-bold">Oops!</h5><p class="text-muted mb-0 small">${message}</p>`;
-    } else if (type === 'success') {
-      popupContent.innerHTML = `<div style="font-size: 50px; line-height: 1;">✅</div><h5 class="mt-3 text-success fw-bold">Success</h5><p class="text-muted mb-0 small">${message}</p>`;
-    }
+  function applyFilters() {
+      const nameQ = document.getElementById('filterName').value.toLowerCase();
+      const classQ = document.getElementById('filterClass').value;
+      const secQ = document.getElementById('filterSection').value;
 
-    const popupModal = new bootstrap.Modal(document.getElementById('popupModal'));
-    popupModal.show();
+      const filtered = globalStudents.filter(std => {
+          let matchName = !nameQ || (std['Student Name'] && std['Student Name'].toLowerCase().includes(nameQ)) || (std['Name As per AADHAAR'] && std['Name As per AADHAAR'].toLowerCase().includes(nameQ));
+          let matchClass = !classQ || std['Class'] == classQ;
+          let matchSec = !secQ || std['Section'] == secQ;
 
-    if (onCloseCallback) {
-      document.getElementById('popupModal').addEventListener('hidden.bs.modal', function handler() {
-        onCloseCallback();
-        document.getElementById('popupModal').removeEventListener('hidden.bs.modal', handler);
+          if(!matchName || !matchClass || !matchSec) return false;
+
+          if(activeBoxFilter.type !== 'all') {
+              if(activeBoxFilter.type === 'aadhaar') {
+                  const val = std['AADHAAR Validation Status'] ? std['AADHAAR Validation Status'].trim() : 'NA';
+                  if(val !== activeBoxFilter.value) return false;
+              }
+              if(activeBoxFilter.type === 'mbu') {
+                  const val = std['MBU Status'] ? std['MBU Status'].trim() : 'NA';
+                  if(val !== activeBoxFilter.value) return false;
+              }
+              if(activeBoxFilter.type === 'apaar') {
+                  const val = std['APAAR Status'] ? std['APAAR Status'].trim() : 'NA';
+                  if(val !== activeBoxFilter.value) return false;
+              }
+          }
+          return true;
       });
-    }
+
+      renderTable(filtered);
   }
 
-  async function performSearch() {
-    const name = document.getElementById('searchName').value;
-    const cls = document.getElementById('searchClass').value;
-    const sec = document.getElementById('searchSection').value;
-    
-    // Advanced Filters
-    const filterAadhaar = document.getElementById('searchAadhaar').value;
-    const filterApaar = document.getElementById('searchApaar').value;
-
-    document.getElementById('resultsBody').innerHTML = '<tr><td colspan="8" class="text-center py-4 text-primary fw-bold">Fetching records... ⏳</td></tr>';
-    
-    try {
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        body: JSON.stringify({ action: 'search', name: name, classQuery: cls, section: sec }),
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' }
-      });
-      
-      const result = await response.json();
-      if (result.status === 'success') {
-        
-        // Client-side filtering logic for the advanced fields
-        const filteredData = result.data.filter(std => {
-            let matchAadhaar = true;
-            let matchApaar = true;
-
-            // Aadhaar Filtering
-            if (filterAadhaar === 'Verified') {
-                matchAadhaar = (std['Aadhaar Verify'] === 'Verified' || (std['AADHAAR No'] && std['AADHAAR No'] !== 'NA' && std['AADHAAR No'] !== ''));
-            }
-
-            // APAAR Filtering
-            if (filterApaar) {
-                const currentStatus = std['APAAR Status'] ? std['APAAR Status'].trim() : 'NA';
-                if (filterApaar === 'NA') {
-                    matchApaar = (currentStatus !== 'Generated' && currentStatus !== 'Requested');
-                } else {
-                    matchApaar = (currentStatus === filterApaar);
-                }
-            }
-
-            return matchAadhaar && matchApaar;
-        });
-
-        displayResults(filteredData);
-
-      } else {
-        document.getElementById('resultsBody').innerHTML = `<tr><td colspan="8" class="text-center py-4 text-danger fw-bold">Error: ${result.message}</td></tr>`;
-      }
-    } catch (error) {
-      document.getElementById('resultsBody').innerHTML = '<tr><td colspan="8" class="text-center py-4 text-danger fw-bold">Search failed. Check console for details.</td></tr>';
-      console.error(error);
-    }
-  }
-
-  function displayResults(students) {
+  function renderTable(students) {
     const tbody = document.getElementById('resultsBody');
+    document.getElementById('tableCount').innerText = students.length;
     tbody.innerHTML = '';
     
     if (students.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-muted fw-bold">No students match your selected filters.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="9" class="text-center py-5 text-muted fw-bold">No students match your selected filters.</td></tr>';
       return;
     }
     
+    let htmlContent = '';
     students.forEach(std => {
-      const tr = document.createElement('tr');
+      // Badges
+      let aadhaarBadge = '';
+      let aStatus = std['AADHAAR Validation Status'] ? std['AADHAAR Validation Status'].trim() : 'NA';
+      if(aStatus === 'Verified') aadhaarBadge = `<span class="badge bg-success px-2 py-1">${aStatus}</span>`;
+      else if(aStatus === 'Pending') aadhaarBadge = `<span class="badge bg-warning text-dark px-2 py-1">${aStatus}</span>`;
+      else if(aStatus === 'Validation failed') aadhaarBadge = `<span class="badge bg-danger px-2 py-1">${aStatus}</span>`;
+      else if(aStatus === 'AADHAAR not available') aadhaarBadge = `<span class="badge bg-primary px-2 py-1">${aStatus}</span>`;
+      else aadhaarBadge = `<span class="badge bg-secondary px-2 py-1">${aStatus}</span>`;
+
+      let mbuBadge = '';
+      let mStatus = std['MBU Status'] ? std['MBU Status'].trim() : 'NA';
+      if(mStatus === 'MBU Not Required') mbuBadge = `<span class="badge bg-success px-2 py-1">${mStatus}</span>`;
+      else if(mStatus.includes('MBU Pending')) mbuBadge = `<span class="badge bg-warning text-dark px-2 py-1">${mStatus}</span>`;
+      else if(mStatus === 'Status Check to be done') mbuBadge = `<span class="badge badge-custom-blur px-2 py-1">${mStatus}</span>`;
+      else mbuBadge = `<span class="badge bg-secondary px-2 py-1">${mStatus}</span>`;
+
+      let apaarBadge = '';
+      let apStatus = std['APAAR Status'] ? std['APAAR Status'].trim() : 'NA';
+      if(apStatus === 'Generated') apaarBadge = `<span class="badge bg-success px-2 py-1">${apStatus}</span>`;
+      else if(apStatus === 'NA') apaarBadge = `<span class="badge bg-danger px-2 py-1">${apStatus}</span>`;
+      else if(apStatus === 'Requested') apaarBadge = `<span class="badge bg-warning text-dark px-2 py-1">${apStatus}</span>`;
+      else if(apStatus === 'Failed') apaarBadge = `<span class="badge badge-custom-darkblue px-2 py-1">${apStatus}</span>`;
+      else apaarBadge = `<span class="badge bg-secondary px-2 py-1">${apStatus}</span>`;
+
+      // Safe JSON for onclick
+      const safeStdStr = JSON.stringify(std).replace(/'/g, "&#39;").replace(/"/g, "&quot;");
+
+      // Actions
       let apaarBtn = '';
-      
-      if (std['APAAR Status'] === 'Generated') {
-        apaarBtn = `<a href="https://accounts.digilocker.gov.in/v3/999702e98847d257631be9acf1cb7713f3c20847e9b08daf96f4fb3a66ba3300--en" 
-                       target="_blank" class="btn btn-sm btn-success w-100 fw-semibold" 
-                       onclick="logDownload('${std['Student Name']}')">⬇️ DigiLocker</a>`;
-      } else if (std['APAAR Status'] === 'Requested') {
+      if (apStatus === 'Generated') {
+        apaarBtn = `<a href="https://accounts.digilocker.gov.in/" target="_blank" class="btn btn-sm btn-success w-100 fw-semibold">⬇️ DigiLocker</a>`;
+      } else if (apStatus === 'Requested') {
         apaarBtn = `<div class="btn btn-sm btn-light border text-secondary fw-bold w-100 disabled" style="cursor: not-allowed;">Requested 🟡</div>`;
       } else {
-        apaarBtn = `<button id="btn-consent-${std['Student PEN']}" class="btn btn-sm btn-primary w-100 fw-semibold" onclick='openConsent(${JSON.stringify(std)})'>🔵 Generate ⏳</button>`;
+        apaarBtn = `<button id="btn-consent-${std['Student PEN']}" class="btn btn-sm btn-primary w-100 fw-semibold" onclick='openConsent(${safeStdStr})'>🔵 Generate ⏳</button>`;
+      }
+      
+      let editBtn = std['hasEdited'] 
+        ? `<button class="btn btn-sm btn-secondary disabled w-100" style="cursor: not-allowed;">Locked 🔒</button>`
+        : `<button id="btn-edit-${std['Student PEN']}" class="btn btn-sm btn-outline-dark fw-semibold w-100" onclick='openEdit(${safeStdStr})'>✏️ Edit</button>`;
+
+      let dispName = std['Student Name'] || '';
+      if (!dispName || dispName.toUpperCase() === 'NOT AVAILABLE' || dispName.toUpperCase() === 'NA') {
+          dispName = std['Name As per AADHAAR'] || '';
+      }
+      if (dispName.toUpperCase() === 'NOT AVAILABLE' || dispName.toUpperCase() === 'NA') {
+          dispName = 'Name Not Found in System'; 
       }
 
-      let editBtn = std['hasEdited'] 
-        ? `<button class="btn btn-sm btn-secondary disabled w-100" style="cursor: not-allowed;">Locked</button>`
-        : `<button id="btn-edit-${std['Student PEN']}" class="btn btn-sm btn-outline-dark fw-semibold w-100" onclick='openEdit(${JSON.stringify(std)})'>✏️ Edit</button>`;
-
-      tr.innerHTML = `
-        <td class="fw-bold">${std['Class'] || ''}</td>
-        <td>${std['Section'] || ''}</td>
-        <td class="fw-semibold text-primary">${std['Student Name'] || ''}</td>
-        <td class="text-muted small">${std['Student PEN'] || ''}</td>
-        <td>${std['Father Name'] || ''}</td>
-        <td>${std['Mother Name'] || ''}</td>
-        <td><span id="badge-${std['Student PEN']}" class="badge rounded-pill ${std['APAAR Status'] === 'Generated' ? 'bg-success' : (std['APAAR Status'] === 'Requested' ? 'bg-warning text-dark' : 'bg-secondary')}">${std['APAAR Status'] || 'NA'}</span></td>
-        <td>
-          <div class="d-flex gap-2 flex-column">
-            ${editBtn}
-            ${apaarBtn}
-          </div>
-        </td>
+      htmlContent += `
+        <tr>
+            <td class="fw-bold">${std['Class'] || ''}</td>
+            <td>${std['Section'] || ''}</td>
+            <td class="fw-semibold text-primary">${dispName}</td>
+            <td class="text-muted small">${std['Student PEN'] || ''}</td>
+            <td>${std['Father Name'] || ''}</td>
+            <td class="text-center">${aadhaarBadge}</td>
+            <td class="text-center">${mbuBadge}</td>
+            <td class="text-center">${apaarBadge}</td>
+            <td><div class="d-flex gap-2 flex-column">${editBtn}${apaarBtn}</div></td>
+        </tr>
       `;
-      tbody.appendChild(tr);
     });
+    
+    tbody.innerHTML = htmlContent;
   }
 
-  function logDownload(studentName) {
-    const hist = document.getElementById('downloadHistory');
-    hist.classList.remove('d-none');
-    hist.innerHTML = `<strong>Download History:</strong> APAAR ID for <span class="text-primary">${studentName}</span> accessed via DigiLocker on ${new Date().toLocaleString()}`;
-  }
-
+  // --- MODAL FUNCTIONS RESTORED ---
+  
   function openEdit(student) {
-    document.getElementById('editName').value = student['Student Name'];
+    document.getElementById('editName').value = student['Student Name'] || student['Name As per AADHAAR'] || '';
     document.getElementById('editPen').value = student['Student PEN'];
     document.getElementById('editClass').value = student['Class'];
     document.getElementById('editDob').value = student['DOB'] || 'N/A';
-    document.getElementById('editAadhaar').value = student['AADHAAR No'];
+    document.getElementById('editAadhaar').value = student['AADHAAR No'] || 'N/A';
     
     document.getElementById('editGender').value = student['Gender'] || 'Male';
     document.getElementById('editFather').value = student['Father Name'] || '';
@@ -458,7 +633,6 @@
 
   async function submitCorrection() {
     const btn = document.getElementById('submitCorrectionBtn');
-    
     if(document.getElementById('editFather').value.trim() === "" || document.getElementById('editMother').value.trim() === "") {
         showPopup('error', 'Please make sure Father and Mother names are filled correctly.');
         return;
@@ -490,10 +664,17 @@
       if (result.status === 'success') {
         bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
         
+        // Update UI dynamically to locked status
         const pen = document.getElementById('editPen').value;
         const editBtn = document.getElementById(`btn-edit-${pen}`);
         if(editBtn) {
-            editBtn.outerHTML = `<button class="btn btn-sm btn-secondary disabled w-100" style="cursor: not-allowed;">Locked</button>`;
+            editBtn.outerHTML = `<button class="btn btn-sm btn-secondary disabled w-100" style="cursor: not-allowed;">Locked 🔒</button>`;
+        }
+        
+        // Update in global array so filter/re-render keeps it locked
+        const stdIndex = globalStudents.findIndex(s => s['Student PEN'] === pen);
+        if(stdIndex !== -1) {
+            globalStudents[stdIndex]['hasEdited'] = true;
         }
 
         showPopup('success', result.message);
@@ -510,7 +691,7 @@
 
   function openConsent(student) {
     document.getElementById('consentForm').reset();
-    document.getElementById('cgStudentName').value = student['Student Name']; 
+    document.getElementById('cgStudentName').value = student['Student Name'] || student['Name As per AADHAAR'] || ''; 
     document.getElementById('cgPen').value = student['Student PEN'];
     new bootstrap.Modal(document.getElementById('consentModal')).show();
   }
@@ -547,16 +728,21 @@
       if (result.status === 'success') {
         bootstrap.Modal.getInstance(document.getElementById('consentModal')).hide();
         
+        // Update UI dynamically to requested status
         const consentBtn = document.getElementById(`btn-consent-${data.pen}`);
         if(consentBtn) {
             consentBtn.outerHTML = `<div class="btn btn-sm btn-light border text-secondary fw-bold w-100 disabled" style="cursor: not-allowed;">Requested 🟡</div>`;
         }
         
-        const statusBadge = document.getElementById(`badge-${data.pen}`);
-        if(statusBadge) {
-            statusBadge.innerText = 'Requested';
-            statusBadge.className = 'badge bg-warning text-dark rounded-pill';
+        // Update in global array so filter/re-render keeps it updated
+        const stdIndex = globalStudents.findIndex(s => s['Student PEN'] === data.pen);
+        if(stdIndex !== -1) {
+            globalStudents[stdIndex]['APAAR Status'] = 'Requested';
         }
+        
+        // Re-calculate dashboard metrics
+        calculateDashboardMetrics();
+        applyFilters();
 
         showPopup('success', result.message);
       } else {
@@ -568,6 +754,17 @@
       btn.disabled = false;
       btn.innerText = "Submit Consent";
     }
+  }
+
+  function showPopup(type, message) {
+    const popupContent = document.getElementById('popupContent');
+    if (type === 'error') {
+      popupContent.innerHTML = `<div style="font-size: 50px; line-height: 1;">❌</div><h5 class="mt-3 text-danger fw-bold">Oops!</h5><p class="text-muted mb-0 small">${message}</p>`;
+    } else if (type === 'success') {
+      popupContent.innerHTML = `<div style="font-size: 50px; line-height: 1;">✅</div><h5 class="mt-3 text-success fw-bold">Success</h5><p class="text-muted mb-0 small">${message}</p>`;
+    }
+    const popupModal = new bootstrap.Modal(document.getElementById('popupModal'));
+    popupModal.show();
   }
 </script>
 </body>
