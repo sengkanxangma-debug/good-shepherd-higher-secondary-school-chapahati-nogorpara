@@ -26,20 +26,23 @@
     @keyframes gradientDash { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
     .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border-radius: 8px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); border: 1px solid rgba(255,255,255,0.3); color: #000; }
-    .school-header { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px); border-radius: 10px; padding: 12px 20px; color: white; border: 1px solid rgba(255,255,255,0.1); }
+    /* Reduced padding slightly to give more room for the table */
+    .school-header { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px); border-radius: 10px; padding: 8px 15px; color: white; border: 1px solid rgba(255,255,255,0.1); }
     .main-row { overflow-y: auto; overflow-x: hidden; }
     @media (min-width: 768px) { .main-row { overflow-y: hidden; } }
 
     .sidebar { height: 100%; overflow-y: auto; flex-grow: 1; }
-    .year-item { cursor: pointer; transition: all 0.2s; border-radius: 6px; font-weight: 500; font-size: 0.9rem; padding: 8px 12px; margin-bottom: 4px; color: #333; }
+    .year-item { cursor: pointer; transition: all 0.2s; border-radius: 6px; font-weight: 500; font-size: 0.9rem; padding: 6px 10px; margin-bottom: 4px; color: #333; }
     .year-item:hover { background: #e2e8f0; color: #000 !important; }
     .year-item.active { background: #0f2027; color: #ffffff !important; font-weight: 600; }
     .all-students-btn { background: #0f2027; color: white !important; font-weight: bold; text-align: center; }
     
-    .stat-card { border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s; padding: 15px;}
-    .stat-card:hover { transform: translateY(-3px); }
-    .stat-card h6 { font-size: 0.8rem; font-weight: 700; text-transform: uppercase;}
-    .stat-card h2 { color: #000 !important; }
+    /* Stat Cards Optimization & Click Actions */
+    .stat-card { border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.2s ease-in-out; padding: 10px 15px; cursor: pointer;}
+    .stat-card:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
+    .stat-card.active-filter { transform: translateY(-3px); border: 2px solid #000; box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
+    .stat-card h6 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 3px;}
+    .stat-card h2 { color: #000 !important; font-size: 1.6rem; }
     .card-pink { border-top: 4px solid #ec4899; }
     .card-yellow { border-top: 4px solid #f59e0b; }
     .card-blue { border-top: 4px solid #3b82f6; }
@@ -49,8 +52,8 @@
     .wide-table-wrapper:active { cursor: grabbing; }
     
     .table { width: max-content; min-width: 100%; } 
-    .table th { background-color: #f8fafc; color: #212529 !important; font-size: 0.85rem; text-transform: capitalize; border-bottom: 2px solid #ccc; padding: 12px 16px !important;} 
-    .table td { font-size: 0.9rem; vertical-align: middle; white-space: nowrap; color: #000; border-color: #dee2e6; padding: 10px 16px !important;}
+    .table th { background-color: #f8fafc; color: #212529 !important; font-size: 0.85rem; text-transform: capitalize; border-bottom: 2px solid #ccc; padding: 10px 14px !important;} 
+    .table td { font-size: 0.85rem; vertical-align: middle; white-space: nowrap; color: #000; border-color: #dee2e6; padding: 8px 14px !important;}
     .table thead th { position: sticky; top: 0; z-index: 1; }
     .readonly-field { background-color: #e9ecef !important; color: #495057 !important; font-weight: bold;}
     
@@ -58,13 +61,8 @@
     .lang-box { background: #fff; padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; width: 90%; color: #000; }
     .lang-btn { margin: 5px; width: 100%; font-weight: bold; }
     
-    /* ========================================================
-       PERFECTED 1-PAGE ADMISSION CERTIFICATE PRINT TEMPLATE 
-       ======================================================== */
     @media print {
-      /* Tightened margins to prevent 2-page spillover */
       @page { size: A4 portrait; margin: 5mm; }
-      
       body { margin: 0; padding: 0; background: white; }
       body > *:not(#printArea) { display: none !important; }
       
@@ -88,18 +86,17 @@
         z-index: -1; pointer-events: none; filter: blur(1.5px);
       }
 
-      /* Locked explicit heights to force 1 Page A4 */
       .certificate-border {
-        border: 8px solid #1e3a8a; /* Outer Blue */
+        border: 8px solid #1e3a8a; 
         position: relative; padding: 20px;
         background: rgba(255, 255, 255, 0.9); 
         box-sizing: border-box; width: 100%; 
-        height: 285mm; max-height: 285mm; /* Explicit lock to A4 constraints */
+        height: 285mm; max-height: 285mm; 
         display: flex; flex-direction: column; overflow: hidden;
       }
       .certificate-border::before {
         content: ''; position: absolute; top: 4px; left: 4px; right: 4px; bottom: 4px;
-        border: 2px solid #dc2626; /* Inner Red */ pointer-events: none;
+        border: 2px solid #dc2626; pointer-events: none;
       }
       
       .print-header { text-align: center; position: relative; margin-bottom: 5px; flex-shrink: 0; }
@@ -146,11 +143,11 @@
 <div class="container-fluid flex-grow-1 d-flex flex-column no-print p-0 overflow-hidden h-100">
   <div class="school-header flex-shrink-0 d-flex justify-content-between align-items-center shadow-sm flex-wrap gap-2 mb-2">
     <div class="d-flex align-items-center">
-      <img src="images/favico.png" alt="Logo" onerror="this.src='https://via.placeholder.com/50'" style="width: 50px; height: 50px; margin-right: 15px; border-radius: 50%; border: 2px solid white;">
-      <h3 class="m-0 fw-bold text-shadow" style="letter-spacing: 0.5px; font-size: 1.4rem;">Good Shepherd Higher Secondary School, Chapahati - Nogopara</h3>
+      <img src="images/favico.png" alt="Logo" onerror="this.src='https://via.placeholder.com/50'" style="width: 40px; height: 40px; margin-right: 15px; border-radius: 50%; border: 2px solid white;">
+      <h3 class="m-0 fw-bold text-shadow" style="letter-spacing: 0.5px; font-size: 1.2rem;">Good Shepherd Higher Secondary School, Chapahati - Nogopara</h3>
     </div>
     <div class="d-flex align-items-center gap-3">
-       <span id="serverStatus" class="badge bg-success fs-6"><i class="bi bi-lightning-charge-fill"></i> Server: Ready</span>
+       <span id="serverStatus" class="badge bg-success fs-6"><i class="bi bi-lightning-charge-fill"></i> Ready</span>
        <select id="dashLangSelect" class="form-select form-select-sm fw-bold w-auto" onchange="selectLanguage(this.value, false)">
          <option value="English">English</option><option value="Garo">Garo</option><option value="Hindi">हिंदी</option><option value="Bengali">বাংলা</option>
        </select>
@@ -159,48 +156,72 @@
   </div>
 
   <div class="row flex-grow-1 m-0 g-2 main-row pb-2">
-    <div class="col-12 col-md-3 col-lg-2 d-flex flex-column h-100 p-0 pe-md-2 mb-3 mb-md-0">
-      <div class="glass-panel sidebar p-3 d-flex flex-column shadow-sm">
-        <h5 class="fw-bold mb-3 flex-shrink-0" data-translate="schooling"><i class="bi bi-grid-fill me-2"></i>Schooling</h5>
-        <div id="btnAllStudents" class="year-item all-students-btn flex-shrink-0 p-2 mb-3 shadow-sm" onclick="selectAllStudents()">
+    <div class="col-12 col-md-3 col-lg-2 d-flex flex-column h-100 p-0 pe-md-2 mb-2 mb-md-0">
+      <div class="glass-panel sidebar p-2 d-flex flex-column shadow-sm">
+        <h6 class="fw-bold mb-2 flex-shrink-0" data-translate="schooling"><i class="bi bi-grid-fill me-2"></i>Schooling</h6>
+        <div id="btnAllStudents" class="year-item all-students-btn flex-shrink-0 p-2 mb-2 shadow-sm" onclick="selectAllStudents()">
           <i class="bi bi-people-fill"></i> <span data-translate="all_students">Total Students</span>
         </div>
-        <div class="mb-2 flex-shrink-0 text-muted small fw-bold text-uppercase" data-translate="year_grp">Academic Years</div>
+        <div class="mb-1 flex-shrink-0 text-muted small fw-bold text-uppercase" data-translate="year_grp">Academic Years</div>
         <div id="yearList" class="d-flex flex-column gap-1 flex-grow-1 overflow-auto pe-1"></div>
       </div>
     </div>
 
     <div class="col-12 col-md-9 col-lg-10 d-flex flex-column h-100 p-0 gap-2">
-      <div class="glass-panel p-3 flex-shrink-0 d-flex flex-column gap-2 dashboard-animated-bg shadow-sm">
+      <!-- Search Dashboard Header -->
+      <div class="glass-panel p-2 flex-shrink-0 d-flex flex-column gap-2 dashboard-animated-bg shadow-sm">
         <div class="d-flex justify-content-between align-items-center flex-wrap">
-            <h5 class="m-0 fw-bold"><span data-translate="dashboard">Student Performance Dashboard</span> <span id="currentYearDisplay" class="text-secondary fs-6 ms-2">(All Years)</span></h5>
-            <div id="liveClock" class="badge bg-dark fs-6 fw-semibold text-white">Loading Date & Time...</div>
+            <h6 class="m-0 fw-bold"><span data-translate="dashboard">Student Performance Dashboard</span> <span id="currentYearDisplay" class="text-secondary ms-2">(All Years)</span></h6>
+            <div id="liveClock" class="badge bg-dark fw-semibold text-white">Loading Date & Time...</div>
         </div>
         <div class="d-flex gap-2 align-items-center flex-wrap">
-          <input type="number" id="searchYearInput" class="form-control px-3" placeholder="Year" style="width: 100px;">
-          <input type="text" id="searchName" class="form-control px-3 flex-grow-1" placeholder="Search student name..." data-translate-ph="search_ph">
-          <select id="searchClass" class="form-select w-auto">
+          <input type="number" id="searchYearInput" class="form-control form-control-sm px-2" placeholder="Year" style="width: 80px;" oninput="debounceSearch()">
+          <input type="text" id="searchName" class="form-control form-control-sm px-3 flex-grow-1" placeholder="Search student name..." data-translate-ph="search_ph" oninput="debounceSearch()">
+          <select id="searchClass" class="form-select form-select-sm w-auto" onchange="lightningFetch()">
             <option value="">All Classes</option>
             <option value="Nursery">Nursery</option><option value="LKG">LKG</option><option value="UKG">UKG</option>
             <option value="I">I</option><option value="II">II</option><option value="III">III</option>
             <option value="IV">IV</option><option value="V">V</option><option value="VI">VI</option>
-            <option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option><option value="XI">XI</option>
+            <option value="VII">VII</option><option value="VIII">VIII</option><option value="IX">IX</option><option value="X">X</option>
+            <option value="XI">XI</option> 
           </select>
-          <button class="btn btn-dark px-4 shadow-sm" onclick="lightningFetch()" data-translate="search_btn"><i class="bi bi-arrow-clockwise"></i> Fast Search</button>
-          <button class="btn btn-primary px-4 fw-bold shadow-sm" onclick="openNewForm()" data-translate="missing_reports"><i class="bi bi-file-earmark-plus"></i> Missing Reports</button>
+          <button class="btn btn-dark btn-sm px-3 shadow-sm" onclick="lightningFetch()" data-translate="search_btn"><i class="bi bi-arrow-clockwise"></i> Fast Search</button>
+          <button class="btn btn-primary btn-sm px-3 fw-bold shadow-sm" onclick="openNewForm()" data-translate="missing_reports"><i class="bi bi-file-earmark-plus"></i> Missing Reports</button>
         </div>
       </div>
 
+      <!-- Clickable Filter Stats Cards -->
       <div class="row g-2 flex-shrink-0">
-        <div class="col-md-3"><div class="stat-card card-blue dashboard-animated-bg"><h6 data-translate="total_adm">Total Admissions</h6><h2 id="statTotal" class="fw-bold m-0">0</h2></div></div>
-        <div class="col-md-3"><div class="stat-card card-yellow dashboard-animated-bg"><h6 data-translate="pending">Pending Updates</h6><h2 id="statPending" class="fw-bold m-0">0</h2></div></div>
-        <div class="col-md-3"><div class="stat-card card-pink dashboard-animated-bg"><h6 data-translate="locked">Completed / Locked</h6><h2 id="statLocked" class="fw-bold m-0">0</h2></div></div>
-        <div class="col-md-3"><div class="stat-card card-green dashboard-animated-bg"><h6 data-translate="fresh_reports">Missing Reports</h6><h2 id="statMissing" class="fw-bold m-0">0</h2></div></div>
+        <div class="col-md-3">
+          <div class="stat-card card-blue dashboard-animated-bg active-filter" id="cardALL" onclick="applyFilter('ALL')">
+            <h6 data-translate="total_adm">Total Admissions</h6>
+            <h2 id="statTotal" class="fw-bold m-0">0</h2>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card card-yellow dashboard-animated-bg" id="cardPENDING" onclick="applyFilter('PENDING')">
+            <h6 data-translate="pending">Pending Updates</h6>
+            <h2 id="statPending" class="fw-bold m-0">0</h2>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card card-pink dashboard-animated-bg" id="cardCOMPLETED" onclick="applyFilter('COMPLETED')">
+            <h6 data-translate="locked">Completed / Locked</h6>
+            <h2 id="statLocked" class="fw-bold m-0">0</h2>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card card-green dashboard-animated-bg" id="cardMISSING" onclick="applyFilter('MISSING')">
+            <h6 data-translate="fresh_reports">Missing Reports</h6>
+            <h2 id="statMissing" class="fw-bold m-0">0</h2>
+          </div>
+        </div>
       </div>
 
+      <!-- Large Database View Area -->
       <div class="glass-panel flex-grow-1 d-flex flex-column dashboard-animated-bg overflow-hidden shadow-sm p-0">
         <div class="wide-table-wrapper rounded" id="dragTable">
-          <table class="table table-hover align-middle m-3 border-0" style="background: transparent;">
+          <table class="table table-hover align-middle m-1 border-0" style="background: transparent;">
             <thead>
               <tr>
                 <th data-translate="admn_no">Admn No.</th>
@@ -229,7 +250,7 @@
               </tr>
             </thead>
             <tbody id="resultsBody">
-              <tr><td colspan="23" class="text-center py-5 fw-bold" style="color: #333;"><i class="bi bi-rocket-takeoff text-primary fs-3 d-block mb-2"></i> Dashboard Ready. Please select a year or click Search.</td></tr>
+              <tr><td colspan="23" class="text-center py-5 fw-bold" style="color: #333;"><i class="bi bi-rocket-takeoff text-primary fs-3 d-block mb-2"></i> Dashboard Ready. Loading Records...</td></tr>
             </tbody>
           </table>
         </div>
@@ -331,9 +352,6 @@
   </div>
 </div>
 
-<!-- ==========================================================
-     COLORFUL ADMISSION CERTIFICATE PRINT TEMPLATE 
-     ========================================================== -->
 <div id="printArea" class="d-none">
   <div class="watermark-center"></div>
   <div class="watermark-repeating"></div>
@@ -347,9 +365,7 @@
           <p>Chapahati - Nogorpara, South West Garo Hills, Meghalaya</p>
         </div>
       </div>
-      
       <h2 class="cert-title">ADMISSION CERTIFICATE</h2>
-      
       <div class="adm-no-container">
         <span class="adm-no-label">Admission Number:</span>
         <span class="adm-no-value" id="printAdmnNo"></span>
@@ -375,70 +391,10 @@
   const API_URL = "https://script.google.com/macros/s/AKfycbzhPbGFuXfsPnIIsEv_oF2jCjRMYK-VdWGVeXmH5Iuk-3zJ3vuJvAipGMgWmAlhERIk2w/exec";
 
   const translations = {
-    English: {
-      exit: "Exit", schooling: "Schooling", all_students: "Total Students", dashboard: "Student Performance Dashboard",
-      search_ph: "🔍 Search student name...", search_btn: "Fast Search", missing_reports: "Missing Reports",
-      admn_no: "Admn No.", year_adm: "Year of Admission", date_adm: "Date of Admission",
-      name: "Name of the Student", dob: "Date of Birth", sex: "Sex", religion: "Religion",
-      community: "Community", father: "Father", mother: "Mother",
-      contact: "Contact No", address: "Address", occupation: "Occupation",
-      form_pen: "PEN (Optional)", pen: "PEN", blood: "Blood Group", form_aadhar: "Aadhar (Optional)", aadhar: "Aadhar",
-      class_adm: "Class on Admission", class_last: "Class last",
-      last_tc: "last TC Date", class_leave: "Class of Leaving", present_class: "Present Class", table_class_leave: "Class of Leaving / Present",
-      tc_leave: "Date of T.C. (Leaving)", status: "Status", action: "Action",
-      basic_det: "Basic Details", guard_cont: "Guardian & Contact", id_health: "ID & Health", acad_hist: "Academic History", 
-      save: "Save Data", total_adm: "Total Admissions", pending: "Pending Updates", locked: "Completed / Locked", fresh_reports: "Missing Reports",
-      lang_sel: "Select Your Language", year_grp: "Academic Years", edit_title: "Update Admission Record",
-      current_status: "Current Status", status_left: "Left School (T.C.)", status_studying: "Still Studying"
-    },
-    Garo: {
-      exit: "Ong·kata", schooling: "Skul", all_students: "Gimik Chatrorang", dashboard: "Chatrorangni Dashboard",
-      search_ph: "🔍 Chatroni bimingko Sandibo...", search_btn: "Iano Sandibo", missing_reports: "Listo Dongjaode iano Report on·bo",
-      admn_no: "Admn No.", year_adm: "Bilsi (Admission)", date_adm: "Tarik (Admission)",
-      name: "Chatroni Biming", dob: "Atchiani", sex: "Me'a/Me'chik", religion: "Torom",
-      community: "Jat", father: "Pagipa", mother: "Ma.gipa",
-      contact: "Contact", address: "Songni Biming", occupation: "Kam",
-      form_pen: "PEN (Optional)", pen: "PEN", blood: "An'chi", form_aadhar: "Aadhar (Optional)", aadhar: "Aadhar",
-      class_adm: "Admission ra'gipa Class", class_last: "Gitcham klass Admission Ra·na skangni",
-      last_tc: "Skangni T.C. Tarik", class_leave: "Ong'katbaani Class", present_class: "Da·o Poraienggipa Class", table_class_leave: "Ong'katbaani Class / Present",
-      tc_leave: "Ong'katangani T.C. Tarik", status: "Obosta", action: "Kam",
-      basic_det: "Mongsonggipa U'iatani", guard_cont: "Maa-Paa & Contact", id_health: "ID & An'seng-Baljokani", acad_hist: "Lekka Porani Itihas",
-      save: "Save Data", total_adm: "Gimik Admission", pending: "Pending donggiparang", locked: "Lock ka'gimin", fresh_reports: "Missing Reports",
-      lang_sel: "Ku'sikko seokbo", year_grp: "Bilsini Dol", edit_title: "Recordko Taridapbo",
-      current_status: "Da·oni Obosta", status_left: "Skuloni Ong'katgipa", status_studying: "Poraiengkuenga"
-    },
-    Hindi: {
-      exit: "बाहर जाएं", schooling: "स्कूलिंग", all_students: "कुल छात्र", dashboard: "छात्र प्रदर्शन डैशबोर्ड",
-      search_ph: "🔍 छात्र का नाम खोजें...", search_btn: "तेज़ खोज", missing_reports: "गुम रिपोर्ट",
-      admn_no: "प्रवेश संख्या", year_adm: "प्रवेश का वर्ष", date_adm: "प्रवेश की तिथि",
-      name: "छात्र का नाम", dob: "जन्म तिथि", sex: "लिंग", religion: "धर्म",
-      community: "समुदाय", father: "पिता", mother: "माता",
-      contact: "संपर्क नंबर", address: "पता", occupation: "पेशा",
-      form_pen: "PEN (वैकल्पिक)", pen: "PEN", blood: "रक्त समूह", form_aadhar: "आधार (वैकल्पिक)", aadhar: "आधार",
-      class_adm: "प्रवेश पर कक्षा", class_last: "पिछली कक्षा",
-      last_tc: "अंतिम टीसी तिथि", class_leave: "छोड़ने की कक्षा", present_class: "वर्तमान कक्षा", table_class_leave: "छोड़ने की कक्षा / वर्तमान",
-      tc_leave: "टीसी (छोड़ने) की तिथि", status: "स्थिति", action: "कार्रवाई",
-      basic_det: "मूल विवरण", guard_cont: "अभिभावक और संपर्क", id_health: "आईडी और स्वास्थ्य", acad_hist: "शैक्षणिक इतिहास", 
-      save: "डेटा सहेजें", total_adm: "कुल प्रवेश", pending: "लंबित अपडेट", locked: "पूरा / लॉक किया गया", fresh_reports: "गुम रिपोर्ट",
-      lang_sel: "अपनी भाषा चुनें", year_grp: "शैक्षणिक वर्ष", edit_title: "प्रवेश रिकॉर्ड अपडेट करें",
-      current_status: "वर्तमान स्थिति", status_left: "स्कूल छोड़ दिया (T.C.)", status_studying: "अभी पढ़ रहे हैं"
-    },
-    Bengali: {
-      exit: "প্রস্থান", schooling: "স্কুলিং", all_students: "মোট ছাত্র", dashboard: "ছাত্র কর্মক্ষমতা ড্যাশবোর্ড",
-      search_ph: "🔍 ছাত্রের নাম অনুসন্ধান করুন...", search_btn: "দ্রুত অনুসন্ধান", missing_reports: "নিখোঁজ রিপোর্ট",
-      admn_no: "ভর্তি নং", year_adm: "ভর্তির বছর", date_adm: "ভর্তির তারিখ",
-      name: "ছাত্রের নাম", dob: "জন্ম তারিখ", sex: "লিঙ্গ", religion: "धर्म",
-      community: "সম্প্রদায়", father: "পিতা", mother: "মাতা",
-      contact: "যোগাযোগ নম্বর", address: "ঠিকানা", occupation: "পেশা",
-      form_pen: "PEN (ঐচ্ছিক)", pen: "PEN", blood: "রক্তের গ্রুপ", form_aadhar: "আধার (ঐচ্ছিক)", aadhar: "আধার",
-      class_adm: "ভর্তির সময় ক্লাস", class_last: "আগের ক্লাস",
-      last_tc: "শেষ টিসির তারিখ", class_leave: "ছেড়ে যাওয়ার ক্লাস", present_class: "বর্তমান ক্লাস", table_class_leave: "ছেড়ে যাওয়ার ক্লাস / বর্তমান",
-      tc_leave: "টিসির (ছেড়ে যাওয়ার) তারিখ", status: "স্ট্যাটাস", action: "কর্ম",
-      basic_det: "মৌলিক বিবরণ", guard_cont: "অভিভাবক ও যোগাযোগ", id_health: "আইডি এবং স্বাস্থ্য", acad_hist: "একাডেমিক ইতিহাস", 
-      save: "ডেটা সংরক্ষণ করুন", total_adm: "মোট ভর্তি", pending: "মুলতুবি আপডেট", locked: "সম্পন্ন / লক করা", fresh_reports: "নিখোঁজ রিপোর্ট",
-      lang_sel: "আপনার ভাষা নির্বাচন করুন", year_grp: "শিক্ষাবর্ষ", edit_title: "ভর্তি রেকর্ড আপডেট করুন",
-      current_status: "বর্তমান অবস্থা", status_left: "স্কুল ছেড়েছে (T.C.)", status_studying: "এখনো পড়াশোনা করছে"
-    }
+    English: { exit: "Exit", schooling: "Schooling", all_students: "Total Students", dashboard: "Student Performance Dashboard", search_ph: "🔍 Search student name...", search_btn: "Fast Search", missing_reports: "Missing Reports", admn_no: "Admn No.", year_adm: "Year of Admission", date_adm: "Date of Admission", name: "Name of the Student", dob: "Date of Birth", sex: "Sex", religion: "Religion", community: "Community", father: "Father", mother: "Mother", contact: "Contact No", address: "Address", occupation: "Occupation", form_pen: "PEN (Optional)", pen: "PEN", blood: "Blood Group", form_aadhar: "Aadhar (Optional)", aadhar: "Aadhar", class_adm: "Class on Admission", class_last: "Class last", last_tc: "last TC Date", class_leave: "Class of Leaving", present_class: "Present Class", table_class_leave: "Class of Leaving / Present", tc_leave: "Date of T.C. (Leaving)", status: "Status", action: "Action", basic_det: "Basic Details", guard_cont: "Guardian & Contact", id_health: "ID & Health", acad_hist: "Academic History", save: "Save Data", total_adm: "Total Admissions", pending: "Pending Updates", locked: "Completed / Locked", fresh_reports: "Missing Reports", lang_sel: "Select Your Language", year_grp: "Academic Years", edit_title: "Update Admission Record", current_status: "Current Status", status_left: "Left School (T.C.)", status_studying: "Still Studying" },
+    Garo: { exit: "Ong·kata", schooling: "Skul", all_students: "Gimik Chatrorang", dashboard: "Chatrorangni Dashboard", search_ph: "🔍 Chatroni bimingko Sandibo...", search_btn: "Iano Sandibo", missing_reports: "Listo Dongjaode iano Report on·bo", admn_no: "Admn No.", year_adm: "Bilsi (Admission)", date_adm: "Tarik (Admission)", name: "Chatroni Biming", dob: "Atchiani", sex: "Me'a/Me'chik", religion: "Torom", community: "Jat", father: "Pagipa", mother: "Ma.gipa", contact: "Contact", address: "Songni Biming", occupation: "Kam", form_pen: "PEN (Optional)", pen: "PEN", blood: "An'chi", form_aadhar: "Aadhar (Optional)", aadhar: "Aadhar", class_adm: "Admission ra'gipa Class", class_last: "Gitcham klass Admission Ra·na skangni", last_tc: "Skangni T.C. Tarik", class_leave: "Ong'katbaani Class", present_class: "Da·o Poraienggipa Class", table_class_leave: "Ong'katbaani Class / Present", tc_leave: "Ong'katangani T.C. Tarik", status: "Obosta", action: "Kam", basic_det: "Mongsonggipa U'iatani", guard_cont: "Maa-Paa & Contact", id_health: "ID & An'seng-Baljokani", acad_hist: "Lekka Porani Itihas", save: "Save Data", total_adm: "Gimik Admission", pending: "Pending donggiparang", locked: "Lock ka'gimin", fresh_reports: "Missing Reports", lang_sel: "Ku'sikko seokbo", year_grp: "Bilsini Dol", edit_title: "Recordko Taridapbo", current_status: "Da·oni Obosta", status_left: "Skuloni Ong'katgipa", status_studying: "Poraiengkuenga" },
+    Hindi: { exit: "बाहर जाएं", schooling: "स्कूलिंग", all_students: "कुल छात्र", dashboard: "छात्र प्रदर्शन डैशबोर्ड", search_ph: "🔍 छात्र का नाम खोजें...", search_btn: "तेज़ खोज", missing_reports: "गुम रिपोर्ट", admn_no: "प्रवेश संख्या", year_adm: "प्रवेश का वर्ष", date_adm: "प्रवेश की तिथि", name: "छात्र का नाम", dob: "जन्म तिथि", sex: "लिंग", religion: "धर्म", community: "समुदाय", father: "पिता", mother: "माता", contact: "संपर्क नंबर", address: "पता", occupation: "पेशा", form_pen: "PEN (वैकल्पिक)", pen: "PEN", blood: "रक्त समूह", form_aadhar: "आधार (वैकल्पिक)", aadhar: "आधार", class_adm: "प्रवेश पर कक्षा", class_last: "पिछली कक्षा", last_tc: "अंतिम टीसी तिथि", class_leave: "छोड़ने की कक्षा", present_class: "वर्तमान कक्षा", table_class_leave: "छोड़ने की कक्षा / वर्तमान", tc_leave: "टीसी (छोड़ने) की तिथि", status: "स्थिति", action: "कार्रवाई", basic_det: "मूल विवरण", guard_cont: "अभिभावक और संपर्क", id_health: "आईडी और स्वास्थ्य", acad_hist: "शैक्षणिक इतिहास", save: "डेटा सहेजें", total_adm: "कुल प्रवेश", pending: "लंबित अपडेट", locked: "पूरा / लॉक किया गया", fresh_reports: "गुम रिपोर्ट", lang_sel: "अपनी भाषा चुनें", year_grp: "शैक्षणिक वर्ष", edit_title: "प्रवेश रिकॉर्ड अपडेट करें", current_status: "वर्तमान स्थिति", status_left: "स्कूल छोड़ दिया (T.C.)", status_studying: "अभी पढ़ रहे हैं" },
+    Bengali: { exit: "প্রস্থান", schooling: "স্কুলিং", all_students: "মোট ছাত্র", dashboard: "ছাত্র কর্মক্ষমতা ড্যাশবোর্ড", search_ph: "🔍 ছাত্রের নাম অনুসন্ধান করুন...", search_btn: "দ্রুত অনুসন্ধান", missing_reports: "নিখোঁজ রিপোর্ট", admn_no: "ভর্তি নং", year_adm: "ভর্তির বছর", date_adm: "ভর্তির তারিখ", name: "ছাত্রের নাম", dob: "জন্ম তারিখ", sex: "লিঙ্গ", religion: "धर्म", community: "সম্প্রদায়", father: "পিতা", mother: "মাতা", contact: "যোগাযোগ নম্বর", address: "ঠিকানা", occupation: "পেশা", form_pen: "PEN (ঐচ্ছিক)", pen: "PEN", blood: "রক্তের গ্রুপ", form_aadhar: "আধার (ঐচ্ছিক)", aadhar: "আধার", class_adm: "ভর্তির সময় ক্লাস", class_last: "আগের ক্লাস", last_tc: "শেষ টিসির তারিখ", class_leave: "ছেড়ে যাওয়ার ক্লাস", present_class: "বর্তমান ক্লাস", table_class_leave: "ছেড়ে যাওয়ার ক্লাস / বর্তমান", tc_leave: "টিসির (ছেড়ে যাওয়ার) তারিখ", status: "স্ট্যাটাস", action: "কর্ম", basic_det: "মৌলিক বিবরণ", guard_cont: "অভিভাবক ও যোগাযোগ", id_health: "আইডি এবং স্বাস্থ্য", acad_hist: "একাডেমিক ইতিহাস", save: "ডেটা সংরক্ষণ করুন", total_adm: "মোট ভর্তি", pending: "মুলতুবি আপডেট", locked: "সম্পন্ন / লক করা", fresh_reports: "নিখোঁজ রিপোর্ট", lang_sel: "আপনার ভাষা নির্বাচন করুন", year_grp: "শিক্ষাবর্ষ", edit_title: "ভর্তি রেকর্ড আপডেট করুন", current_status: "বর্তমান অবস্থা", status_left: "স্কুল ছেড়েছে (T.C.)", status_studying: "এখনো পড়াশোনা করছে" }
   };
 
   function selectLanguage(lang, hideOverlay) {
@@ -468,7 +424,10 @@
   }
   setInterval(updateClock, 1000); updateClock();
 
+  // ----- GLOBALS FOR FILTERING & DATA ----- //
   let currentSelectedYear = "ALL"; 
+  let currentFetchedData = [];
+  let currentActiveFilter = 'ALL';
   const fields = ["Admn_No", "Year_of_Admission", "Date_of_Admission", "Name_of_the_Student", "Date_of_Birth", "Sex", "Religion", "Community", "Father", "Mother", "Contact_No", "Address", "Occupation", "PEN", "Blood_Group", "Aadhar", "Class_last", "last_TC_Date", "Class_on_Admission", "Class_of_Leaving", "Present_Class", "Date_of_TC_Leaving", "Remarks"];
 
   function generateYears() {
@@ -492,6 +451,12 @@
     document.getElementById('btnAllStudents').classList.add('active');
     currentSelectedYear = "ALL"; document.getElementById('currentYearDisplay').innerText = `(All Years)`;
     lightningFetch();
+  }
+
+  let searchTimeout;
+  function debounceSearch() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(lightningFetch, 400);
   }
 
   const slider = document.getElementById('dragTable');
@@ -518,21 +483,66 @@
       const result = await response.json();
 
       if(result.success) {
+        // Update Top Card Statistics
         document.getElementById('statTotal').innerText = result.stats.total || 0;
         document.getElementById('statPending').innerText = result.stats.pending || 0;
         document.getElementById('statLocked').innerText = result.stats.locked || 0;
         document.getElementById('statMissing').innerText = result.stats.missing || 0;
         
         statusBadge.className = "badge bg-success fs-6";
-        statusBadge.innerHTML = '<i class="bi bi-check-circle-fill"></i> Server: Synced';
+        statusBadge.innerHTML = '<i class="bi bi-check-circle-fill"></i> Synced';
         
-        tbody.innerHTML = '';
-        if(result.data.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="23" class="text-center py-4 text-danger fw-bold">No records found for this selection.</td></tr>';
-            return;
-        }
+        // Store Fetched Data globally and trigger the visual render
+        currentFetchedData = result.data;
+        applyFilter('ALL'); // Reset filter when doing a fresh fetch from database
+        
+      } else { throw new Error(result.message); }
+    } catch (e) {
+      statusBadge.className = "badge bg-danger fs-6";
+      statusBadge.innerHTML = '<i class="bi bi-x-circle"></i> Error';
+      tbody.innerHTML = `<tr><td colspan="23" class="text-center py-4 text-danger fw-bold"><i class="bi bi-exclamation-triangle-fill fs-3 d-block mb-2"></i> Failed to fetch data. Ensure your Google App Script is updated.</td></tr>`;
+    }
+  }
 
-        result.data.forEach(std => {
+  // ----- NEW FILTER LOGIC ----- //
+  function applyFilter(filterType) {
+      currentActiveFilter = filterType;
+      
+      // Update visual style of Stat Cards
+      document.querySelectorAll('.stat-card').forEach(el => el.classList.remove('active-filter'));
+      if(document.getElementById('card' + filterType)) {
+          document.getElementById('card' + filterType).classList.add('active-filter');
+      }
+
+      renderTable();
+  }
+
+  function renderTable() {
+      const tbody = document.getElementById('resultsBody');
+      tbody.innerHTML = '';
+      
+      // Filter the data strictly based on which button was clicked
+      let filteredData = currentFetchedData.filter(std => {
+          let rawRemarks = String(std.Remarks || "").trim();
+          let isStudying = rawRemarks === 'Still Studying';
+          let isCompleted = (rawRemarks === 'Completed' || rawRemarks === 'Updated' || isStudying || rawRemarks === 'Left School');
+          
+          if (currentActiveFilter === 'PENDING') return !isCompleted;
+          if (currentActiveFilter === 'COMPLETED') return isCompleted;
+          if (currentActiveFilter === 'MISSING') {
+              // Filters specifically for students saved onto the "Missing Reports" sheet
+              return std.sheetName && std.sheetName.includes('Missing');
+          }
+          return true; // 'ALL' passes everything through
+      });
+
+      if(filteredData.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="23" class="text-center py-5 text-danger fw-bold"><i class="bi bi-funnel fs-3 d-block mb-2 text-secondary"></i> No records found in this category.</td></tr>`;
+          return;
+      }
+
+      // Render the matching rows
+      filteredData.forEach(std => {
           const fmtDate = (d) => { return d ? new Date(d).toLocaleDateString() : ''; };
           
           let rawRemarks = String(std.Remarks || "").trim();
@@ -584,15 +594,10 @@
             <td class="bg-light sticky-end" style="min-width: 170px;">${actionBtn}</td>
           `;
           tbody.appendChild(tr);
-        });
-      } else { throw new Error(result.message); }
-    } catch (e) {
-      statusBadge.className = "badge bg-danger fs-6";
-      statusBadge.innerHTML = '<i class="bi bi-x-circle"></i> Error';
-      tbody.innerHTML = `<tr><td colspan="23" class="text-center py-4 text-danger fw-bold"><i class="bi bi-exclamation-triangle-fill fs-3 d-block mb-2"></i> Failed to fetch data. Ensure your Google App Script is updated.</td></tr>`;
-    }
+      });
   }
 
+  // ----- FORM & UTILITIES ----- //
   document.getElementById('f_Year_of_Admission').addEventListener('input', function() {
     let year = parseInt(this.value);
     let dateAdmField = document.getElementById('f_Date_of_Admission');
@@ -615,26 +620,15 @@
       if (status === 'Studying') {
           let presentText = translations[lang] && translations[lang].present_class ? translations[lang].present_class : 'Present Class';
           classLeaveLabel.innerHTML = presentText + ' <span class="text-danger">*</span>';
-          
-          tcLeaveDate.required = false;
-          tcLeaveDate.disabled = true;
-          tcLeaveDate.value = ''; 
-          
+          tcLeaveDate.required = false; tcLeaveDate.disabled = true; tcLeaveDate.value = ''; 
           tcLeaveLabel.classList.remove('req');
-          if(tcLeaveLabel.innerHTML.includes('*')) {
-               tcLeaveLabel.innerHTML = tcLeaveLabel.innerHTML.replace('<span class="text-danger">*</span>', '').trim();
-          }
+          if(tcLeaveLabel.innerHTML.includes('*')) tcLeaveLabel.innerHTML = tcLeaveLabel.innerHTML.replace('<span class="text-danger">*</span>', '').trim();
       } else {
           let leavingText = translations[lang] && translations[lang].class_leave ? translations[lang].class_leave : 'Class of Leaving';
           classLeaveLabel.innerHTML = leavingText + ' <span class="text-danger">*</span>';
-          
-          tcLeaveDate.required = true;
-          tcLeaveDate.disabled = false;
-          
+          tcLeaveDate.required = true; tcLeaveDate.disabled = false;
           tcLeaveLabel.classList.add('req');
-          if(!tcLeaveLabel.innerHTML.includes('*')) {
-               tcLeaveLabel.innerHTML += ' <span class="text-danger">*</span>';
-          }
+          if(!tcLeaveLabel.innerHTML.includes('*')) tcLeaveLabel.innerHTML += ' <span class="text-danger">*</span>';
       }
   }
 
@@ -646,42 +640,33 @@
     let labelLastTC = document.getElementById('label_last_TC_Date');
     
     if (["Nursery", "LKG", "UKG"].includes(cls)) {
-      classLast.required = false;
-      lastTc.required = false;
-      labelClassLast.classList.remove('req');
-      labelLastTC.classList.remove('req');
-      
+      classLast.required = false; lastTc.required = false;
+      labelClassLast.classList.remove('req'); labelLastTC.classList.remove('req');
       let lang = document.getElementById('dashLangSelect').value;
       labelClassLast.innerHTML = translations[lang] && translations[lang].class_last ? translations[lang].class_last : 'Class last';
       labelLastTC.innerHTML = translations[lang] && translations[lang].last_tc ? translations[lang].last_tc : 'last TC Date';
     } else {
-      classLast.required = true;
-      lastTc.required = true;
-      labelClassLast.classList.add('req');
-      labelLastTC.classList.add('req');
+      classLast.required = true; lastTc.required = true;
+      labelClassLast.classList.add('req'); labelLastTC.classList.add('req');
       if (!labelClassLast.innerHTML.includes('*')) labelClassLast.innerHTML += ' <span class="text-danger">*</span>';
       if (!labelLastTC.innerHTML.includes('*')) labelLastTC.innerHTML += ' <span class="text-danger">*</span>';
     }
   }
-  
   document.getElementById('f_Class_on_Admission').addEventListener('change', evaluateClassRules);
 
   function openNewForm() {
     document.getElementById('recordForm').reset();
     document.getElementById('editRow').value = "";
     document.getElementById('editSheetName').value = "";
-    document.getElementById('formActionType').value = "new";
+    document.getElementById('formActionType').value = "missing_report"; 
     document.getElementById('f_Admn_No').value = "Auto-Generated";
     
     let lang = document.getElementById('dashLangSelect').value;
     document.getElementById('modalTitle').innerText = translations[lang] && translations[lang].edit_title ? translations[lang].edit_title : "Submit Missing Report / New Form";
-    
     document.getElementById('f_Date_of_Admission').removeAttribute('min');
     document.getElementById('f_Date_of_Admission').removeAttribute('max');
-    
     document.getElementById('ui_Student_Status').value = '';
-    evaluateClassRules();
-    evaluateStudyingStatus();
+    evaluateClassRules(); evaluateStudyingStatus();
     bootstrap.Modal.getOrCreateInstance(document.getElementById('editModal')).show();
   }
 
@@ -717,18 +702,13 @@
     }
 
     document.getElementById('f_Year_of_Admission').dispatchEvent(new Event('input'));
-    evaluateClassRules();
-    evaluateStudyingStatus();
-    
+    evaluateClassRules(); evaluateStudyingStatus();
     bootstrap.Modal.getOrCreateInstance(document.getElementById('editModal')).show();
   }
 
   function validateForm() {
     const form = document.getElementById('recordForm');
-    if (!form.checkValidity()) {
-        form.reportValidity();
-        return false;
-    }
+    if (!form.checkValidity()) { form.reportValidity(); return false; }
 
     const yearAdm = parseInt(document.getElementById("f_Year_of_Admission").value);
     const dateAdm = new Date(document.getElementById("f_Date_of_Admission").value);
@@ -741,33 +721,26 @@
     }
 
     const dob = new Date(document.getElementById("f_Date_of_Birth").value);
-    if (dob >= dateAdm) {
-      Swal.fire('Invalid DOB', 'Date of Birth must be older than the Date of Admission.', 'error');
-      return false;
-    }
+    if (dob >= dateAdm) { Swal.fire('Invalid DOB', 'Date of Birth must be older than the Date of Admission.', 'error'); return false; }
 
     if (document.getElementById("f_last_TC_Date").value) {
       const lastTcDate = new Date(document.getElementById("f_last_TC_Date").value);
-      if (lastTcDate >= dateAdm) {
-        Swal.fire('Invalid TC Date', 'Previous TC Date must be strictly older than the Date of Admission.', 'error');
-        return false;
-      }
+      if (lastTcDate >= dateAdm) { Swal.fire('Invalid TC Date', 'Previous TC Date must be strictly older than the Date of Admission.', 'error'); return false; }
     }
 
     if (document.getElementById('ui_Student_Status').value !== 'Studying') {
         const leaveTcDate = new Date(document.getElementById("f_Date_of_TC_Leaving").value);
+        const today = new Date();
+        
         if (leaveTcDate <= dateAdm) {
           Swal.fire('Invalid Leaving Date', 'Date of T.C. (Leaving) must occur AFTER the Date of Admission.', 'error');
           return false;
         }
-        
-        const leaveYear = leaveTcDate.getFullYear();
-        if (leaveYear > yearAdm + 2 || leaveYear < yearAdm) {
-          Swal.fire('Invalid Leaving Date', `Date of T.C. (Leaving) year (${leaveYear}) must match the admission year (${yearAdm}) or be within a maximum of 2 years (max${yearAdm + 2}) to account for failing.`, 'error');
+        if (leaveTcDate > today) {
+          Swal.fire('Invalid Leaving Date', 'Date of T.C. (Leaving) cannot be in the future. It must be today or an earlier date.', 'error');
           return false;
         }
     }
-
     return true; 
   }
 
@@ -792,12 +765,9 @@
 
     let selectedLeaveClass = document.getElementById('f_Class_of_Leaving').value;
     if (currentStatus === 'Studying') {
-        data['Present_Class'] = selectedLeaveClass;
-        data['Class_of_Leaving'] = '';
-        data['Date_of_TC_Leaving'] = '';
+        data['Present_Class'] = selectedLeaveClass; data['Class_of_Leaving'] = ''; data['Date_of_TC_Leaving'] = '';
     } else {
-        data['Class_of_Leaving'] = selectedLeaveClass;
-        data['Present_Class'] = '';
+        data['Class_of_Leaving'] = selectedLeaveClass; data['Present_Class'] = '';
     }
 
     try {
@@ -811,8 +781,7 @@
       } else { Swal.fire({ icon: 'error', title: 'Save Failed', text: result.message, confirmButtonColor: '#dc3545' }); }
     } catch(e) { Swal.fire({ icon: 'error', title: 'Connection Error', text: 'Could not connect to Google Sheets.', confirmButtonColor: '#dc3545' }); } 
     finally { 
-        btn.disabled = false; 
-        btn.innerHTML = translations[lang] && translations[lang].save ? translations[lang].save : 'Save Data'; 
+        btn.disabled = false; btn.innerHTML = translations[lang] && translations[lang].save ? translations[lang].save : 'Save Data'; 
     }
   }
 
@@ -820,62 +789,37 @@
     let student = JSON.parse(decodeURIComponent(encodedData.replace(/%27/g, "'")));
     const printContent = document.getElementById('printContent');
     document.getElementById('printArea').classList.remove('d-none');
-    
     let lang = document.getElementById('dashLangSelect').value;
     document.getElementById('printAdmnNo').innerText = student.Admn_No || "________________";
 
     let html = ``;
     let isStudying = String(student.Remarks || "").trim() === 'Still Studying';
-
-    // The precise fields mapped exactly to avoid layout gaps
-    let printFields = [
-        "Year_of_Admission", "Date_of_Admission", "Name_of_the_Student", "Date_of_Birth", "Sex", "Religion", "Community", "Father", "Mother", "Contact_No", "Address", "Occupation", "PEN", "Blood_Group", "Aadhar", "Class_last", "last_TC_Date", "Class_on_Admission"
-    ];
+    let printFields = [ "Year_of_Admission", "Date_of_Admission", "Name_of_the_Student", "Date_of_Birth", "Sex", "Religion", "Community", "Father", "Mother", "Contact_No", "Address", "Occupation", "PEN", "Blood_Group", "Aadhar", "Class_last", "last_TC_Date", "Class_on_Admission" ];
     
-    // Explicitly pushing ONLY the relevant Class tracker row based on status
-    if (isStudying) {
-        printFields.push("Present_Class");
-    } else {
-        printFields.push("Class_of_Leaving");
-        printFields.push("Date_of_TC_Leaving");
-    }
+    if (isStudying) { printFields.push("Present_Class"); } else { printFields.push("Class_of_Leaving"); printFields.push("Date_of_TC_Leaving"); }
 
     printFields.forEach(f => {
-      let label = f.replace(/_/g, ' ');
-      let val = student[f] || "____________________";
+      let label = f.replace(/_/g, ' '); let val = student[f] || "____________________";
 
-      if (f === 'Class_of_Leaving') {
-          label = translations[lang] && translations[lang].class_leave ? translations[lang].class_leave : 'Class of Leaving';
-      } else if (f === 'Present_Class') {
-          label = translations[lang] && translations[lang].present_class ? translations[lang].present_class : 'Present Class';
-          if(!student['Present_Class'] && student['Class_of_Leaving']) val = student['Class_of_Leaving']; 
-      } else {
+      if (f === 'Class_of_Leaving') { label = translations[lang] && translations[lang].class_leave ? translations[lang].class_leave : 'Class of Leaving'; }
+      else if (f === 'Present_Class') { label = translations[lang] && translations[lang].present_class ? translations[lang].present_class : 'Present Class'; if(!student['Present_Class'] && student['Class_of_Leaving']) val = student['Class_of_Leaving']; }
+      else {
           let cleanKeyMap = {
-              'Year_of_Admission': 'year_adm', 'Date_of_Admission': 'date_adm', 'Name_of_the_Student': 'name',
-              'Date_of_Birth': 'dob', 'Sex': 'sex', 'Religion': 'religion', 'Community': 'community',
-              'Father': 'father', 'Mother': 'mother', 'Contact_No': 'contact', 'Address': 'address',
-              'Occupation': 'occupation', 'PEN': 'pen', 'Blood_Group': 'blood', 'Aadhar': 'aadhar',
-              'Class_last': 'class_last', 'last_TC_Date': 'last_tc', 'Class_on_Admission': 'class_adm',
-              'Date_of_TC_Leaving': 'tc_leave'
+              'Year_of_Admission': 'year_adm', 'Date_of_Admission': 'date_adm', 'Name_of_the_Student': 'name', 'Date_of_Birth': 'dob', 'Sex': 'sex', 'Religion': 'religion', 'Community': 'community', 'Father': 'father', 'Mother': 'mother', 'Contact_No': 'contact', 'Address': 'address', 'Occupation': 'occupation', 'PEN': 'pen', 'Blood_Group': 'blood', 'Aadhar': 'aadhar', 'Class_last': 'class_last', 'last_TC_Date': 'last_tc', 'Class_on_Admission': 'class_adm', 'Date_of_TC_Leaving': 'tc_leave'
           };
-          if (cleanKeyMap[f] && translations[lang][cleanKeyMap[f]]) {
-              label = translations[lang][cleanKeyMap[f]];
-          }
+          if (cleanKeyMap[f] && translations[lang][cleanKeyMap[f]]) { label = translations[lang][cleanKeyMap[f]]; }
       }
 
-      if ((f.includes('Date') || f === 'DOB' || f.includes('TC')) && student[f]) {
-          let d = new Date(student[f]); if(!isNaN(d)) val = d.toLocaleDateString('en-GB');
-      }
-
+      if ((f.includes('Date') || f === 'DOB' || f.includes('TC')) && student[f]) { let d = new Date(student[f]); if(!isNaN(d)) val = d.toLocaleDateString('en-GB'); }
       html += `<div class="print-item"><span class="print-label">${label}</span><div class="print-val">${val}</div></div>`;
     });
     
     printContent.innerHTML = html;
-    
     window.print();
     setTimeout(() => document.getElementById('printArea').classList.add('d-none'), 1000);
   }
 
+  // Ensures everything loads seamlessly on boot
   window.onload = () => { 
     generateYears(); 
     selectAllStudents();
