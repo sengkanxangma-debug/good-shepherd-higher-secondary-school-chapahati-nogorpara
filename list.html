@@ -116,8 +116,14 @@
     </a>
   </div>
 
+  <!-- Background Sync Indicator -->
+  <div id="syncIndicator" class="alert alert-info py-2 mb-3 shadow-sm d-none align-items-center" style="border-radius: 10px;">
+      <div class="spinner-border spinner-border-sm me-3 text-primary" role="status"></div>
+      <span class="fw-bold text-primary" style="font-size: 0.9rem;">Syncing live updates from Google Sheets... Your dashboard is currently showing saved data.</span>
+  </div>
+
   <!-- Interactive Analytics Dashboard -->
-  <div class="glass-panel" id="dashboardPanel" style="display: none;">
+  <div class="glass-panel" id="dashboardPanel">
     <div class="row mb-4">
         <div class="col-12">
             <div class="stat-card bg-total text-center" onclick="setFilter('all', 'all', this)">
@@ -206,7 +212,7 @@
     </div>
   </div>
 
-  <!-- Loading State -->
+  <!-- Loading State (Only visible on very first load ever) -->
   <div id="loadingIndicator" class="text-center py-5">
       <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
           <span class="visually-hidden">Loading...</span>
@@ -393,6 +399,28 @@
   });
 
   async function fetchAllData() {
+    // 1. INSTANT LOAD USING LOCAL CACHE
+    const cachedData = localStorage.getItem('schoolStudentDataCache');
+    if (cachedData) {
+        try {
+            globalStudents = JSON.parse(cachedData);
+            
+            // Hide full-screen loader, show dashboard instantly
+            document.getElementById('loadingIndicator').style.display = 'none';
+            document.getElementById('tableContainer').style.display = 'block';
+            
+            // Show small sync banner at the top
+            document.getElementById('syncIndicator').classList.remove('d-none');
+            document.getElementById('syncIndicator').classList.add('d-flex');
+
+            calculateDashboardMetrics();
+            applyFilters();
+        } catch(e) {
+            console.error("Cache rendering error:", e);
+        }
+    }
+
+    // 2. BACKGROUND SYNC (Fetch fresh data from Google Sheets)
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
@@ -402,21 +430,56 @@
       
       const result = await response.json();
       if (result.status === 'success') {
-        globalStudents = result.data;
         
-        // Hide loader, show UI
+        // --- IMPROVED DEDUPLICATION LOGIC ---
+        const uniqueStudents = new Map();
+        result.data.forEach(std => {
+            let pen = (std['Student PEN'] || '').toString().trim();
+            let name = (std['Student Name'] || std['Name As per AADHAAR'] || '').toString().trim().toLowerCase();
+            let father = (std['Father Name'] || '').toString().trim().toLowerCase();
+            let cls = (std['Class'] || '').toString().trim();
+            let sec = (std['Section'] || '').toString().trim();
+
+            let key = pen;
+            
+            // If PEN is missing or says NA, create a highly unique fallback key
+            // This ensures students without PENs do NOT get duplicated when their data is updated in the sheet.
+            if (!key || key === '' || key.toUpperCase() === 'NA') {
+                if (name !== '' && name !== 'na' && name !== 'not available') {
+                    key = name + "_" + father + "_" + cls + "_" + sec;
+                } else {
+                    key = Math.random().toString(); // Absolute last resort
+                }
+            }
+            
+            // The Map automatically overwrites older duplicates with the most recent updated row
+            uniqueStudents.set(key, std); 
+        });
+        
+        globalStudents = Array.from(uniqueStudents.values());
+        
+        // Update the Local Cache so the next page load is instant
+        localStorage.setItem('schoolStudentDataCache', JSON.stringify(globalStudents));
+        
+        // Hide loaders and sync indicators
         document.getElementById('loadingIndicator').style.display = 'none';
-        document.getElementById('dashboardPanel').style.display = 'block';
+        document.getElementById('syncIndicator').classList.add('d-none');
+        document.getElementById('syncIndicator').classList.remove('d-flex');
+        
+        // Make sure table is visible
         document.getElementById('tableContainer').style.display = 'block';
         
+        // Re-render fresh data silently
         calculateDashboardMetrics();
         applyFilters(); 
       } else {
-        showPopup('error', result.message);
+        if(!cachedData) showPopup('error', result.message);
       }
     } catch (error) {
-      showPopup('error', 'Connection failed. Unable to fetch records.');
+      if(!cachedData) showPopup('error', 'Connection failed. Unable to fetch live records.');
       console.error(error);
+      document.getElementById('syncIndicator').classList.add('d-none');
+      document.getElementById('syncIndicator').classList.remove('d-flex');
     }
   }
 
@@ -611,7 +674,7 @@
     tbody.innerHTML = htmlContent;
   }
 
-  // --- MODAL FUNCTIONS RESTORED ---
+  // --- MODAL FUNCTIONS ---
   
   function openEdit(student) {
     document.getElementById('editName').value = student['Student Name'] || student['Name As per AADHAAR'] || '';
@@ -671,10 +734,11 @@
             editBtn.outerHTML = `<button class="btn btn-sm btn-secondary disabled w-100" style="cursor: not-allowed;">Locked 🔒</button>`;
         }
         
-        // Update in global array so filter/re-render keeps it locked
+        // Update in global array and cache so filter/re-render keeps it locked
         const stdIndex = globalStudents.findIndex(s => s['Student PEN'] === pen);
         if(stdIndex !== -1) {
             globalStudents[stdIndex]['hasEdited'] = true;
+            localStorage.setItem('schoolStudentDataCache', JSON.stringify(globalStudents));
         }
 
         showPopup('success', result.message);
@@ -734,10 +798,11 @@
             consentBtn.outerHTML = `<div class="btn btn-sm btn-light border text-secondary fw-bold w-100 disabled" style="cursor: not-allowed;">Requested 🟡</div>`;
         }
         
-        // Update in global array so filter/re-render keeps it updated
+        // Update in global array and cache so filter/re-render keeps it updated
         const stdIndex = globalStudents.findIndex(s => s['Student PEN'] === data.pen);
         if(stdIndex !== -1) {
             globalStudents[stdIndex]['APAAR Status'] = 'Requested';
+            localStorage.setItem('schoolStudentDataCache', JSON.stringify(globalStudents));
         }
         
         // Re-calculate dashboard metrics
